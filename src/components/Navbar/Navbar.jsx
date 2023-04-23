@@ -14,8 +14,8 @@ export default function Navbar({ handleThemeMode, themeMode }) {
             <img src={logo} className={classes.img} />
           </Grid>
           <Grid
-            xs={1}
-            md={4}
+            xs={3}
+            md={5}
             container
             item
             sx={{

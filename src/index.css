@@ -6,6 +6,7 @@
 body {
   background-image: url("./assets/bgImage.svg");
   background-size: contain;
+  background-repeat: no-repeat;
   font-family: "Cairo", "Aref Ruqaa", serif !important;
   transition: all .25s ease-in-out;
 }

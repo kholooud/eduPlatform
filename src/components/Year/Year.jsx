@@ -24,7 +24,7 @@ export default function Year() {
         <Grid
           container
           sx={{
-            background: "#fff",
+            bgcolor: "primary.main",
             borderRadius: ".2rem",
             boxSizing: "border-box",
             minHeight: "20rem",
@@ -48,8 +48,8 @@ export default function Year() {
                   position: "absolute",
                   bottom: "0%",
                   left: "50%",
+                  bgcolor:"primary.main",
                   zIndex: 555,
-                  background: "#fff",
                   transform: "translate(-50%,45%)",
                   "&:hover": {
                     transform: "translate(-50%,45%) scale(1.05)",
@@ -59,7 +59,7 @@ export default function Year() {
                 <Box> الصف الدراسي الاول </Box>
                 <Box
                   sx={{
-                    background: "red",
+                    background: "#2dd4bf",
                     width: "100%",
                     height: "3px",
                   }}
@@ -85,7 +85,7 @@ export default function Year() {
                   bottom: "0%",
                   left: "50%",
                   zIndex: 555,
-                  background: "#fff",
+                  bgcolor: "primary.main",
                   transform: "translate(-50%,45%)",
                   "&:hover": {
                     transform: "translate(-50%,45%) scale(1.05)",
@@ -95,7 +95,7 @@ export default function Year() {
                 <Box> الصف الدراسي الثاني </Box>
                 <Box
                   sx={{
-                    background: "red",
+                    background: "#2dd4bf",
                     width: "100%",
                     height: "3px",
                   }}
@@ -121,7 +121,7 @@ export default function Year() {
                   bottom: "0%",
                   left: "50%",
                   zIndex: 555,
-                  background: "#fff",
+                  bgcolor: "primary.main",
                   transform: "translate(-50%,45%)",
                   "&:hover": {
                     transform: "translate(-50%,45%) scale(1.05)",
@@ -131,7 +131,7 @@ export default function Year() {
                 <Box> الصف الدراسي الثالث </Box>
                 <Box
                   sx={{
-                    background: "red",
+                    background: "#2dd4bf",
                     width: "100%",
                     height: "3px",
                   }}
