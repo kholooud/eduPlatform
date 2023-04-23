@@ -1,0 +1,15 @@
+.Typewriter__wrapper,
+.Typewriter__cursor {
+  color: black;
+  font-size: 75px;
+}
+body {
+  background-image: url("./assets/bgImage.svg");
+  background-size: contain;
+  font-family: "Cairo", "Aref Ruqaa", serif !important;
+  transition: all .25s ease-in-out;
+}
+
+
+
+
