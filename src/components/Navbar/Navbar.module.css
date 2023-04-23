@@ -14,5 +14,5 @@
   height: 25px;
   border-radius: 50%;
   display: flex;
-  transition: all .25s linear;
+  transition: all .25s ease-in-out;
 }
