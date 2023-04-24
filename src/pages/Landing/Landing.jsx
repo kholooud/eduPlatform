@@ -31,7 +31,7 @@ export default function Landing() {
                 }}
               />
             </Grid>
-            <Grid item display={{md:"none",xs:"block"}}>
+            <Grid item display={{ md: "none", xs: "block" }}>
               <img src={LandImg} width={"100%"} />
             </Grid>
             <Grid item xs={12}>
@@ -39,7 +39,7 @@ export default function Landing() {
                 منصة الصبـاحـي لشرح منهج الرياضيات
               </Typography>
               <Typography variant="h6">للثانوية العامة</Typography>
-              <Typography className={classes.line}>الصفوف الدارسية</Typography>
+              <Typography  className={classes.line}>الصفوف الدارسية</Typography>
             </Grid>
             <Grid
               item
@@ -49,12 +49,18 @@ export default function Landing() {
               gap={2}
               padding={1}
             >
-              <Box className={classes.circle}>1</Box>
-              <Box className={classes.circle}>2</Box>
-              <Box className={classes.circle}>3</Box>
+              <Box className={classes.circle} bgcolor={"#fde047"}>
+                1
+              </Box>
+              <Box className={classes.circle} bgcolor={"#60a5fa"}>
+                2
+              </Box>
+              <Box className={classes.circle} bgcolor={"#fb7185 "}>
+                3
+              </Box>
             </Grid>
           </Grid>
-          <Grid item md={6} display={{md:"block",xs:"none"}}>
+          <Grid item md={6} display={{ md: "block", xs: "none" }}>
             <img src={LandImg} width={"100%"} />
           </Grid>
         </Grid>

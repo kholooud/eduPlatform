@@ -1,6 +1,5 @@
 .Typewriter__wrapper,
 .Typewriter__cursor {
-  color: black;
   font-size: 75px;
 }
 body {
@@ -8,9 +7,5 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
   font-family: "Cairo", "Aref Ruqaa", serif !important;
-  transition: all .25s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
-
-
-
-

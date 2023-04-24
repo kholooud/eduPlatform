@@ -8,13 +8,17 @@ import { CacheProvider } from "@emotion/react";
 import { prefixer } from "stylis";
 import stylisRTLPlugin from "stylis-plugin-rtl";
 import { useState } from "react";
-import x from "./assets/bgImage.svg"
+import x from "./assets/bgImage.svg";
 function App() {
   const themeLight = createTheme({
     palette: {
       mode: "light",
       primary: {
         main: "#FFF",
+      },
+      warning: {
+        main: "#facc15",
+        dark: "#713f12",
       },
       background: {
         default: "#FFF",
@@ -46,6 +50,10 @@ function App() {
       mode: "dark",
       primary: {
         main: "#080c14",
+      },
+      warning: {
+        main: "#facc15",
+        dark: "#713f12",
       },
       background: {
         default: "#080c14",
