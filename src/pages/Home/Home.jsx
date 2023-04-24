@@ -3,7 +3,7 @@ import React from "react";
 import Typewriter from "typewriter-effect";
 import LandImg from "../../assets/landingImg.png";
 
-import classes from "./Landing.module.css";
+import classes from "./Home.module.css";
 import Year from "../../components/Year/Year";
 import Features from "../../components/Featuers/Features";
 import Footer from "../../components/Footer/Footer";

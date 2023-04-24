@@ -1,5 +1,5 @@
 import Navbar from "./components/Navbar/Navbar";
-import Landing from "./pages/Landing/Landing";
+import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
 
 import { Box, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
@@ -8,7 +8,6 @@ import { CacheProvider } from "@emotion/react";
 import { prefixer } from "stylis";
 import stylisRTLPlugin from "stylis-plugin-rtl";
 import { useState } from "react";
-import x from "./assets/bgImage.svg";
 function App() {
   const themeLight = createTheme({
     palette: {
@@ -97,7 +96,7 @@ function App() {
           <>
             <Navbar handleThemeMode={setthemeMode} themeMode={themeMode} />
             {/* <Box width={"100%"} height={"2000px"}></Box> */}
-            <Landing />
+            <Home />
             <Footer />
           </>
         </ThemeProvider>
