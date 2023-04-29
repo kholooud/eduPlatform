@@ -2,18 +2,26 @@ import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
 
-import { Box, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import {  createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { prefixer } from "stylis";
 import stylisRTLPlugin from "stylis-plugin-rtl";
 import { useState } from "react";
+import Register from "./pages/Register/Register";
 function App() {
   const themeLight = createTheme({
     palette: {
       mode: "light",
       primary: {
         main: "#FFF",
+      },
+      secondary: {
+        main: "#06b6d4",
+        dark: "#10151f",
+      },
+      info: {
+        main: "#f7788e",
       },
       warning: {
         main: "#facc15",
@@ -24,6 +32,7 @@ function App() {
       },
       text: {
         primary: "#000",
+        sec:"#fff"
       },
     },
     transitions: {
@@ -50,6 +59,13 @@ function App() {
       primary: {
         main: "#080c14",
       },
+      secondary: {
+        main: "#06b6d4",
+        dark: "#10151f",
+      },
+      info: {
+        main: "#f7788e",
+      },
       warning: {
         main: "#facc15",
         dark: "#713f12",
@@ -59,6 +75,7 @@ function App() {
       },
       text: {
         primary: "#ffffff",
+        sec:"#000"
       },
     },
     transitions: {
@@ -95,8 +112,8 @@ function App() {
           <CssBaseline />
           <>
             <Navbar handleThemeMode={setthemeMode} themeMode={themeMode} />
-            {/* <Box width={"100%"} height={"2000px"}></Box> */}
-            <Home />
+            {/* <Home /> */}
+            <Register></Register>
             <Footer />
           </>
         </ThemeProvider>
