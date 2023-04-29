@@ -1,5 +1,4 @@
 import {
-  Box,
   Container,
   FormControl,
   Grid,
@@ -16,6 +15,7 @@ import classes from "./Register.module.css";
 import { useTheme } from "@emotion/react";
 export default function Register() {
   const theme = useTheme("");
+  const [year, setyear] = React.useState([]);
   const [first, setfirst] = useState("");
 
   const MenuProps = {
@@ -45,21 +45,18 @@ export default function Register() {
     "الصف الثالث الثانوي",
   ];
 
-  const [personName, setPersonName] = React.useState([]);
-
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
+    setyear(
       typeof value === "string" ? value.split(",") : value
     );
   };
   return (
     <Container>
       <Grid container paddingY={3} >
-        <Grid item xs={5} paddingX={2}>
+        <Grid item xs={0} md={5}paddingRight={2}>
           <img src={regImg} width={"100%"} />
         </Grid>
         <Grid
@@ -348,7 +345,7 @@ export default function Register() {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={personName}
+                  value={year}
                   onChange={handleChange}
                   label="الصف الدراسي"
                   renderValue={(selected) => {
@@ -545,7 +542,7 @@ export default function Register() {
             >
               انشئ الحساب !
             </Grid>
-            <Grid item xs={12} boxSizing={"border-box"} paddingY={1}>
+            <Grid item xs={12} boxSizing={"border-box"} paddingY={2} fontSize={".8rem"}>
               يوجد لديك حساب بالفعل؟ <Typography variant="span" color={"warning.main"}>ادخل إلى حسابك الآن !</Typography>
             </Grid>
           </Grid>

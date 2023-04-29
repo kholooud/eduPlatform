@@ -9,6 +9,7 @@ import { prefixer } from "stylis";
 import stylisRTLPlugin from "stylis-plugin-rtl";
 import { useState } from "react";
 import Register from "./pages/Register/Register";
+import Login from "./pages/Login/Login";
 function App() {
   const themeLight = createTheme({
     palette: {
@@ -113,7 +114,8 @@ function App() {
           <>
             <Navbar handleThemeMode={setthemeMode} themeMode={themeMode} />
             {/* <Home /> */}
-            <Register></Register>
+            {/* <Register></Register> */}
+            <Login/>
             <Footer />
           </>
         </ThemeProvider>
