@@ -1,10 +1,10 @@
 import {
+  Button,
   Container,
   FormControl,
   Grid,
   InputLabel,
   MenuItem,
-  OutlinedInput,
   Select,
   TextField,
   Typography,
@@ -13,10 +13,81 @@ import React, { useState } from "react";
 import regImg from "../../assets/register.jpeg";
 import classes from "./Register.module.css";
 import { useTheme } from "@emotion/react";
+import { useForm } from "react-hook-form";
+import { DevTool } from "@hookform/devtools";
+import { joiResolver } from "@hookform/resolvers/joi";
+import Joi from "joi";
 export default function Register() {
   const theme = useTheme("");
-  const [year, setyear] = React.useState([]);
-  const [first, setfirst] = useState("");
+  const [year, setyear] = useState("");
+  const schema = Joi.object({
+    fristName: Joi.string()
+      .min(2)
+      .max(30)
+      .required()
+      .regex(/^[\u0621-\u064A ]+$/)
+      .messages({
+        "string.empty": "- مينفعش الاسم يكون فاضي ",
+        "string.min": "- مفيش اسم الاقل من حرفين",
+        "string.pattern.base": "- مينفعش ارقام و علامات",
+      }),
+    lastName: Joi.string()
+      .min(2)
+      .max(30)
+      .required()
+      .regex(/^[\u0621-\u064A ]+$/)
+      .messages({
+        "string.empty": "- مينفعش الاسم يكون فاضي ",
+        "string.min": "- مفيش اسم الاقل من حرفين",
+        "string.pattern.base": "- مينفعش ارقام و علامات",
+      }),
+    phone: Joi.string()
+      .regex(/^01[0125][0-9]{8}$/)
+      .required()
+      .messages({
+        "string.empty": "- مينفعش الرقم يكون فاضي ",
+        "string.pattern.base": "- اكتب رقم صح",
+      }),
+    fatherPhone: Joi.string()
+      .regex(/^01[0125][0-9]{8}$/)
+      .required()
+      .messages({
+        "string.empty": "- مينفعش الرقم يكون فاضي ",
+        "string.pattern.base": "- اكتب رقم صح",
+      }),
+    year: Joi.string().min(2).required(),
+    email: Joi.string()
+      .email({
+        minDomainSegments: 2,
+        tlds: { allow: ["com", "net"] },
+      })
+      .optional()
+      .messages({
+        "string.empty": "- مينفعش الايميل يكون فاضي ",
+        "string.email": "- اكتب الايميل صح",
+      }),
+    password: Joi.string()
+      .pattern(
+        new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)
+      )
+      .required()
+      .messages({
+        "string.empty": "- مينفعش كلمة السر تبقي فاضية ",
+        "string.pattern.base": "- لازم يكون فيه علامات و ارقام",
+      }),
+    confirmPass: Joi.string().valid(Joi.ref("password")).required().messages({
+      "string.empty": "- مينفعش الاسم يكون فاضي ",
+      "any.only":"- لازم يبقي زي كلمة السر"
+    }),
+  });
+  const form = useForm({
+    resolver: joiResolver(schema),
+  });
+  const { register, handleSubmit, control, getValues, formState } = form;
+  const { errors } = formState;
+  const onSubmit = (data) => {
+    console.log("data", data);
+  };
 
   const MenuProps = {
     sx: {
@@ -29,41 +100,44 @@ export default function Register() {
         color: "#fff",
       },
       "& .Mui-selected": {
-        backgroundColor: "#10151f",
+        backgroundColor: "#10151f !important",
         color: "#fff",
       },
       "& .Mui-selected:hover": {
-        backgroundColor: "#10151f",
-        color: "#fff",
+        backgroundColor: "#10151f !important",
+        color: "black",
       },
     },
   };
-
-  const names = [
-    "الصف الاول الثانوي",
-    "الصف الثاني الثانوي",
-    "الصف الثالث الثانوي",
-  ];
-
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setyear(
-      typeof value === "string" ? value.split(",") : value
-    );
+  const FormHelperTextProps = (indicator) => {
+    console.log("indector", indicator);
+    return {
+      sx: {
+        color: "#fff !important",
+        bgcolor: `${indicator ? theme.palette.info.main : "transparent"}`,
+        fontFamily: "inherit",
+        borderRadius: "5px",
+        boxSizing: "border-box",
+        padding: "5px",
+      },
+    };
   };
+  const years = [
+    { name: "الصف الاول الثانوي", value: "1sec" },
+    { name: "الصف الثاني الثانوي", value: "2sec" },
+    { name: "الصف الثالث الثانوي", value: "3sec" },
+  ];
   return (
     <Container>
-      <Grid container paddingY={3} >
-        <Grid item xs={0} md={5}paddingRight={2}>
+      <Grid container paddingY={3}>
+        <Grid item md={5} paddingRight={2} display={{ xs: "none", md: "flex" }}>
           <img src={regImg} width={"100%"} />
         </Grid>
         <Grid
           item
           container
-          xs={7}
-          component={"form"}
+          xs={12}
+          md={7}
           className={classes.regForm}
           justifyContent={"center"}
           alignContent={"start"}
@@ -119,12 +193,21 @@ export default function Register() {
             </Grid>
           </Grid>
           <Grid
+            component={"form"}
+            noValidate
+            onSubmit={handleSubmit(onSubmit)}
             container
             xs={10}
             justifyContent={"start"}
             alignItems={"center"}
           >
-            <Grid item xs={6} boxSizing={"border-box"} paddingBottom={1}>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              boxSizing={"border-box"}
+              paddingBottom={1}
+            >
               <TextField
                 id="standard-basic"
                 label={
@@ -167,23 +250,20 @@ export default function Register() {
                 variant="standard"
                 color="secondary"
                 sx={{ width: "80%" }}
-                // error={first}
-                helperText={first ? "-الاسم لازم يكون مليان" : " "}
-                FormHelperTextProps={{
-                  sx: {
-                    color: "#fff !important",
-                    bgcolor: `${
-                      first ? theme.palette.info.main : "transparent"
-                    }`,
-                    fontFamily: "inherit",
-                    borderRadius: "5px",
-                    boxSizing: "border-box",
-                    padding: "5px",
-                  },
-                }}
+                error={errors.fristName}
+                helperText={errors.fristName ? errors.fristName.message : " "}
+                FormHelperTextProps={FormHelperTextProps(errors.fristName)}
+                type="text"
+                {...register("fristName")}
               />
             </Grid>
-            <Grid item xs={6} boxSizing={"border-box"} paddingBottom={1}>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              boxSizing={"border-box"}
+              paddingBottom={1}
+            >
               <TextField
                 id="standard-basic"
                 label={
@@ -226,23 +306,20 @@ export default function Register() {
                 variant="standard"
                 color="secondary"
                 sx={{ width: "80%" }}
-                // error={first}
-                helperText={first ? "-الاسم الاخير لازم يكون مليان" : " "}
-                FormHelperTextProps={{
-                  sx: {
-                    color: "#fff !important",
-                    bgcolor: `${
-                      first ? theme.palette.info.main : "transparent"
-                    }`,
-                    fontFamily: "inherit",
-                    borderRadius: "5px",
-                    boxSizing: "border-box",
-                    padding: "5px",
-                  },
-                }}
+                error={errors.lastName}
+                helperText={errors.lastName ? errors.lastName.message : " "}
+                FormHelperTextProps={FormHelperTextProps(errors.lastName)}
+                type="text"
+                {...register("lastName")}
               />
             </Grid>
-            <Grid item xs={6} boxSizing={"border-box"} paddingBottom={1}>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              boxSizing={"border-box"}
+              paddingBottom={1}
+            >
               <TextField
                 id="standard-basic"
                 label={
@@ -270,23 +347,20 @@ export default function Register() {
                 variant="standard"
                 color="secondary"
                 sx={{ width: "80%" }}
-                // error={first}
-                helperText={first ? "-الاسم لازم يكون مليان" : " "}
-                FormHelperTextProps={{
-                  sx: {
-                    color: "#fff !important",
-                    bgcolor: `${
-                      first ? theme.palette.info.main : "transparent"
-                    }`,
-                    fontFamily: "inherit",
-                    borderRadius: "5px",
-                    boxSizing: "border-box",
-                    padding: "5px",
-                  },
-                }}
+                error={errors.phone}
+                helperText={errors.phone ? errors.phone.message : " "}
+                FormHelperTextProps={FormHelperTextProps(errors.phone)}
+                type="text"
+                {...register("phone")}
               />
             </Grid>
-            <Grid item xs={6} boxSizing={"border-box"} paddingBottom={1}>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              boxSizing={"border-box"}
+              paddingBottom={1}
+            >
               <TextField
                 id="standard-basic"
                 label={
@@ -313,21 +387,14 @@ export default function Register() {
                 }
                 variant="standard"
                 color="secondary"
-                // error={first}
+                error={errors.fatherPhone}
                 sx={{ width: "80%" }}
-                helperText={first ? "-الاسم لازم يكون مليان" : " "}
-                FormHelperTextProps={{
-                  sx: {
-                    color: "#fff !important",
-                    bgcolor: `${
-                      first ? theme.palette.info.main : "transparent"
-                    }`,
-                    fontFamily: "inherit",
-                    borderRadius: "5px",
-                    boxSizing: "border-box",
-                    padding: "5px",
-                  },
-                }}
+                helperText={
+                  errors.fatherPhone ? errors.fatherPhone.message : " "
+                }
+                FormHelperTextProps={FormHelperTextProps(errors.fatherPhone)}
+                type="text"
+                {...register("fatherPhone")}
               />
             </Grid>
             <Grid item xs={12} boxSizing={"border-box"} paddingY={1}>
@@ -339,17 +406,21 @@ export default function Register() {
                       color: `${theme.palette.secondary.main} !important`,
                     },
                   }}
+                  type="text"
                 >
                   الصف الدراسي
                 </InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={year}
-                  onChange={handleChange}
                   label="الصف الدراسي"
                   renderValue={(selected) => {
-                    console.log(selected);
+                    console.log("selected", selected);
+                    selected = years.map((year) => {
+                      if (year.value === selected) {
+                        return year.name;
+                      }
+                    });
                     return selected;
                   }}
                   MenuProps={MenuProps}
@@ -377,16 +448,22 @@ export default function Register() {
                       //   backgroundColor: "dark.primary",
                     },
                   }}
+                  {...register("year", {
+                    onChange: () => {
+                      setyear(getValues("year"));
+                    },
+                  })}
+                  value={year}
                 >
-                  {names.map((name) => (
+                  {years.map((year) => (
                     <MenuItem
-                      key={name}
-                      value={name}
+                      key={year.value}
+                      value={year.value}
                       sx={{
                         fontFamily: "inherit",
                       }}
                     >
-                      {name}
+                      {year.name}
                     </MenuItem>
                   ))}
                 </Select>
@@ -419,24 +496,21 @@ export default function Register() {
                 }
                 variant="standard"
                 color="secondary"
-                // error={first}
+                error={errors.email}
                 sx={{ width: "80%" }}
-                helperText={first ? "-الاسم لازم يكون مليان" : " "}
-                FormHelperTextProps={{
-                  sx: {
-                    color: "#fff !important",
-                    bgcolor: `${
-                      first ? theme.palette.info.main : "transparent"
-                    }`,
-                    fontFamily: "inherit",
-                    borderRadius: "5px",
-                    boxSizing: "border-box",
-                    padding: "5px",
-                  },
-                }}
+                helperText={errors.email ? errors.email.message : " "}
+                FormHelperTextProps={FormHelperTextProps(errors.email)}
+                type="email"
+                {...register("email")}
               />
             </Grid>
-            <Grid item xs={6} boxSizing={"border-box"} paddingBottom={1}>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              boxSizing={"border-box"}
+              paddingBottom={1}
+            >
               <TextField
                 id="standard-basic"
                 label={
@@ -464,23 +538,20 @@ export default function Register() {
                 variant="standard"
                 color="secondary"
                 sx={{ width: "80%" }}
-                // error={first}
-                helperText={first ? "-الاسم لازم يكون مليان" : " "}
-                FormHelperTextProps={{
-                  sx: {
-                    color: "#fff !important",
-                    bgcolor: `${
-                      first ? theme.palette.info.main : "transparent"
-                    }`,
-                    fontFamily: "inherit",
-                    borderRadius: "5px",
-                    boxSizing: "border-box",
-                    padding: "5px",
-                  },
-                }}
+                error={errors.password}
+                helperText={errors.password ? errors.password.message : " "}
+                FormHelperTextProps={FormHelperTextProps(errors.password)}
+                type="password"
+                {...register("password")}
               />
             </Grid>
-            <Grid item xs={6} boxSizing={"border-box"} paddingBottom={1}>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              boxSizing={"border-box"}
+              paddingBottom={1}
+            >
               <TextField
                 id="standard-basic"
                 label={
@@ -507,26 +578,22 @@ export default function Register() {
                 }
                 variant="standard"
                 color="secondary"
-                // error={first}
+                error={errors.confirmPass}
                 sx={{ width: "80%" }}
-                helperText={first ? "-الاسم لازم يكون مليان" : " "}
-                FormHelperTextProps={{
-                  sx: {
-                    color: "#fff !important",
-                    bgcolor: `${
-                      first ? theme.palette.info.main : "transparent"
-                    }`,
-                    fontFamily: "inherit",
-                    borderRadius: "5px",
-                    boxSizing: "border-box",
-                    padding: "5px",
-                  },
-                }}
+                helperText={
+                  errors.confirmPass ? errors.confirmPass.message : " "
+                }
+                FormHelperTextProps={FormHelperTextProps(errors.confirmPass)}
+                type="password"
+                {...register("confirmPass")}
               />
             </Grid>
             <Grid
               item
-              xs={4}
+              xs={5}
+              md={3}
+              component={Button}
+              type="submit"
               boxSizing={"border-box"}
               paddingBottom={1}
               className={classes.btn}
@@ -542,10 +609,20 @@ export default function Register() {
             >
               انشئ الحساب !
             </Grid>
-            <Grid item xs={12} boxSizing={"border-box"} paddingY={2} fontSize={".8rem"}>
-              يوجد لديك حساب بالفعل؟ <Typography variant="span" color={"warning.main"}>ادخل إلى حسابك الآن !</Typography>
+            <Grid
+              item
+              xs={12}
+              boxSizing={"border-box"}
+              paddingY={2}
+              fontSize={".8rem"}
+            >
+              يوجد لديك حساب بالفعل؟{" "}
+              <Typography variant="span" color={"warning.main"}>
+                ادخل إلى حسابك الآن !
+              </Typography>
             </Grid>
           </Grid>
+          <DevTool control={control} />
         </Grid>
       </Grid>
     </Container>
