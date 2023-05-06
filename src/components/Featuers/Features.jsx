@@ -46,7 +46,7 @@ export default function Features() {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 908.6 195.8"
-          xml:space="preserve"
+          xmlSpace="preserve"
         >
           <path
             fill= {`${theme.palette.primary.main}`}

@@ -114,7 +114,7 @@ function App() {
           <>
             <Navbar handleThemeMode={setthemeMode} themeMode={themeMode} />
             {/* <Home /> */}
-            <Register></Register>
+            {/* <Register></Register> */}
             {/* <Login/> */}
             <Footer />
           </>

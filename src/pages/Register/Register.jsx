@@ -77,7 +77,7 @@ export default function Register() {
       }),
     confirmPass: Joi.string().valid(Joi.ref("password")).required().messages({
       "string.empty": "- مينفعش الاسم يكون فاضي ",
-      "any.only":"- لازم يبقي زي كلمة السر"
+      "any.only": "- لازم يبقي زي كلمة السر",
     }),
   });
   const form = useForm({
@@ -109,8 +109,7 @@ export default function Register() {
       },
     },
   };
-  const FormHelperTextProps = (indicator) => {
-    console.log("indector", indicator);
+  function FormHelperTextProps(indicator) {
     return {
       sx: {
         color: "#fff !important",
@@ -121,7 +120,7 @@ export default function Register() {
         padding: "5px",
       },
     };
-  };
+  }
   const years = [
     { name: "الصف الاول الثانوي", value: "1sec" },
     { name: "الصف الثاني الثانوي", value: "2sec" },
@@ -152,6 +151,7 @@ export default function Register() {
           </Typography>
           <Grid
             container
+            item
             xs={12}
             justifyContent={"center"}
             alignItems={"center"}
@@ -197,7 +197,9 @@ export default function Register() {
             noValidate
             onSubmit={handleSubmit(onSubmit)}
             container
+            item
             xs={10}
+            
             justifyContent={"start"}
             alignItems={"center"}
           >
@@ -209,15 +211,15 @@ export default function Register() {
               paddingBottom={1}
             >
               <TextField
-                id="standard-basic"
+                // id="standard-basic"
                 label={
                   <>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
                       aria-hidden="true"
                       role="img"
-                      class="iconify iconify--icon-park-solid"
+                      className="iconify iconify--icon-park-solid"
                       width="1em"
                       height="1em"
                       preserveAspectRatio="xMidYMid meet"
@@ -229,9 +231,9 @@ export default function Register() {
                         <g
                           fill="none"
                           stroke="#fff"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="4"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="4"
                         >
                           <circle cx="24" cy="11" r="7" fill="#fff" />
                           <path d="M4 41c0-8.837 8.059-16 18-16" />
@@ -265,15 +267,15 @@ export default function Register() {
               paddingBottom={1}
             >
               <TextField
-                id="standard-basic"
+                // id="standard-basic"
                 label={
                   <>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
                       aria-hidden="true"
                       role="img"
-                      class="iconify iconify--icon-park-solid"
+                      className="iconify iconify--icon-park-solid"
                       width="1em"
                       height="1em"
                       preserveAspectRatio="xMidYMid meet"
@@ -285,9 +287,9 @@ export default function Register() {
                         <g
                           fill="none"
                           stroke="#fff"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="4"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="4"
                         >
                           <circle cx="24" cy="11" r="7" fill="#fff" />
                           <path d="M4 41c0-8.837 8.059-16 18-16" />
@@ -321,15 +323,15 @@ export default function Register() {
               paddingBottom={1}
             >
               <TextField
-                id="standard-basic"
+                // id="standard-basic"
                 label={
                   <>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
                       aria-hidden="true"
                       role="img"
-                      class="iconify iconify--ant-design"
+                      className="iconify iconify--ant-design"
                       width="1em"
                       height="1em"
                       preserveAspectRatio="xMidYMid meet"
@@ -362,15 +364,15 @@ export default function Register() {
               paddingBottom={1}
             >
               <TextField
-                id="standard-basic"
+                // id="standard-basic"
                 label={
                   <>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
                       aria-hidden="true"
                       role="img"
-                      class="iconify iconify--ant-design"
+                      className="iconify iconify--ant-design"
                       width="1em"
                       height="1em"
                       preserveAspectRatio="xMidYMid meet"
@@ -415,7 +417,6 @@ export default function Register() {
                   id="demo-simple-select"
                   label="الصف الدراسي"
                   renderValue={(selected) => {
-                    console.log("selected", selected);
                     selected = years.map((year) => {
                       if (year.value === selected) {
                         return year.name;
@@ -471,15 +472,15 @@ export default function Register() {
             </Grid>
             <Grid item xs={12} boxSizing={"border-box"} paddingBottom={1}>
               <TextField
-                id="standard-basic"
+                // id="standard-basic"
                 label={
                   <>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
                       aria-hidden="true"
                       role="img"
-                      class="iconify iconify--bx"
+                      className="iconify iconify--bx"
                       width="1em"
                       height="1em"
                       preserveAspectRatio="xMidYMid meet"
@@ -512,15 +513,15 @@ export default function Register() {
               paddingBottom={1}
             >
               <TextField
-                id="standard-basic"
+                // id="standard-basic"
                 label={
                   <>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
                       aria-hidden="true"
                       role="img"
-                      class="iconify iconify--ri"
+                      className="iconify iconify--ri"
                       width="1em"
                       height="1em"
                       preserveAspectRatio="xMidYMid meet"
@@ -553,15 +554,15 @@ export default function Register() {
               paddingBottom={1}
             >
               <TextField
-                id="standard-basic"
+                // id="standard-basic"
                 label={
                   <>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
                       aria-hidden="true"
                       role="img"
-                      class="iconify iconify--ri"
+                      className="iconify iconify--ri"
                       width="1em"
                       height="1em"
                       preserveAspectRatio="xMidYMid meet"

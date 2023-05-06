@@ -1,39 +1,72 @@
-import {
-  Box,
-  Container,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import logImg from "../../assets/login.jpeg";
 import classes from "./Login.module.css";
 import { useTheme } from "@emotion/react";
-import { useState } from "react";
+import Joi from "joi";
+import { joiResolver } from "@hookform/resolvers/joi";
+import { useForm } from "react-hook-form";
+import { DevTool } from "@hookform/devtools";
 export default function Login() {
   const theme = useTheme("");
-  const [first, setfirst] = useState("");
+  const schema = Joi.object({
+    phone: Joi.string()
+      .regex(/^01[0125][0-9]{8}$/)
+      .required()
+      .messages({
+        "string.empty": "- مينفعش الرقم يكون فاضي ",
+        "string.pattern.base": "- اكتب رقم صح",
+      }),
+    password: Joi.string().required().messages({
+      "string.empty": "- مينفعش كلمة السر تبقي فاضية ",
+    }),
+  });
+  const form = useForm({
+    resolver: joiResolver(schema),
+  });
+  const { register, handleSubmit, control, formState } = form;
+  const { errors } = formState;
+  const onSubmit = (data) => {
+    console.log("data", data);
+  };
+  function FormHelperTextProps(indicator) {
+    return {
+      sx: {
+        color: "#fff !important",
+        bgcolor: `${indicator ? theme.palette.info.main : "transparent"}`,
+        fontFamily: "inherit",
+        borderRadius: "5px",
+        boxSizing: "border-box",
+        padding: "5px",
+      },
+    };
+  }
   return (
     <Container>
       <Grid container>
-        <Grid item xs={0} md={5} paddingRight={2}>
+        <Grid
+          item
+          xs={0}
+          md={5}
+          paddingRight={2}
+          display={{ xs: "none", md: "flex" }}
+        >
           <img src={logImg} width={"100%"} />
         </Grid>
         <Grid
           item
           container
-          xs={7}
+          xs={12}
+          md={7}
           component={"form"}
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
           className={classes.regForm}
           justifyContent={"center"}
           alignContent={"center"}
         >
           <Grid
             container
+            item
             xs={12}
             justifyContent={"center"}
             alignItems={"center"}
@@ -77,25 +110,28 @@ export default function Login() {
             </Grid>
           </Grid>
           <Grid item xs={10} paddingY={4}>
-           <Typography variant="span" fontSize={".8rem"}>ادخل علي حسابك بإدخال رقم الهاتف و كلمة المرور المسجل بهم من قبل</Typography> 
+            <Typography variant="span" fontSize={".8rem"}>
+              ادخل علي حسابك بإدخال رقم الهاتف و كلمة المرور المسجل بهم من قبل
+            </Typography>
           </Grid>
           <Grid
             container
+            item
             xs={10}
             justifyContent={"start"}
             alignItems={"center"}
           >
             <Grid item xs={12} boxSizing={"border-box"} paddingBottom={1}>
               <TextField
-                id="standard-basic"
+                // id="standard-basic"
                 label={
                   <>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
                       aria-hidden="true"
                       role="img"
-                      class="iconify iconify--ant-design"
+                      className="iconify iconify--ant-design"
                       width="1em"
                       height="1em"
                       preserveAspectRatio="xMidYMid meet"
@@ -113,33 +149,24 @@ export default function Login() {
                 variant="standard"
                 color="secondary"
                 sx={{ width: "80%" }}
-                // error={first}
-                helperText={first ? "-الاسم لازم يكون مليان" : " "}
-                FormHelperTextProps={{
-                  sx: {
-                    color: "#fff !important",
-                    bgcolor: `${
-                      first ? theme.palette.info.main : "transparent"
-                    }`,
-                    fontFamily: "inherit",
-                    borderRadius: "5px",
-                    boxSizing: "border-box",
-                    padding: "5px",
-                  },
-                }}
+                error={errors.phone}
+                helperText={errors.phone ? errors.phone.message : " "}
+                FormHelperTextProps={FormHelperTextProps(errors.phone)}
+                type="text"
+                {...register("phone")}
               />
             </Grid>
             <Grid item xs={12} boxSizing={"border-box"} paddingBottom={1}>
               <TextField
-                id="standard-basic"
+                // id="standard-basic"
                 label={
                   <>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
                       aria-hidden="true"
                       role="img"
-                      class="iconify iconify--ri"
+                      className="iconify iconify--ri"
                       width="1em"
                       height="1em"
                       preserveAspectRatio="xMidYMid meet"
@@ -158,25 +185,20 @@ export default function Login() {
                 color="secondary"
                 // error={first}
                 sx={{ width: "80%" }}
-                helperText={first ? "-الاسم لازم يكون مليان" : " "}
-                FormHelperTextProps={{
-                  sx: {
-                    color: "#fff !important",
-                    bgcolor: `${
-                      first ? theme.palette.info.main : "transparent"
-                    }`,
-                    fontFamily: "inherit",
-                    borderRadius: "5px",
-                    boxSizing: "border-box",
-                    padding: "5px",
-                  },
-                }}
+                error={errors.password}
+                helperText={errors.password ? errors.password.message : " "}
+                FormHelperTextProps={FormHelperTextProps(errors.password)}
+                type="password"
+                {...register("password")}
               />
             </Grid>
             <Grid
               item
-              xs={4}
+              xs={6}
+              md={4}
               boxSizing={"border-box"}
+              component={Button}
+              type="submit"
               paddingBottom={1}
               className={classes.btn}
               sx={{
@@ -205,6 +227,7 @@ export default function Login() {
             </Grid>
           </Grid>
         </Grid>
+        <DevTool control={control} />
       </Grid>
     </Container>
   );
