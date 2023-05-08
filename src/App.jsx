@@ -1,108 +1,138 @@
-import Navbar from "./components/Navbar/Navbar";
+import React from 'react'
 import Home from "./pages/Home/Home";
+import Navbar from './components/Navbar/Navbar'
 import Footer from "./components/Footer/Footer";
-
 import { Box, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { prefixer } from "stylis";
 import stylisRTLPlugin from "stylis-plugin-rtl";
 import { useState } from "react";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import Year1 from './components/YearsList/Year1/Year1';
+import Year2 from './components/YearsList/Year2/Year2';
+import Year3 from './components/YearsList/Year3/Year3';
+import Year from './components/Year/Year';
+import NotFound from './pages/NotFound/NotFound';
+
+
+
+let routers = createBrowserRouter([
+    {
+        path: ''
+        , element: <Home />, children: [
+            { index: true, element: <Year /> },
+            { path: 'Year1', element: <Year1 /> },
+            { path: 'Year2', element: <Year2 /> },
+            { path: 'Year3', element: <Year3 /> },
+        ],
+    },
+    { path: '*', element: <NotFound /> }
+])
+
+
+
+
 function App() {
-  const themeLight = createTheme({
-    palette: {
-      mode: "light",
-      primary: {
-        main: "#FFF",
-      },
-      warning: {
-        main: "#facc15",
-        dark: "#713f12",
-      },
-      background: {
-        default: "#FFF",
-      },
-      text: {
-        primary: "#000",
-      },
-    },
-    transitions: {
-      duration: {
-        shortest: 150,
-        shorter: 200,
-        short: 250,
-        // most basic recommended timing
-        standard: 300,
-        // this is to be used in complex animations
-        complex: 375,
-        // recommended when something is entering screen
-        enteringScreen: 225,
-        // recommended when something is leaving screen
-        leavingScreen: 195,
-      },
-    },
-    direction: "rtl",
-  });
 
-  const themeDark = createTheme({
-    palette: {
-      mode: "dark",
-      primary: {
-        main: "#080c14",
-      },
-      warning: {
-        main: "#facc15",
-        dark: "#713f12",
-      },
-      background: {
-        default: "#080c14",
-      },
-      text: {
-        primary: "#ffffff",
-      },
-    },
-    transitions: {
-      duration: {
-        shortest: 150,
-        shorter: 200,
-        short: 250,
-        // most basic recommended timing
-        standard: 300,
-        // this is to be used in complex animations
-        complex: 375,
-        // recommended when something is entering screen
-        enteringScreen: 225,
-        // recommended when something is leaving screen
-        leavingScreen: 195,
-      },
-    },
 
-    direction: "rtl",
-  });
+    const themeLight = createTheme({
+        palette: {
+            mode: "light",
+            primary: {
+                main: "#FFF",
+            },
+            warning: {
+                main: "#facc15",
+                dark: "#713f12",
+            },
+            background: {
+                default: "#FFF",
+            },
+            text: {
+                primary: "#000",
+            },
+        },
+        transitions: {
+            duration: {
+                shortest: 150,
+                shorter: 200,
+                short: 250,
+                // most basic recommended timing
+                standard: 300,
+                // this is to be used in complex animations
+                complex: 375,
+                // recommended when something is entering screen
+                enteringScreen: 225,
+                // recommended when something is leaving screen
+                leavingScreen: 195,
+            },
+        },
+        direction: "rtl",
+    });
 
-  const cacheRtl = createCache({
-    key: "muirtl",
-    stylisPlugins: [prefixer, stylisRTLPlugin],
-  });
-  const [themeMode, setthemeMode] = useState("themeLight");
+    const themeDark = createTheme({
+        palette: {
+            mode: "dark",
+            primary: {
+                main: "#080c14",
+            },
+            warning: {
+                main: "#facc15",
+                dark: "#713f12",
+            },
+            background: {
+                default: "#080c14",
+            },
+            text: {
+                primary: "#ffffff",
+            },
+        },
+        transitions: {
+            duration: {
+                shortest: 150,
+                shorter: 200,
+                short: 250,
+                // most basic recommended timing
+                standard: 300,
+                // this is to be used in complex animations
+                complex: 375,
+                // recommended when something is entering screen
+                enteringScreen: 225,
+                // recommended when something is leaving screen
+                leavingScreen: 195,
+            },
+        },
 
-  return (
-    <>
-      <CacheProvider value={cacheRtl}>
-        <ThemeProvider
-          theme={themeMode == "themeLight" ? themeLight : themeDark}
-        >
-          <CssBaseline />
-          <>
-            <Navbar handleThemeMode={setthemeMode} themeMode={themeMode} />
-            {/* <Box width={"100%"} height={"2000px"}></Box> */}
-            <Home />
-            <Footer />
-          </>
-        </ThemeProvider>
-      </CacheProvider>
-    </>
-  );
+        direction: "rtl",
+    });
+
+    const cacheRtl = createCache({
+        key: "muirtl",
+        stylisPlugins: [prefixer, stylisRTLPlugin],
+    });
+    const [themeMode, setthemeMode] = useState("themeLight");
+
+
+    return (
+        <>
+            <CacheProvider value={cacheRtl}>
+                <ThemeProvider
+                    theme={themeMode == "themeLight" ? themeLight : themeDark}
+                >
+                    <CssBaseline />
+                    <>
+                        <Navbar handleThemeMode={setthemeMode} themeMode={themeMode} />
+                        {/* <Box width={"100%"} height={"2000px"}></Box> */}
+                        <RouterProvider router={routers}></RouterProvider>
+                        <Outlet></Outlet>
+                        <Footer />
+                    </>
+                </ThemeProvider>
+            </CacheProvider>
+
+        </>
+    );
 }
 
 export default App;
