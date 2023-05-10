@@ -13,4 +13,7 @@ input {
   color: inherit !important;
   font-family: "Cairo", "Aref Ruqaa", serif !important;
 }
-
+a{
+  display:contents;
+  text-decoration: none;
+}

@@ -6,7 +6,6 @@ import LandImg from "../../assets/landingImg.png";
 import classes from "./Home.module.css";
 import Year from "../../components/Year/Year";
 import Features from "../../components/Featuers/Features";
-import Footer from "../../components/Footer/Footer";
 
 export default function Landing() {
   return (

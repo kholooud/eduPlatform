@@ -1,16 +1,44 @@
-import Navbar from "./components/Navbar/Navbar";
-import Home from "./pages/Home/Home";
-import Footer from "./components/Footer/Footer";
+import { useState } from "react";
 
-import {  createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { prefixer } from "stylis";
 import stylisRTLPlugin from "stylis-plugin-rtl";
-import { useState } from "react";
+
+import Home from "./pages/Home/Home";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
+import NotFound from "./pages/NotFound/NotFound";
+import Root from "./pages/Root/Root";
+
+
 function App() {
+  const themeDefualt = {
+    transitions: {
+      duration: {
+        shortest: 150,
+        shorter: 200,
+        short: 250,
+        // most basic recommended timing
+        standard: 300,
+        // this is to be used in complex animations
+        complex: 375,
+        // recommended when something is entering screen
+        enteringScreen: 225,
+        // recommended when something is leaving screen
+        leavingScreen: 195,
+      },
+    },
+    direction: "rtl",
+  };
   const themeLight = createTheme({
     palette: {
       mode: "light",
@@ -33,27 +61,11 @@ function App() {
       },
       text: {
         primary: "#000",
-        sec:"#fff"
+        sec: "#fff",
       },
     },
-    transitions: {
-      duration: {
-        shortest: 150,
-        shorter: 200,
-        short: 250,
-        // most basic recommended timing
-        standard: 300,
-        // this is to be used in complex animations
-        complex: 375,
-        // recommended when something is entering screen
-        enteringScreen: 225,
-        // recommended when something is leaving screen
-        leavingScreen: 195,
-      },
-    },
-    direction: "rtl",
+    ...themeDefualt,
   });
-
   const themeDark = createTheme({
     palette: {
       mode: "dark",
@@ -76,34 +88,29 @@ function App() {
       },
       text: {
         primary: "#ffffff",
-        sec:"#000"
+        sec: "#000",
       },
     },
-    transitions: {
-      duration: {
-        shortest: 150,
-        shorter: 200,
-        short: 250,
-        // most basic recommended timing
-        standard: 300,
-        // this is to be used in complex animations
-        complex: 375,
-        // recommended when something is entering screen
-        enteringScreen: 225,
-        // recommended when something is leaving screen
-        leavingScreen: 195,
-      },
-    },
-
-    direction: "rtl",
+    ...themeDefualt,
   });
-
   const cacheRtl = createCache({
     key: "muirtl",
     stylisPlugins: [prefixer, stylisRTLPlugin],
   });
   const [themeMode, setthemeMode] = useState("themeLight");
-
+  const routers = createBrowserRouter(
+    createRoutesFromElements(
+      <Route
+        path="/"
+        element={<Root handleThemeMode={setthemeMode} themeMode={themeMode} />}
+      >
+        <Route index element={<Home />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    )
+  );
   return (
     <>
       <CacheProvider value={cacheRtl}>
@@ -112,11 +119,7 @@ function App() {
         >
           <CssBaseline />
           <>
-            <Navbar handleThemeMode={setthemeMode} themeMode={themeMode} />
-            {/* <Home /> */}
-            {/* <Register></Register> */}
-            {/* <Login/> */}
-            <Footer />
+            <RouterProvider router={routers} />
           </>
         </ThemeProvider>
       </CacheProvider>
