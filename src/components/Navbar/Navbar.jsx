@@ -4,7 +4,6 @@ import logo from "../../assets/logoSalah.png";
 import classes from "./Navbar.module.css";
 import { useTheme } from "@emotion/react";
 import { Link, NavLink } from "react-router-dom";
-
 export default function Navbar({ handleThemeMode, themeMode }) {
   const theme = useTheme();
   const [progress, setProgress] = useState(0);
