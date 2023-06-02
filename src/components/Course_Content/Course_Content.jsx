@@ -345,15 +345,11 @@ export default function Course_Content() {
           </Box>
           <Box>
             <Accordion sx={{ my: 2, padding: 2 }}>
-              <AccordionSummary
+              <AccordionSummary 
+                className={classes.accordionHeadMain}
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
-                sx={{
-                  backgroundColor: "#ffe4e6",
-                  borderRadius: "10px",
-                  padding: "10px",
-                }}
               >
                 <DashboardCustomizeOutlinedIcon
                   color="#f43f5e"
@@ -382,6 +378,7 @@ export default function Course_Content() {
                   padding: "14px",
                   backgroundColor: "#f3f4f6",
                   borderRadius: "10px",
+                  marginTop:"25px"
                 }}
               >
                 <Box>

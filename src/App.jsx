@@ -19,6 +19,7 @@ import Login from "./pages/Login/Login";
 import NotFound from "./pages/NotFound/NotFound";
 import Root from "./pages/Root/Root";
 import Course_Content from "./components/Course_Content/Course_Content";
+import Course from "./pages/Course/Course";
 
 function App() {
   const themeDefualt = {
@@ -105,10 +106,11 @@ function App() {
         element={<Root handleThemeMode={setthemeMode} themeMode={themeMode} />}
       >
         <Route index element={<Home />} />
-        <Route path="/Course" element={<Course_Content/>}/>
+        <Route path="/Course" element={<Course/>}/>
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
+
       </Route>
     )
   );
