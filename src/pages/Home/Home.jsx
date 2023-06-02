@@ -2,15 +2,12 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import React from "react";
 import Typewriter from "typewriter-effect";
 import LandImg from "../../assets/landingImg.png";
+
 import classes from "./Home.module.css";
+import Year from "../../components/Year/Year";
 import Features from "../../components/Featuers/Features";
-import Footer from "../../components/Footer/Footer";
-import { Outlet } from "react-router-dom";
-
-
 
 export default function Landing() {
-
   return (
     <>
       <Container className="mainLanding">
@@ -41,7 +38,7 @@ export default function Landing() {
                 منصة الصبـاحـي لشرح منهج الرياضيات
               </Typography>
               <Typography variant="h6">للثانوية العامة</Typography>
-              <Typography className={classes.line}>الصفوف الدارسية</Typography>
+              <Typography  className={classes.line}>الصفوف الدارسية</Typography>
             </Grid>
             <Grid
               item
@@ -68,7 +65,7 @@ export default function Landing() {
         </Grid>
       </Container>
       <Features />
-      <Outlet></Outlet>
+      <Year />
     </>
   );
 }

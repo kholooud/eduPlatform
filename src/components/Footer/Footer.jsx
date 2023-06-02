@@ -28,10 +28,10 @@ export default function Footer() {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
               aria-hidden="true"
               role="img"
-              class="iconify iconify--fa6-brands"
+              className="iconify iconify--fa6-brands"
               width="1em"
               height="1em"
               preserveAspectRatio="xMidYMid meet"
@@ -51,10 +51,10 @@ export default function Footer() {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
               aria-hidden="true"
               role="img"
-              class="iconify iconify--ant-design"
+              className="iconify iconify--ant-design"
               width="1em"
               height="1em"
               preserveAspectRatio="xMidYMid meet"
@@ -68,10 +68,10 @@ export default function Footer() {
             </svg>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
               aria-hidden="true"
               role="img"
-              class="iconify iconify--ant-design"
+              className="iconify iconify--ant-design"
               width="1em"
               height="1em"
               preserveAspectRatio="xMidYMid meet"
@@ -99,10 +99,10 @@ export default function Footer() {
             <Typography variant="span">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
                 aria-hidden="true"
                 role="img"
-                class="iconify iconify--emojione-v1"
+                className="iconify iconify--emojione-v1"
                 width="1em"
                 height="1em"
                 preserveAspectRatio="xMidYMid meet"
@@ -132,10 +132,10 @@ export default function Footer() {
             <Typography xs={2} variant="span">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
                 aria-hidden="true"
                 role="img"
-                class="iconify iconify--emojione-v1"
+                className="iconify iconify--emojione-v1"
                 width="1em"
                 height="1em"
                 preserveAspectRatio="xMidYMid meet"

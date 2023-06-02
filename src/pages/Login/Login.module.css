@@ -1,0 +1,16 @@
+.regForm label {
+    font-family: inherit ;
+  }
+  .regForm svg{
+      color: #06b6d4;
+  }
+  .btn {
+    display: flex;
+    justify-content:center;
+    align-content: center;
+    flex-wrap: nowrap;
+    border-radius: 5px;
+    padding: 10px 0;
+    box-sizing: border-box;
+    transition: all .25s linear;
+  }

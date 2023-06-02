@@ -1,17 +1,15 @@
-import React from 'react'
+import React from "react";
 
-import { Grid, Typography } from '@mui/material'
-
-
+import { Grid, Typography } from "@mui/material";
 
 export default function NotFound() {
-    return (
-        <>
-            
-            <Grid item xs={12}>
-                <Typography variant="h6"> ! عذرًا و لكن هذه الصفحة غير موجودة علي الموقع</Typography>
-            </Grid>
-            
-        </>
-    )
+  return (
+    <>
+      <Grid container xs={12} height={"75vh"} justifyContent={"center"} alignItems={"center"}>
+        <span variant="h6">
+          ! عذرًا و لكن هذه الصفحة غير موجودة علي الموقع
+        </span>
+      </Grid>
+    </>
+  );
 }
