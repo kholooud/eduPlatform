@@ -106,14 +106,11 @@ function App() {
         element={<Root handleThemeMode={setthemeMode} themeMode={themeMode} />}
       >
         <Route index element={<Home />} />
-<<<<<<< HEAD
         <Route path="/Profile" element={<Profile />} >
           <Route path="main" element={<Main/>}></Route>
         </Route>
         <Route path="/Course" element={<Course_Content />} />
-=======
         <Route path="/Course" element={<Course/>}/>
->>>>>>> 5251cdffd36f4b0f69e1f0935ce87d732c62e887
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/Profile" element={<Profile />} />
