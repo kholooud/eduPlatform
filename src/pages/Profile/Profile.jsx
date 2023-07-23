@@ -58,7 +58,7 @@ export default function Profile() {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item container xs={11} md={3} justifyContent={"center"} >
+        <Grid item container xs={12} md={3} justifyContent={"center"} >
           <ProfileTab tabName={"ملف المستخدم"} View={"Main"} active={0}  />
           <ProfileTab tabName={"كورساتي"} View={"MyCourses"} active={0} />
           {/* <ProfileTab tabName={"الامان"} View={"Security"} active={0} /> */}

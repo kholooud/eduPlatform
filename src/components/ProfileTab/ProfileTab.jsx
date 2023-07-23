@@ -15,6 +15,8 @@ export default function ProfileTab({ tabName,View, active }) {
           boxShadow: "3",
           background: active ? "#3b82f6" : "",
           color: active ? "white" : "#3b82f6",
+          margin:"2px",
+          fontSize:"2px"
         }}
       >
         {tabName}
