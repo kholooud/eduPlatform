@@ -7,7 +7,7 @@ import { Outlet } from "react-router-dom";
 export default function Profile() {
   return (
     <Container>
-      <Grid container sx={{ boxShadow: 7 ,background:"white" }}>
+      <Grid container sx={{ boxShadow: 7 ,background:"white",justifyContent:"center" }}>
         <Grid
           item
           container
@@ -58,10 +58,10 @@ export default function Profile() {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item container xs={1} md={3} justifyContent={"center"}>
+        <Grid item container xs={11} md={3} justifyContent={"center"} >
           <ProfileTab tabName={"ملف المستخدم"} View={"Main"} active={0}  />
           <ProfileTab tabName={"كورساتي"} View={"MyCourses"} active={0} />
-          <ProfileTab tabName={"الامان"} View={"Security"} active={0} />
+          {/* <ProfileTab tabName={"الامان"} View={"Security"} active={0} /> */}
           <ProfileTab tabName={"الاكواد"} View={"Codes"} active={0} />
           <ProfileTab tabName={"نتائج الامتحانات"} View={"ExResults"} active={0} />
           <ProfileTab tabName={"الاشعارات"} View={"Notifications"} active={0} />
@@ -69,7 +69,6 @@ export default function Profile() {
         <Grid item container xs={11} md={9} bgcolor={"white"}>
           <Outlet/>
         </Grid>
-    
       </Grid>
     </Container>
   );

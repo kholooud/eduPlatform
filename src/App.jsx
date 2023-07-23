@@ -20,6 +20,8 @@ import NotFound from "./pages/NotFound/NotFound";
 import Root from "./pages/Root/Root";
 import Course_Content from "./components/Course_Content/Course_Content";
 import Course from "./pages/Course/Course";
+import Profile from "./pages/Profile/Profile";
+import Main from "./pages/Profile/ProfileViews/Main/Main";
 
 function App() {
   const themeDefualt = {

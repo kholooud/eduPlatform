@@ -8,6 +8,7 @@ export default function ProfileTab({ tabName,View, active }) {
     <Link to={View}>
       <Grid
         container
+        xs={2}
         md={10}
         className={classes.tab}
         sx={{
