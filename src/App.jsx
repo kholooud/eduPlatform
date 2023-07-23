@@ -19,6 +19,8 @@ import Login from "./pages/Login/Login";
 import NotFound from "./pages/NotFound/NotFound";
 import Root from "./pages/Root/Root";
 import Course_Content from "./components/Course_Content/Course_Content";
+import Profile from "./pages/Profile/Profile";
+import Main from "./pages/Profile/ProfileViews/Main/Main";
 
 function App() {
   const themeDefualt = {
@@ -105,7 +107,10 @@ function App() {
         element={<Root handleThemeMode={setthemeMode} themeMode={themeMode} />}
       >
         <Route index element={<Home />} />
-        <Route path="/Course" element={<Course_Content/>}/>
+        <Route path="/Profile" element={<Profile />} >
+          <Route path="main" element={<Main/>}></Route>
+        </Route>
+        <Route path="/Course" element={<Course_Content />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
