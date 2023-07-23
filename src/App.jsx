@@ -19,7 +19,7 @@ import Login from "./pages/Login/Login";
 import NotFound from "./pages/NotFound/NotFound";
 import Root from "./pages/Root/Root";
 import Course_Content from "./components/Course_Content/Course_Content";
-import Profile from "./pages/Profile/Profile";
+import Course from "./pages/Course/Course";
 
 function App() {
   const themeDefualt = {
@@ -106,7 +106,14 @@ function App() {
         element={<Root handleThemeMode={setthemeMode} themeMode={themeMode} />}
       >
         <Route index element={<Home />} />
-        <Route path="/Course" element={<Course_Content/>}/>
+<<<<<<< HEAD
+        <Route path="/Profile" element={<Profile />} >
+          <Route path="main" element={<Main/>}></Route>
+        </Route>
+        <Route path="/Course" element={<Course_Content />} />
+=======
+        <Route path="/Course" element={<Course/>}/>
+>>>>>>> 5251cdffd36f4b0f69e1f0935ce87d732c62e887
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/Profile" element={<Profile />} />
