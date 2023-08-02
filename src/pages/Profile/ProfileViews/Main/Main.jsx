@@ -6,7 +6,7 @@ import PhoneEnabledOutlinedIcon from "@mui/icons-material/PhoneEnabledOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import { EmailOutlined } from "@mui/icons-material";
 import Classes from "./Main.module.css";
-import CircularProgress from "@mui/joy/CircularProgress";
+
 export default function Main() {
   return (
     <Grid
@@ -144,12 +144,12 @@ export default function Main() {
           <Grid
             item
             xs={4}
-            bgcolor={"aliceblue"}
+            bgcolor={""}
             sx={{ display: "flex", justifyContent: "center" }}
           >
           </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </Grid >
   );
 }
