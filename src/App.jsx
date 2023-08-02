@@ -110,7 +110,7 @@ function App() {
       >
         <Route index element={<Home />} />
         <Route path="/Profile" element={<Profile />} >
-          <Route path="Main" element={<Main />}></Route>
+          <Route index  element={<Main />}></Route>
           <Route path="Code" element={<Code />}></Route>
         </Route>
         <Route path="/Course" element={<Course_Content />} />

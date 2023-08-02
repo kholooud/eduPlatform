@@ -1,13 +1,12 @@
 import { Box, Container, Grid } from "@mui/material";
 import React, { useState } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import PersonIcon from "@mui/icons-material/Person";
 import ProfileTab from "../../components/ProfileTab/ProfileTab";
 import { Outlet, useLocation } from "react-router-dom";
 export default function Profile() {
   const location = useLocation();
   const current = (((location.pathname).split('/')).slice(-1));
-  console.log(current);
   return (
     <Container>
       <Grid container sx={{ boxShadow: 7, background: "white", justifyContent: "center", marginY: "1rem", paddingBottom: "1rem" }}>
@@ -64,7 +63,7 @@ export default function Profile() {
           </Grid>
         </Grid>
         <Grid item container xs={12} md={3}  sx={{justifyContent:"center",alignContent:"start"}} >
-          <ProfileTab tabName={"ملف المستخدم"} View={"Main"} current={current} />
+          <ProfileTab tabName={"ملف المستخدم"} View={"Profile"} current={current} icon={<PersonIcon/>}/>
           <ProfileTab tabName={"كورساتي"} View={"MyCourses"} current={current} />
           <ProfileTab tabName={"الاكواد"} View={"Code"} current={current} />
           <ProfileTab tabName={"نتائج الامتحانات"} View={"ExResults"} current={current} />
