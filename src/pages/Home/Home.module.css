@@ -2,6 +2,7 @@
   position: relative;
   color: aqua;
 }
+
 .line::before,
 .line::after {
   content: " ";
@@ -11,12 +12,15 @@
   background-color: aqua;
   top: 50%;
 }
+
 .line::after {
   left: 65%;
 }
+
 .line::before {
   right: 65%;
 }
+
 .circle {
   position: relative;
   width: 50px;
@@ -27,6 +31,7 @@
   align-items: center;
   font-size: 1.3rem;
 }
+
 .circle::after {
   content: " ";
   position: absolute;

@@ -6,8 +6,18 @@ import LandImg from "../../assets/landingImg.png";
 import classes from "./Home.module.css";
 import Year from "../../components/Year/Year";
 import Features from "../../components/Featuers/Features";
+import Subjects from "../../components/Subjects/Subjects"
 
 export default function Landing() {
+  let authintication;
+  let subjectComponent;
+  switch (authintication) {
+    case 1:
+      subjectComponent = <Subjects />
+
+    case 2:
+      subjectComponent = <Year />
+  }
   return (
     <>
       <Container className="mainLanding">
@@ -38,7 +48,7 @@ export default function Landing() {
                 منصة الصبـاحـي لشرح منهج الرياضيات
               </Typography>
               <Typography variant="h6">للثانوية العامة</Typography>
-              <Typography  className={classes.line}>الصفوف الدارسية</Typography>
+              <Typography className={classes.line}>الصفوف الدارسية</Typography>
             </Grid>
             <Grid
               item
@@ -65,7 +75,7 @@ export default function Landing() {
         </Grid>
       </Container>
       <Features />
-      <Year />
+      {authintication ? <Subjects /> : <Year />}
     </>
   );
 }

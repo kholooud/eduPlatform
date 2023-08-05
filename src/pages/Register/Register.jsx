@@ -199,7 +199,7 @@ export default function Register() {
             container
             item
             xs={10}
-            
+
             justifyContent={"start"}
             alignItems={"center"}
           >

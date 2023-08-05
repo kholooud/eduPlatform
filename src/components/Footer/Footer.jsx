@@ -94,7 +94,7 @@ export default function Footer() {
             width: "60%",
           }}
         ></Box>
-        <Grid container sx={{ margin: ".5rem", color: "#fff",justifyContent:"center"}}>
+        <Grid container sx={{ margin: ".5rem", color: "#fff", justifyContent: "center" }}>
           <Grid item xs={1} textAlign={"end"}>
             <Typography variant="span">
               <svg
@@ -158,8 +158,8 @@ export default function Footer() {
             </Typography>
           </Grid>
         </Grid>
-        <Box sx={{ dir: "ltr", margin: ".5rem" ,textAlign:"center",color:"#646f7e"}}>
-          Developed By se3a All Copy Rights Reserved @2023
+        <Box sx={{ dir: "ltr", margin: ".5rem", textAlign: "center", color: "#646f7e" }}>
+          Developed By Se3a , Kholoud All Copy Rights Reserved @2023
         </Box>
       </Container>
     </Box>

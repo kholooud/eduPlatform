@@ -3,9 +3,10 @@
   filter: contrast(1);
   width: 150px;
 }
+
 .btn {
   display: flex;
-  justify-content:center;
+  justify-content: center;
   align-content: center;
   flex-wrap: nowrap;
   border-radius: 5px;
@@ -13,12 +14,14 @@
   box-sizing: border-box;
   transition: all .25s linear;
 }
+
 .switch {
   border-radius: 25px;
   font-size: 25px;
   aspect-ratio: 2/1;
 }
-.switch > div {
+
+.switch>div {
   border: 1px solid transparent;
   width: 25px;
   height: 25px;

@@ -12,20 +12,23 @@ import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { prefixer } from "stylis";
 import stylisRTLPlugin from "stylis-plugin-rtl";
-
 import Home from "./pages/Home/Home";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
 import NotFound from "./pages/NotFound/NotFound";
 import Root from "./pages/Root/Root";
-import Course_Content from "./components/Course_Content/Course_Content";
 import Course from "./pages/Course/Course";
-import Profile from "./pages/Profile/Profile";
-import Main from "./pages/Profile/ProfileViews/Main/Main";
+import Courses from "./components/Courses/Courses";
+import Invoice from "./pages/Invoice/Invoice";
+import HomeWork from "./pages/HomeWork/HomeWork";
+import Exam from "./pages/Exam/Exam";
 import MyCourses from "./pages/Profile/ProfileViews/MyCourses/MyCourses";
 import ExResults from "./pages/Profile/ProfileViews/ExResults/ExResults";
 import Notifications from "./pages/Profile/ProfileViews/Notifications/Notifications";
-import Code from "./pages/Profile/ProfileViews/Code/Code";
+import Video from "./pages/video/Video";
+
+
+
 
 function App() {
   const themeDefualt = {
@@ -129,7 +132,11 @@ function App() {
         <Route path="/Course" element={<Course />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
-        <Route path="/Profile" element={<Profile />} />
+        <Route path="/Courses" element={<Courses />} />
+        <Route path="/Invoice" element={<Invoice />} />
+        <Route path="/Exam" element={<Exam />} />
+        <Route path="/HomeWork" element={<HomeWork />} />
+        <Route path="/Video" element={<Video />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     )
@@ -143,7 +150,7 @@ function App() {
           <CssBaseline />
           <>
             <RouterProvider router={routers} />
-            {/* <Course_Content /> */}
+            {/* <Course_card /> */}
           </>
         </ThemeProvider>
       </CacheProvider>

@@ -9,13 +9,16 @@
   margin: .5rem !important;
   transition: all .5s ease;
 }
-.socialIcon > :nth-child(1){
-    position: relative;    
+
+.socialIcon> :nth-child(1) {
+  position: relative;
 }
-.socialIcon > :nth-child(2){
-    position: absolute;
-    scale: .8;
+
+.socialIcon> :nth-child(2) {
+  position: absolute;
+  scale: .8;
 }
-.socialIcon:hover{
+
+.socialIcon:hover {
   transform: scale(1.1);
 }

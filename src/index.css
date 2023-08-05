@@ -19,18 +19,8 @@ input {
 a {
   display: contents;
   text-decoration: none;
-  color: inherit;
 }
-/* 
-::-webkit-scrollbar {
-  width: 10px;
+
+.Mui-expanded>#panel1a-header {
+  background-color: #ffe4e6 !important;
 }
-::-webkit-scrollbar-track{
-  background-color: #e0e0e0;
-}
-::-webkit-scrollbar-thumb{
-  background-color: #888;
-}
-::-webkit-scrollbar-thumb:hover{
-  background-color: #555;
-} */

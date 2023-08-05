@@ -7,6 +7,125 @@ import year2 from "../../assets/year2.jpeg";
 import year3 from "../../assets/year3.jpeg";
 
 export default function Year() {
+  let year_id;
+  let yearComponent;
+
+  switch (year_id) {
+    case 1:
+      yearComponent = <Grid item xs={12} md={4} padding={2} marginBottom={5}>
+        <Box sx={{ width: "100%", position: "relative" }}>
+          <Box sx={{ borderRadius: ".2rem", overflow: "hidden" }}>
+            <img src={year3} className={classes.yearImg} />
+          </Box>
+          <Stack
+            padding={2}
+            spacing={1}
+            sx={{
+              boxShadow: "3",
+              borderRadius: "5px",
+              width: "80%",
+              margin: "auto",
+              position: "absolute",
+              bottom: "0%",
+              left: "50%",
+              bgcolor: "primary.main",
+              zIndex: 555,
+              transform: "translate(-50%,45%)",
+              "&:hover": {
+                transform: "translate(-50%,45%) scale(1.05)",
+              },
+            }}
+          >
+            <Box> الصف الدراسي الاول </Box>
+            <Box
+              sx={{
+                background: "#2dd4bf",
+                width: "100%",
+                height: "3px",
+              }}
+            ></Box>
+            <Box>جميع كورسات الصف الاول الثانوي</Box>
+          </Stack>
+        </Box>
+      </Grid>
+      break;
+    case 2:
+      yearComponent = <Grid item xs={12} md={4} padding={2} marginBottom={5}>
+        <Box sx={{ width: "100%", position: "relative" }}>
+          <Box sx={{ borderRadius: ".2rem", overflow: "hidden" }}>
+            <img src={year2} className={classes.yearImg} />
+          </Box>
+          <Stack
+            padding={2}
+            spacing={1}
+            sx={{
+              boxShadow: "3",
+              borderRadius: "5px",
+              width: "80%",
+              margin: "auto",
+              position: "absolute",
+              bottom: "0%",
+              left: "50%",
+              zIndex: 555,
+              bgcolor: "primary.main",
+              transform: "translate(-50%,45%)",
+              "&:hover": {
+                transform: "translate(-50%,45%) scale(1.05)",
+              },
+            }}
+          >
+            <Box> الصف الدراسي الثاني </Box>
+            <Box
+              sx={{
+                background: "#2dd4bf",
+                width: "100%",
+                height: "3px",
+              }}
+            ></Box>
+            <Box>جميع كورسات الصف الثاني الثانوي</Box>
+          </Stack>
+        </Box>
+      </Grid>
+      break;
+    case 3:
+      yearComponent = <Grid item xs={12} md={4} padding={2} marginBottom={5}>
+        <Box sx={{ width: "100%", position: "relative" }}>
+          <Box sx={{ borderRadius: ".2rem", overflow: "hidden" }}>
+            <img src={year1} className={classes.yearImg} />
+          </Box>
+          <Stack
+            padding={2}
+            spacing={1}
+            sx={{
+              boxShadow: "3",
+              borderRadius: "5px",
+              width: "80%",
+              margin: "auto",
+              position: "absolute",
+              bottom: "0%",
+              left: "50%",
+              zIndex: 555,
+              bgcolor: "primary.main",
+              transform: "translate(-50%,45%)",
+              "&:hover": {
+                transform: "translate(-50%,45%) scale(1.05)",
+              },
+            }}
+          >
+            <Box> الصف الدراسي الثالث </Box>
+            <Box
+              sx={{
+                background: "#2dd4bf",
+                width: "100%",
+                height: "3px",
+              }}
+            ></Box>
+            <Box>جميع كورسات الصف الثالث الثانوي</Box>
+          </Stack>
+        </Box>
+      </Grid>
+      break;
+  }
   return (
     <Box
       bgcolor={"#fde047"}
@@ -14,7 +133,7 @@ export default function Year() {
       flexDirection={"column"}
       justifyContent={"center"}
       alignItems={"center"}
-      sx={{ paddingY: "3rem",marginY:"3rem" ,overflow:"hidden"}}
+      sx={{ paddingY: "3rem", marginY: "3rem", overflow: "hidden" }}
     >
       <Box className={classes.x}>
         الصفوف الدارسية
@@ -28,11 +147,11 @@ export default function Year() {
             borderRadius: ".2rem",
             boxSizing: "border-box",
             minHeight: "20rem",
-             zIndex:"55",
-            position:"relative"
+            zIndex: "55",
+            position: "relative"
           }}
         >
-          <Grid item xs={12} md={4} padding={2} marginBottom={5}>
+          {yearComponent ? yearComponent : <> <Grid item xs={12} md={4} padding={2} marginBottom={5}>
             <Box sx={{ width: "100%", position: "relative" }}>
               <Box sx={{ borderRadius: ".2rem", overflow: "hidden" }}>
                 <img src={year3} className={classes.yearImg} />
@@ -48,7 +167,7 @@ export default function Year() {
                   position: "absolute",
                   bottom: "0%",
                   left: "50%",
-                  bgcolor:"primary.main",
+                  bgcolor: "primary.main",
                   zIndex: 555,
                   transform: "translate(-50%,45%)",
                   "&:hover": {
@@ -56,7 +175,7 @@ export default function Year() {
                   },
                 }}
               >
-                <Box> الصف الدراسي الاول </Box>
+                <Box>الصف الأول الثانوي</Box>
                 <Box
                   sx={{
                     background: "#2dd4bf",
@@ -68,78 +187,79 @@ export default function Year() {
               </Stack>
             </Box>
           </Grid>
-          <Grid item xs={12} md={4} padding={2} marginBottom={5}>
-            <Box sx={{ width: "100%", position: "relative" }}>
-              <Box sx={{ borderRadius: ".2rem", overflow: "hidden" }}>
-                <img src={year2} className={classes.yearImg} />
-              </Box>
-              <Stack
-                padding={2}
-                spacing={1}
-                sx={{
-                  boxShadow: "3",
-                  borderRadius: "5px",
-                  width: "80%",
-                  margin: "auto",
-                  position: "absolute",
-                  bottom: "0%",
-                  left: "50%",
-                  zIndex: 555,
-                  bgcolor: "primary.main",
-                  transform: "translate(-50%,45%)",
-                  "&:hover": {
-                    transform: "translate(-50%,45%) scale(1.05)",
-                  },
-                }}
-              >
-                <Box> الصف الدراسي الثاني </Box>
-                <Box
+            <Grid item xs={12} md={4} padding={2} marginBottom={5}>
+              <Box sx={{ width: "100%", position: "relative" }}>
+                <Box sx={{ borderRadius: ".2rem", overflow: "hidden" }}>
+                  <img src={year2} className={classes.yearImg} />
+                </Box>
+                <Stack
+                  padding={2}
+                  spacing={1}
                   sx={{
-                    background: "#2dd4bf",
-                    width: "100%",
-                    height: "3px",
+                    boxShadow: "3",
+                    borderRadius: "5px",
+                    width: "80%",
+                    margin: "auto",
+                    position: "absolute",
+                    bottom: "0%",
+                    left: "50%",
+                    zIndex: 555,
+                    bgcolor: "primary.main",
+                    transform: "translate(-50%,45%)",
+                    "&:hover": {
+                      transform: "translate(-50%,45%) scale(1.05)",
+                    },
                   }}
-                ></Box>
-                <Box>جميع كورسات الصف الثاني الثانوي</Box>
-              </Stack>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={4} padding={2} marginBottom={5}>
-            <Box sx={{ width: "100%", position: "relative" }}>
-              <Box sx={{ borderRadius: ".2rem", overflow: "hidden" }}>
-                <img src={year1} className={classes.yearImg} />
+                >
+                  <Box>الصف الثاني الثانوي</Box>
+                  <Box
+                    sx={{
+                      background: "#2dd4bf",
+                      width: "100%",
+                      height: "3px",
+                    }}
+                  ></Box>
+                  <Box>جميع كورسات الصف الثاني الثانوي</Box>
+                </Stack>
               </Box>
-              <Stack
-                padding={2}
-                spacing={1}
-                sx={{
-                  boxShadow: "3",
-                  borderRadius: "5px",
-                  width: "80%",
-                  margin: "auto",
-                  position: "absolute",
-                  bottom: "0%",
-                  left: "50%",
-                  zIndex: 555,
-                  bgcolor: "primary.main",
-                  transform: "translate(-50%,45%)",
-                  "&:hover": {
-                    transform: "translate(-50%,45%) scale(1.05)",
-                  },
-                }}
-              >
-                <Box> الصف الدراسي الثالث </Box>
-                <Box
+            </Grid>
+            <Grid item xs={
+              12} md={4} padding={2} marginBottom={5}>
+              <Box sx={{ width: "100%", position: "relative" }}>
+                <Box sx={{ borderRadius: ".2rem", overflow: "hidden" }}>
+                  <img src={year1} className={classes.yearImg} />
+                </Box>
+                <Stack
+                  padding={2}
+                  spacing={1}
                   sx={{
-                    background: "#2dd4bf",
-                    width: "100%",
-                    height: "3px",
+                    boxShadow: "3",
+                    borderRadius: "5px",
+                    width: "80%",
+                    margin: "auto",
+                    position: "absolute",
+                    bottom: "0%",
+                    left: "50%",
+                    zIndex: 555,
+                    bgcolor: "primary.main",
+                    transform: "translate(-50%,45%)",
+                    "&:hover": {
+                      transform: "translate(-50%,45%) scale(1.05)",
+                    },
                   }}
-                ></Box>
-                <Box>جميع كورسات الصف الثالث الثانوي</Box>
-              </Stack>
-            </Box>
-          </Grid>
+                >
+                  <Box>الصف الثالث الثانوي</Box>
+                  <Box
+                    sx={{
+                      background: "#2dd4bf",
+                      width: "100%",
+                      height: "3px",
+                    }}
+                  ></Box>
+                  <Box>جميع كورسات الصف الثالث الثانوي</Box>
+                </Stack>
+              </Box>
+            </Grid></>}
         </Grid>
       </Container>
     </Box>
