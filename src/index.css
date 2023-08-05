@@ -19,6 +19,7 @@ input {
 a {
   display: contents;
   text-decoration: none;
+  color: inherit;
 }
 
 .Mui-expanded>#panel1a-header {

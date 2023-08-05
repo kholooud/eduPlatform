@@ -26,10 +26,10 @@ import MyCourses from "./pages/Profile/ProfileViews/MyCourses/MyCourses";
 import ExResults from "./pages/Profile/ProfileViews/ExResults/ExResults";
 import Notifications from "./pages/Profile/ProfileViews/Notifications/Notifications";
 import Video from "./pages/video/Video";
-
-
-
-
+import Profile from "./pages/Profile/Profile";
+import Main from "./pages/Profile/ProfileViews/Main/Main";
+import Code from "./pages/Profile/ProfileViews/Code/Code";
+import Course_Content from "./components/Course_Content/Course_Content";
 function App() {
   const themeDefualt = {
     transitions: {
