@@ -1,0 +1,15 @@
+.hr {
+   background-color: #d1d5db;
+   height: 4px;
+   float: right;
+   clear: both;
+   margin-top: 8px;
+   border-radius: 10pc;
+}
+
+.dot {
+   width: 15px;
+   height: 15px;
+   border-radius: 50%;
+   display: inline-block;
+}

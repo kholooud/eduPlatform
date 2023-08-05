@@ -1,0 +1,56 @@
+.line {
+  position: relative;
+  color: aqua;
+}
+
+.line::before,
+.line::after {
+  content: " ";
+  position: absolute;
+  width: 25%;
+  height: 2px;
+  background-color: aqua;
+  top: 50%;
+}
+
+.line::after {
+  left: 65%;
+}
+
+.line::before {
+  right: 65%;
+}
+
+.circle {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+}
+
+.circle::after {
+  content: " ";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: dashed 2px;
+  animation: spin-clockwise 8s infinite linear;
+}
+
+
+@keyframes spin-clockwise {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
+}

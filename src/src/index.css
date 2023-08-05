@@ -1,0 +1,26 @@
+.Typewriter__wrapper,
+.Typewriter__cursor {
+  font-size: 75px;
+}
+
+body {
+  background-image: url("./assets/bgImage.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  font-family: "Cairo", "Aref Ruqaa", serif !important;
+  transition: all 0.25s ease-in-out;
+}
+
+input {
+  color: inherit !important;
+  font-family: "Cairo", "Aref Ruqaa", serif !important;
+}
+
+a {
+  display: contents;
+  text-decoration: none;
+}
+
+.Mui-expanded>#panel1a-header {
+  background-color: #ffe4e6 !important;
+}
