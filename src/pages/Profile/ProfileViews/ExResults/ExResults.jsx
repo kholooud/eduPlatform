@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
 import Table from '../../../../components/Table/Table';
+import { Link } from 'react-router-dom';
 
 const columns = [
     {
@@ -8,11 +8,6 @@ const columns = [
         headerName: '',
         width: 50,
         align: 'center'
-    },
-    {
-        field: 'code',
-        headerName: 'الكود',
-        width: 120
     },
     {
         field: 'session',
@@ -58,10 +53,8 @@ const rows = [
     { xid: 13, code: 'jghfkf', session: 'المحاضرة الاولة', useData: '23/7/2023', status: "انتهي" },
     { xid: 1, code: 'jghfhk', session: 'المحاضرة الاولة', useData: '23/7/2023', status: "شاغل" },
 ];
-
-export default function Code() {
-
-    return (
-        <Table rows={rows} columns={columns}/>
-    );
+export default function ExResults() {
+  return (
+    <Table rows={rows} columns={columns} isLodaing={true}/>
+  )
 }

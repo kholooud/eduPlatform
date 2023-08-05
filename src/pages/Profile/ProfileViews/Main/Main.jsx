@@ -76,8 +76,8 @@ export default function Main() {
           </Box>
         </Grid>
       </Grid>
-      <div className={Classes.breakLine}></div>
-      <Grid className="statistics" item container xs={11}>
+      {/* <div className={Classes.breakLine}></div> */}
+      {/* <Grid className="statistics" item container xs={11}>
         <Grid
           className="header"
           item
@@ -149,7 +149,7 @@ export default function Main() {
           >
           </Grid>
         </Grid>
-      </Grid>
+      </Grid> */}
     </Grid >
   );
 }
