@@ -4,12 +4,15 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonIcon from "@mui/icons-material/Person";
 import ProfileTab from "../../components/ProfileTab/ProfileTab";
 import { Outlet, useLocation } from "react-router-dom";
+import { useTheme } from "@emotion/react";
 export default function Profile() {
+  const theme = useTheme();
   const location = useLocation();
   const current = (((location.pathname).split('/')).slice(-1));
+  console.log(current);
   return (
     <Container>
-      <Grid container sx={{ boxShadow: 7, background: "white", justifyContent: "center", marginY: "1rem", paddingBottom: "1rem" }}>
+      <Grid container sx={{ boxShadow: 7, background: theme.palette.primary.sec, justifyContent: "center", marginY: "1rem", paddingBottom: "1rem" }}>
         <Grid
           item
           container
@@ -21,14 +24,14 @@ export default function Profile() {
             xs={10}
             md={4}
             sx={{
-              background: "white",
+              background: "inherit",
               borderRadius: "9999px",
               display: "flex",
               flexWrap: "nowrap",
               margin: "2rem",
               boxShadow: 2,
-              justifyContent:"start"
-              
+              justifyContent: "start"
+
             }}
           >
             <Grid
@@ -39,12 +42,15 @@ export default function Profile() {
                 overflow: "hidden",
                 display: "flex",
                 borderRadius: "9999px",
+                justifyContent: "center",
+                alignItems: "center"
               }}
             >
               <AccountCircleIcon
                 sx={{
-                  fontSize: {md:"4rem" , xs:"2rem"},
-                  color: "#3b82f6",
+                  fontSize: { md: "4rem", xs: "2rem" },
+                  color: theme.palette.primary.active,
+                  // color: "#3b82f6",
                 }}
               />
             </Grid>
@@ -52,10 +58,13 @@ export default function Profile() {
               item
               xs={8}
               sx={{
-                fontSize: "1.7rem",
+                fontSize: { xs: "1.3rem", md: "1.7rem" },
                 textAlign: "center",
                 padding: "5px",
                 boxSizing: "border-box",
+                display: 'flex',
+                justifyContent: "center",
+                alignItems: "center"
               }}
             >
               ملف المستخدم
@@ -69,7 +78,7 @@ export default function Profile() {
           <ProfileTab tabName={"نتائج الامتحانات"} View={"ExResults"} current={current} />
           <ProfileTab tabName={"الاشعارات"} View={"Notifications"} current={current} />
         </Grid>
-        <Grid item container xs={11} md={9}  sx={{background:"white",minHeight:"60vh"}}>
+        <Grid item container xs={11} md={9} sx={{ background: "inherit", minHeight: "60vh" }}>
           <Outlet />
         </Grid>
       </Grid>

@@ -48,6 +48,9 @@ function App() {
       mode: "light",
       primary: {
         main: "#FFF",
+        sec: "FFF",
+        active:"#3b82f6",
+        table:"#f7f7f7"
       },
       secondary: {
         main: "#06b6d4",
@@ -75,6 +78,9 @@ function App() {
       mode: "dark",
       primary: {
         main: "#080c14",
+        sec: "#334155",
+        active:"#FFF",
+        table:"#172539"
       },
       secondary: {
         main: "#06b6d4",

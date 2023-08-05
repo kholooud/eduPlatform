@@ -12,9 +12,9 @@ function CustomColumnMenu(props) {
                 columnMenuColumnsItem: null,
             }}
             sx={{
-                minWidth: '130px', background: 'red',color:'white',
-                '& .MuiButtonBase-root':{
-                    fontFamily:"Cairo !important",
+                minWidth: '130px', background: 'red', color: 'white',
+                '& .MuiButtonBase-root': {
+                    fontFamily: "Cairo !important",
                 }
             }}
         />
@@ -33,6 +33,8 @@ const columns = [
     {
         field: "id",
         headerName: '',
+        width: 50,
+        align: 'center'
     },
     {
         field: 'code',
@@ -44,7 +46,7 @@ const columns = [
         headerName: 'المحاضرة',
         width: 200,
         renderCell: (params) => (
-            <Link to={`/${params.row.xid}`}>{params.value}</Link>
+            <Link to={`/${params.row.xid}`} >{params.value}</Link>
         )
     },
     {
@@ -89,9 +91,9 @@ export default function Code() {
 
     return (
         <Box sx={{
-            minHeight: "100%",maxHeight:"100%", width: '100%', padding: "1rem", boxSizing: "border-box",
+            minHeight: "100%", maxHeight: "100%", width: '100%', padding: "1rem", boxSizing: "border-box",
             "& .MuiDataGrid-root": {
-                background: "#f7f7f7",
+                background: theme.palette.primary.table,
                 fontFamily: 'inherit',
             },
             "& .MuiDataGrid-columnHeaderTitle": {
