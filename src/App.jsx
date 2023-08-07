@@ -1,35 +1,11 @@
-import { useState } from "react";
-
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-} from "react-router-dom";
-
+import routers from "./components/routes.jsx";
+import { RouterProvider } from "react-router-dom";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { prefixer } from "stylis";
 import stylisRTLPlugin from "stylis-plugin-rtl";
-import Home from "./pages/Home/Home";
-import Register from "./pages/Register/Register";
-import Login from "./pages/Login/Login";
-import NotFound from "./pages/NotFound/NotFound";
-import Root from "./pages/Root/Root";
-import Course from "./pages/Course/Course";
-import Courses from "./components/Courses/Courses";
-import Invoice from "./pages/Invoice/Invoice";
-import HomeWork from "./pages/HomeWork/HomeWork";
-import Exam from "./pages/Exam/Exam";
-import MyCourses from "./pages/Profile/ProfileViews/MyCourses/MyCourses";
-import ExResults from "./pages/Profile/ProfileViews/ExResults/ExResults";
-import Notifications from "./pages/Profile/ProfileViews/Notifications/Notifications";
-import Video from "./pages/video/Video";
-import Profile from "./pages/Profile/Profile";
-import Main from "./pages/Profile/ProfileViews/Main/Main";
-import Code from "./pages/Profile/ProfileViews/Code/Code";
-import Course_Content from "./components/Course_Content/Course_Content";
+
 function App() {
   const themeDefualt = {
     transitions: {
@@ -113,44 +89,17 @@ function App() {
     key: "muirtl",
     stylisPlugins: [prefixer, stylisRTLPlugin],
   });
-  const [themeMode, setthemeMode] = useState("themeLight");
-  const routers = createBrowserRouter(
-    createRoutesFromElements(
-      <Route
-        path="/"
-        element={<Root handleThemeMode={setthemeMode} themeMode={themeMode} />}
-      >
-        <Route index element={<Home />} />
-        <Route path="/Profile" element={<Profile />}>
-          <Route index element={<Main />}></Route>
-          <Route path="Code" element={<Code />}></Route>
-          <Route path="MyCourses" element={<MyCourses />}></Route>
-          <Route path="ExResults" element={<ExResults />}></Route>
-          <Route path="Notifications" element={<Notifications />}></Route>
-        </Route>
-        <Route path="/Course" element={<Course_Content />} />
-        <Route path="/Course" element={<Course />} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/Register" element={<Register />} />
-        <Route path="/Courses" element={<Courses />} />
-        <Route path="/Invoice" element={<Invoice />} />
-        <Route path="/Exam" element={<Exam />} />
-        <Route path="/HomeWork" element={<HomeWork />} />
-        <Route path="/Video" element={<Video />} />
-        <Route path="*" element={<NotFound />} />
-      </Route>
-    )
-  );
+  console.log(routers);
   return (
     <>
       <CacheProvider value={cacheRtl}>
         <ThemeProvider
-          theme={themeMode == "themeLight" ? themeLight : themeDark}
+          // theme={themeMode == "themeLight" ? themeLight : themeDark}
+          theme={themeLight}
         >
           <CssBaseline />
           <>
-            <RouterProvider router={routers} />
-            {/* <Course_card /> */}
+            <RouterProvider router={routers()} />
           </>
         </ThemeProvider>
       </CacheProvider>
