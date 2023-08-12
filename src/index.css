@@ -25,3 +25,7 @@ a {
 .Mui-expanded>#panel1a-header {
   background-color: #ffe4e6 !important;
 }
+.toast-message{
+  border-radius: 15px;
+  width: fit-content;
+}

@@ -28,7 +28,7 @@ export default function routes() {
   const routers = createBrowserRouter([
     {
       path: "",
-      element: <Root />,
+      // element: <Root />,
       element: <Root handleThemeMode={setthemeMode} themeMode={themeMode} />,
       children: [
         {
@@ -51,14 +51,14 @@ export default function routes() {
             { path: "Notifications", element: <Notifications /> },
           ],
         },
-        {
-          path: "/Course",
-          element: (
-            <ProtectedRoute>
-              <Course_Content />
-            </ProtectedRoute>
-          ),
-        },
+        // {
+        //   path: "/Course",
+        //   element: (
+        //     <ProtectedRoute>
+        //       <Course_Content />
+        //     </ProtectedRoute>
+        //   ),
+        // },
         {
           path: "/Course",
           element: (

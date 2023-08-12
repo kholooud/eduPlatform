@@ -9,11 +9,11 @@ export default function Root({ handleThemeMode, themeMode }) {
   return (
     <>
       <Navbar handleThemeMode={handleThemeMode} themeMode={themeMode} />
-      <HandleErr/>
       <Container sx={{ minHeight: "60vh", "&> div": { borderRadius: "5px" } }}>
         <Outlet />
       </Container>
       <Footer />
+      <HandleErr />
     </>
   );
 }

@@ -11,7 +11,7 @@ import { position } from "stylis";
 export default function Navbar({ handleThemeMode, themeMode }) {
   const theme = useTheme();
   const [progress, setProgress] = useState(0);
-  const [logRegDIV, setlogRegDIV] = useState(true);
+  const [logRegDIV, setlogRegDIV] = useState(false);
   function scorllIndector() {
     var winScroll =
       document.body.scrollTop || document.documentElement.scrollTop;
