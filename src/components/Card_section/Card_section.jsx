@@ -1,13 +1,31 @@
 import { Container } from '@mui/system';
 import React from 'react'
-import classes from "../Course_Header/Course_Header";
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Chip, Grid, Stack, Typography } from '@mui/material'
+import classes from "./Card.module.css";
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Chip, Dialog, DialogActions, DialogContent , DialogTitle, Grid, Stack, TextField, Typography } from '@mui/material'
 import courseimg from "../../assets/course_content.jpg"
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import AccessTimeTwoToneIcon from '@mui/icons-material/AccessTimeTwoTone';
 import HelpTwoToneIcon from '@mui/icons-material/HelpTwoTone';
+import Video from '../../pages/video/Video';
+import { Navigate } from 'react-router-dom';
+
+
 
 export default function Card_section() {
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    const handleRedirect =() => {
+        Navigate('/video', { replace: true });
+    }
+  
     return (
         <Container>
             <Box
@@ -18,7 +36,7 @@ export default function Card_section() {
                 }}>
                 <Grid container >
                     <Grid xs={12} md={8}>
-                        <Card sx={{ minWidth: { md: "50%", xs: "20%" }, margin: "1rem" }}>
+                        <Card sx={{ minWidth: { md: "50%" }, display:{md: "block" ,xs: "none"}, margin: "1rem" }}>
                             <CardMedia
                                 component="img"
                                 height="50%"
@@ -58,7 +76,45 @@ export default function Card_section() {
                                 </Stack>
                             </CardContent>
                             <CardActions sx={{ justifyContent: "center" }}>
-                                <Button className={classes.ButtonHover} sx={{ color: "white", backgroundColor: "#3b82f6", fontFamily: "inherit" }} size="large" variant="outlined">اشترك الأن !</Button>
+
+
+
+
+
+                                <div>
+                                    <Button variant="outlined" color='secondary' sx={{ fontFamily: "inherit" }} size="large" onClick={handleClickOpen}>
+                                    اشترك الأن !
+                                    </Button>
+                                    <Dialog open={open} onClose={handleClose} sx={{padding:{md:"2rem !important",xs:"1rem"}}} >
+                                        <DialogTitle sx={{ fontFamily: "inherit", paddingTop:"2rem"}} textAlign={"center"}>إدخل الكود</DialogTitle>
+                                        <DialogContent >
+                                            <TextField
+                                                autoFocus
+                                                margin="dense"
+                                                id="code"
+                                                label="إدخل الكود"
+                                                type="text"
+                                                fullWidth
+                                                variant="standard"
+                                                color='secondary'
+                                            />
+                                        </DialogContent>
+                                        <DialogActions sx={{alignSelf:"center",paddingBottom:"2rem"}}>
+                                            <Button variant="outlined" color='secondary' sx={{ fontFamily: "inherit" }} size="small" onClick={handleRedirect}>تفعيل</Button>
+                                            <Button variant="outlined" color='secondary' sx={{ fontFamily: "inherit" }} size="small" onClick={handleClose}>إغلاق</Button>
+                                        </DialogActions>
+                                    </Dialog>
+                                </div>
+
+
+
+
+
+
+
+
+
+
                             </CardActions>
                             <CardContent>
                                 <Stack direction="row" sx={{ marginBottom: "0.5rem" }}>

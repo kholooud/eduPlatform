@@ -17,7 +17,7 @@ export default function Course_Content() {
       p={2}
       m={2}
     >
-      <Grid Container sx={{ marginTop: { xs: "20rem", md: "4rem" } }} marginBottom={{ xs: "1rem", md: "4rem" }} py={4}>
+      <Grid Container sx={{ marginTop: { xs: "5rem", md: "4rem" } }} marginBottom={{ xs: "1rem", md: "4rem" }} py={4}>
         <Grid item py={2} sx={{ display: "grid" }}>
           <Box
             component="span"
