@@ -8,6 +8,7 @@ export default function HomeWork() {
         <Container>
             <Course_Header />
             <Question />
+            <Question />
         </Container>
     )
 }

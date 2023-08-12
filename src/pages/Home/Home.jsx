@@ -72,6 +72,7 @@ export default function Landing() {
           <Grid item md={6} display={{ md: "block", xs: "none" }}>
             <img src={LandImg} width={"100%"} />
           </Grid>
+          
         </Grid>
       </Container>
       <Features />

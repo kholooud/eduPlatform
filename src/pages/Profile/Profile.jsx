@@ -13,7 +13,6 @@ export default function Profile() {
   const theme = useTheme();
   const location = useLocation();
   const current = (((location.pathname).split('/')).slice(-1));
-  console.log(current);
   return (
     <Container>
       <Grid container sx={{ boxShadow: 7, background: theme.palette.primary.sec, justifyContent: "center", marginY: "1rem", paddingBottom: "1rem" }}>

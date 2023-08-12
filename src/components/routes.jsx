@@ -19,15 +19,17 @@ import Code from "../pages/Profile/ProfileViews/Code/Code";
 import Course_Content from "./Course_Content/Course_Content";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
+
 
 export default function routes() {
-  // const [themeMode, setthemeMode] = useState("themeLight");
+  const { themeMode, setthemeMode } = useContext(ThemeContext)
   const routers = createBrowserRouter([
     {
       path: "",
       element: <Root />,
-      // element: <Root handleThemeMode={setthemeMode} themeMode={themeMode} />,
+      element: <Root handleThemeMode={setthemeMode} themeMode={themeMode} />,
       children: [
         {
           index: true,
