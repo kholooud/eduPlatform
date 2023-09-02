@@ -10,7 +10,7 @@ export default function Question() {
     const theme = useTheme();
     return (
         <Grid sx={{ boxShadow: 7, padding: 1 }}>
-            <img src={QuestionIMG} width={"60%"} className={classes.img} />
+            <img src={QuestionIMG} width={"100%"} className={classes.img} />
             <Stack direction={"row"} className={classes.buttonBox}>
                 <Button className={classes.button} variant="outlined" color='secondary'>ا</Button>
                 <Button className={classes.button} variant="outlined" color='secondary' >ب</Button>

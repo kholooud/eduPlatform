@@ -81,7 +81,7 @@ export default function Navbar({ handleThemeMode, themeMode }) {
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    xmlnXlink="http://www.w3.org/1999/xlink"
+                    xmlnxlink="http://www.w3.org/1999/xlink"
                     aria-hidden="true"
                     role="img"
                     className="iconify iconify--ri"
@@ -129,7 +129,7 @@ export default function Navbar({ handleThemeMode, themeMode }) {
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    xmlnXlink="http://www.w3.org/1999/xlink"
+                    xmlnxlink="http://www.w3.org/1999/xlink"
                     aria-hidden="true"
                     role="img"
                     className="iconify iconify--ph"
@@ -311,7 +311,7 @@ export default function Navbar({ handleThemeMode, themeMode }) {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                xmlnXlink="http://www.w3.org/1999/xlink"
+                xmlnxlink="http://www.w3.org/1999/xlink"
                 aria-hidden="true"
                 role="img"
                 className="iconify iconify--ri"
@@ -360,7 +360,7 @@ export default function Navbar({ handleThemeMode, themeMode }) {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                xmlnXlink="http://www.w3.org/1999/xlink"
+                xmlnxlink="http://www.w3.org/1999/xlink"
                 aria-hidden="true"
                 role="img"
                 className="iconify iconify--ph"

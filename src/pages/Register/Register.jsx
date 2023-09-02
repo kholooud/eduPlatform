@@ -16,12 +16,14 @@ import { useTheme } from "@emotion/react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { joiResolver } from "@hookform/resolvers/joi";
-import Joi from "joi";
+import Joi, { date } from "joi";
+import axios from "axios";
+import { baseUrl } from "../../api";
 export default function Register() {
   const theme = useTheme("");
   const [year, setyear] = useState("");
   const schema = Joi.object({
-    fristName: Joi.string()
+    full_name: Joi.string()
       .min(2)
       .max(30)
       .required()
@@ -31,15 +33,16 @@ export default function Register() {
         "string.min": "- مفيش اسم الاقل من حرفين",
         "string.pattern.base": "- مينفعش ارقام و علامات",
       }),
-    lastName: Joi.string()
-      .min(2)
-      .max(30)
+    national_id: Joi.string()
+      .min(14)
+      .max(14)
       .required()
-      .regex(/^[\u0621-\u064A ]+$/)
+      .regex(
+        /^([1-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})[0-9]{3}([0-9]{1})[0-9]{1}$/
+      )
       .messages({
-        "string.empty": "- مينفعش الاسم يكون فاضي ",
-        "string.min": "- مفيش اسم الاقل من حرفين",
-        "string.pattern.base": "- مينفعش ارقام و علامات",
+        "string.empty": "- مينفعش الرقم القومي يكون فاضي ",
+        "string.min": " اكتب الرقم القومي صح",
       }),
     phone: Joi.string()
       .regex(/^01[0125][0-9]{8}$/)
@@ -48,14 +51,14 @@ export default function Register() {
         "string.empty": "- مينفعش الرقم يكون فاضي ",
         "string.pattern.base": "- اكتب رقم صح",
       }),
-    fatherPhone: Joi.string()
+    parent_phone: Joi.string()
       .regex(/^01[0125][0-9]{8}$/)
       .required()
       .messages({
         "string.empty": "- مينفعش الرقم يكون فاضي ",
         "string.pattern.base": "- اكتب رقم صح",
       }),
-    year: Joi.string().min(2).required(),
+    year_id: Joi.number().min(1).required(),
     email: Joi.string()
       .email({
         minDomainSegments: 2,
@@ -75,20 +78,28 @@ export default function Register() {
         "string.empty": "- مينفعش كلمة السر تبقي فاضية ",
         "string.pattern.base": "- لازم يكون فيه علامات و ارقام",
       }),
-    confirmPass: Joi.string().valid(Joi.ref("password")).required().messages({
-      "string.empty": "- مينفعش الاسم يكون فاضي ",
-      "any.only": "- لازم يبقي زي كلمة السر",
-    }),
+    password_confirmation: Joi.string()
+      .valid(Joi.ref("password"))
+      .required()
+      .messages({
+        "string.empty": "- مينفعش الاسم يكون فاضي ",
+        "any.only": "- لازم يبقي زي كلمة السر",
+      }),
   });
   const form = useForm({
     resolver: joiResolver(schema),
   });
   const { register, handleSubmit, control, getValues, formState } = form;
   const { errors } = formState;
-  const onSubmit = (data) => {
-    console.log("data", data);
+  const onSubmit = async (data1) => {
+    console.log("data", data1);
+    const  {status}  = await axios.post(`${baseUrl}/student/register`, {
+      ...data1,
+      birth_date: "2000-02-24",
+      semester_id: 2,
+    });
+    console.log("f", status);
   };
-
   const MenuProps = {
     sx: {
       "& .MuiMenu-paper": {
@@ -122,9 +133,9 @@ export default function Register() {
     };
   }
   const years = [
-    { name: "الصف الاول الثانوي", value: "1sec" },
-    { name: "الصف الثاني الثانوي", value: "2sec" },
-    { name: "الصف الثالث الثانوي", value: "3sec" },
+    { name: "الصف الاول الثانوي", value:1 },
+    { name: "الصف الثاني الثانوي", value: 2 },
+    { name: "الصف الثالث الثانوي", value: 3 },
   ];
   return (
     <Container>
@@ -158,7 +169,7 @@ export default function Register() {
           >
             <Grid item xs={1}>
               <svg
-                xmlns="http://www.w3.org/2000/svg"
+                xmlnxlink="http://www.w3.org/2000/svg"
                 data-name="Layer 1"
                 viewBox="0 0 512 512"
               >
@@ -199,7 +210,6 @@ export default function Register() {
             container
             item
             xs={10}
-
             justifyContent={"start"}
             alignItems={"center"}
           >
@@ -211,12 +221,10 @@ export default function Register() {
               paddingBottom={1}
             >
               <TextField
-                // id="standard-basic"
                 label={
                   <>
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlnsXlink="http://www.w3.org/1999/xlink"
+                      xmlnxlink="http://www.w3.org/1999/xlink"
                       aria-hidden="true"
                       role="img"
                       className="iconify iconify--icon-park-solid"
@@ -252,11 +260,11 @@ export default function Register() {
                 variant="standard"
                 color="secondary"
                 sx={{ width: "80%" }}
-                error={errors.fristName}
-                helperText={errors.fristName ? errors.fristName.message : " "}
-                FormHelperTextProps={FormHelperTextProps(errors.fristName)}
+                error={errors.full_name}
+                helperText={errors.full_name ? errors.full_name.message : " "}
+                FormHelperTextProps={FormHelperTextProps(errors.full_name)}
                 type="text"
-                {...register("fristName")}
+                {...register("full_name")}
               />
             </Grid>
             <Grid
@@ -267,12 +275,10 @@ export default function Register() {
               paddingBottom={1}
             >
               <TextField
-                // id="standard-basic"
                 label={
                   <>
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlnsXlink="http://www.w3.org/1999/xlink"
+                      xmlnxlink="http://www.w3.org/1999/xlink"
                       aria-hidden="true"
                       role="img"
                       className="iconify iconify--icon-park-solid"
@@ -302,17 +308,17 @@ export default function Register() {
                         mask="url(#iconifyReact3)"
                       />
                     </svg>
-                    الاسم الاخير
+                    رقم القومي
                   </>
                 }
                 variant="standard"
                 color="secondary"
                 sx={{ width: "80%" }}
-                error={errors.lastName}
-                helperText={errors.lastName ? errors.lastName.message : " "}
-                FormHelperTextProps={FormHelperTextProps(errors.lastName)}
-                type="text"
-                {...register("lastName")}
+                error={errors.national_id}
+                helperText={errors.national_id ? errors.national_id.message : " "}
+                FormHelperTextProps={FormHelperTextProps(errors.national_id)}
+                type="number"
+                {...register("national_id")}
               />
             </Grid>
             <Grid
@@ -323,12 +329,10 @@ export default function Register() {
               paddingBottom={1}
             >
               <TextField
-                // id="standard-basic"
                 label={
                   <>
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlnsXlink="http://www.w3.org/1999/xlink"
+                      xmlnxlink="http://www.w3.org/1999/xlink"
                       aria-hidden="true"
                       role="img"
                       className="iconify iconify--ant-design"
@@ -352,7 +356,7 @@ export default function Register() {
                 error={errors.phone}
                 helperText={errors.phone ? errors.phone.message : " "}
                 FormHelperTextProps={FormHelperTextProps(errors.phone)}
-                type="text"
+                type="number"
                 {...register("phone")}
               />
             </Grid>
@@ -364,12 +368,10 @@ export default function Register() {
               paddingBottom={1}
             >
               <TextField
-                // id="standard-basic"
                 label={
                   <>
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlnsXlink="http://www.w3.org/1999/xlink"
+                      xmlnxlink="http://www.w3.org/1999/xlink"
                       aria-hidden="true"
                       role="img"
                       className="iconify iconify--ant-design"
@@ -389,14 +391,14 @@ export default function Register() {
                 }
                 variant="standard"
                 color="secondary"
-                error={errors.fatherPhone}
+                error={errors.parent_phone}
                 sx={{ width: "80%" }}
                 helperText={
-                  errors.fatherPhone ? errors.fatherPhone.message : " "
+                  errors.parent_phone ? errors.parent_phone.message : " "
                 }
-                FormHelperTextProps={FormHelperTextProps(errors.fatherPhone)}
-                type="text"
-                {...register("fatherPhone")}
+                FormHelperTextProps={FormHelperTextProps(errors.parent_phone)}
+                type="number"
+                {...register("parent_phone")}
               />
             </Grid>
             <Grid item xs={12} boxSizing={"border-box"} paddingY={1}>
@@ -449,9 +451,9 @@ export default function Register() {
                       //   backgroundColor: "dark.primary",
                     },
                   }}
-                  {...register("year", {
+                  {...register("year_id", {
                     onChange: () => {
-                      setyear(getValues("year"));
+                      setyear(getValues("year_id"));
                     },
                   })}
                   value={year}
@@ -472,12 +474,10 @@ export default function Register() {
             </Grid>
             <Grid item xs={12} boxSizing={"border-box"} paddingBottom={1}>
               <TextField
-                // id="standard-basic"
                 label={
                   <>
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlnsXlink="http://www.w3.org/1999/xlink"
+                      xmlnxlink="http://www.w3.org/1999/xlink"
                       aria-hidden="true"
                       role="img"
                       className="iconify iconify--bx"
@@ -513,12 +513,10 @@ export default function Register() {
               paddingBottom={1}
             >
               <TextField
-                // id="standard-basic"
                 label={
                   <>
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlnsXlink="http://www.w3.org/1999/xlink"
+                      xmlnxlink="http://www.w3.org/1999/xlink"
                       aria-hidden="true"
                       role="img"
                       className="iconify iconify--ri"
@@ -554,12 +552,10 @@ export default function Register() {
               paddingBottom={1}
             >
               <TextField
-                // id="standard-basic"
                 label={
                   <>
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlnsXlink="http://www.w3.org/1999/xlink"
+                      xmlnxlink="http://www.w3.org/1999/xlink"
                       aria-hidden="true"
                       role="img"
                       className="iconify iconify--ri"
@@ -579,14 +575,18 @@ export default function Register() {
                 }
                 variant="standard"
                 color="secondary"
-                error={errors.confirmPass}
+                error={errors.password_confirmation}
                 sx={{ width: "80%" }}
                 helperText={
-                  errors.confirmPass ? errors.confirmPass.message : " "
+                  errors.password_confirmation
+                    ? errors.password_confirmation.message
+                    : " "
                 }
-                FormHelperTextProps={FormHelperTextProps(errors.confirmPass)}
+                FormHelperTextProps={FormHelperTextProps(
+                  errors.password_confirmation
+                )}
                 type="password"
-                {...register("confirmPass")}
+                {...register("password_confirmation")}
               />
             </Grid>
             <Grid
