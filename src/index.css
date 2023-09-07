@@ -9,6 +9,8 @@ body {
   background-repeat: no-repeat;
   font-family: "Cairo", "Aref Ruqaa", serif !important;
   transition: all 0.25s ease-in-out;
+  padding: 0 !important;
+  overflow: auto !important;
 }
 
 input {

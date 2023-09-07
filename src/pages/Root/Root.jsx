@@ -13,7 +13,7 @@ export default function Root({ handleThemeMode, themeMode }) {
         <Outlet />
       </Container>
       <Footer />
-      <HandleErr />
+      {/* <HandleErr /> */}
     </>
   );
 }

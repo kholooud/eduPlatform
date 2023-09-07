@@ -1,4 +1,11 @@
-import { Button, Container, Grid, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import logImg from "../../assets/login.jpeg";
 import classes from "./Login.module.css";
 import { useTheme } from "@emotion/react";
@@ -6,15 +13,31 @@ import Joi from "joi";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
+import { loginApi } from "../../API/AuthService";
+import { useContext, useState } from "react";
+import { UserContext } from "../../context/UserContext";
+
 export default function Login() {
   const theme = useTheme("");
+  const checkLoggedIn = useContext(UserContext);
+  const [isLoading, setisLoading] = useState(false);
+
   const schema = Joi.object({
-    phone: Joi.string()
-      .regex(/^01[0125][0-9]{8}$/)
-      .required()
+    // phone: Joi.string()
+    //   .regex(/^01[0125][0-9]{8}$/)
+    //   .required()
+    //   .messages({
+    //     "string.empty": "- مينفعش الرقم يكون فاضي ",
+    //     "string.pattern.base": "- اكتب رقم صح",
+    //   }),
+    email: Joi.string()
+      .email({
+        minDomainSegments: 2,
+        tlds: { allow: ["com", "net"] },
+      })
       .messages({
-        "string.empty": "- مينفعش الرقم يكون فاضي ",
-        "string.pattern.base": "- اكتب رقم صح",
+        "string.empty": "- مينفعش الايميل يكون فاضي ",
+        "string.email": "- اكتب الايميل صح",
       }),
     password: Joi.string().required().messages({
       "string.empty": "- مينفعش كلمة السر تبقي فاضية ",
@@ -23,11 +46,8 @@ export default function Login() {
   const form = useForm({
     resolver: joiResolver(schema),
   });
-  const { register, handleSubmit, control, formState } = form;
+  const { register, handleSubmit, setError, control, formState } = form;
   const { errors } = formState;
-  const onSubmit = (data) => {
-    console.log("data", data);
-  };
   function FormHelperTextProps(indicator) {
     return {
       sx: {
@@ -40,6 +60,38 @@ export default function Login() {
       },
     };
   }
+
+  const onSubmit = async (data) => {
+    setisLoading(true);
+    const resData = await loginApi(data);
+    setisLoading(false);
+    console.log("se3aaa", resData);
+    if (resData.status == 200) {
+      localStorage.setItem(
+        "userToken",
+        JSON.stringify({ userToken: resData.body.Authorization.token })
+      );
+      console.log("context", checkLoggedIn.checkLoggedIn());
+    }
+    // emsil wring
+    if (resData.status == 422) {
+      const resErrors = resData.body;
+      setError(
+        "email",
+        { type: "focus", message: "الايميل مش صح" },
+        { shouldFocus: true }
+      );
+    }
+    // passwrong
+    if (resData.status == 401) {
+      setError(
+        "password",
+        { type: "focus", message: "رقم السري مش صح" },
+        { shouldFocus: true }
+      );
+    }
+  };
+
   return (
     <Container>
       <Grid container>
@@ -143,17 +195,17 @@ export default function Login() {
                         d="M885.6 230.2L779.1 123.8a80.83 80.83 0 0 0-57.3-23.8c-21.7 0-42.1 8.5-57.4 23.8L549.8 238.4a80.83 80.83 0 0 0-23.8 57.3c0 21.7 8.5 42.1 23.8 57.4l83.8 83.8A393.82 393.82 0 0 1 553.1 553A395.34 395.34 0 0 1 437 633.8L353.2 550a80.83 80.83 0 0 0-57.3-23.8c-21.7 0-42.1 8.5-57.4 23.8L123.8 664.5a80.89 80.89 0 0 0-23.8 57.4c0 21.7 8.5 42.1 23.8 57.4l106.3 106.3c24.4 24.5 58.1 38.4 92.7 38.4c7.3 0 14.3-.6 21.2-1.8c134.8-22.2 268.5-93.9 376.4-201.7C828.2 612.8 899.8 479.2 922.3 344c6.8-41.3-6.9-83.8-36.7-113.8z"
                       />
                     </svg>
-                    رقم الهاتف
+                    الايميل
                   </>
                 }
                 variant="standard"
                 color="secondary"
                 sx={{ width: "80%" }}
-                error={errors.phone}
-                helperText={errors.phone ? errors.phone.message : " "}
-                FormHelperTextProps={FormHelperTextProps(errors.phone)}
+                error={errors.email}
+                helperText={errors.email ? errors.email.message : " "}
+                FormHelperTextProps={FormHelperTextProps(errors.email)}
                 type="text"
-                {...register("phone")}
+                {...register("email")}
               />
             </Grid>
             <Grid item xs={12} boxSizing={"border-box"} paddingBottom={1}>
@@ -210,8 +262,13 @@ export default function Login() {
                   color: "#3b82f6",
                 },
               }}
+              disabled={isLoading}
             >
-              تسجيل الدخول
+              {isLoading ? (
+                <CircularProgress size={"1.5rem"} />
+              ) : (
+                " تسجيل الدخول"
+              )}
             </Grid>
             <Grid
               item

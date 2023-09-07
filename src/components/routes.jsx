@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter, redirect } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import Register from "../pages/Register/Register";
 import Login from "../pages/Login/Login";
@@ -21,10 +21,12 @@ import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 
 import React, { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
-
+import { UserContext } from "../context/UserContext";
 
 export default function routes() {
-  const { themeMode, setthemeMode } = useContext(ThemeContext)
+  const { themeMode, setthemeMode } = useContext(ThemeContext);
+  const { currentUser } = useContext(UserContext);
+
   const routers = createBrowserRouter([
     {
       path: "",
@@ -67,8 +69,14 @@ export default function routes() {
             </ProtectedRoute>
           ),
         },
-        { path: "/Login", element: <Login /> },
-        { path: "/Register", element: <Register /> },
+        {
+          path: "/Login",
+          element: currentUser ? <Navigate to="/" replace/> : <Login />,
+        },
+        {
+          path: "/Register",
+          element: currentUser ? <Navigate to="/" replace/> : <Register />,
+        },
         {
           path: "/Courses",
           element: (

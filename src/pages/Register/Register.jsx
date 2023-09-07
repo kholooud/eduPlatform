@@ -9,19 +9,49 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+
+import React, { useState, useContext } from "react";
 import regImg from "../../assets/register.jpeg";
 import classes from "./Register.module.css";
 import { useTheme } from "@emotion/react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { joiResolver } from "@hookform/resolvers/joi";
-import Joi, { date } from "joi";
-import axios from "axios";
-import { baseUrl } from "../../api";
+import Joi from "joi";
+import { registerApi } from "../../API/AuthService";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
+
+const MenuProps = {
+  sx: {
+    "& .MuiMenu-paper": {
+      backgroundColor: "#fff",
+      color: "black",
+    },
+    "& .MuiMenuItem-root:hover": {
+      backgroundColor: "#c3c3c3",
+      color: "#fff",
+    },
+    "& .Mui-selected": {
+      backgroundColor: "#10151f !important",
+      color: "#fff",
+    },
+    "& .Mui-selected:hover": {
+      backgroundColor: "#10151f !important",
+      color: "black",
+    },
+  },
+};
+const years = [
+  { name: "الصف الاول الثانوي", value: 1 },
+  { name: "الصف الثاني الثانوي", value: 2 },
+  { name: "الصف الثالث الثانوي", value: 3 },
+];
 export default function Register() {
   const theme = useTheme("");
   const [year, setyear] = useState("");
+  const checkLoggedIn = useContext(UserContext);
+
   const schema = Joi.object({
     full_name: Joi.string()
       .min(2)
@@ -89,37 +119,10 @@ export default function Register() {
   const form = useForm({
     resolver: joiResolver(schema),
   });
-  const { register, handleSubmit, control, getValues, formState } = form;
+  const { register, handleSubmit, control, getValues, formState, setError } =
+    form;
   const { errors } = formState;
-  const onSubmit = async (data1) => {
-    console.log("data", data1);
-    const  {status}  = await axios.post(`${baseUrl}/student/register`, {
-      ...data1,
-      birth_date: "2000-02-24",
-      semester_id: 2,
-    });
-    console.log("f", status);
-  };
-  const MenuProps = {
-    sx: {
-      "& .MuiMenu-paper": {
-        backgroundColor: "#fff",
-        color: "black",
-      },
-      "& .MuiMenuItem-root:hover": {
-        backgroundColor: "#c3c3c3",
-        color: "#fff",
-      },
-      "& .Mui-selected": {
-        backgroundColor: "#10151f !important",
-        color: "#fff",
-      },
-      "& .Mui-selected:hover": {
-        backgroundColor: "#10151f !important",
-        color: "black",
-      },
-    },
-  };
+
   function FormHelperTextProps(indicator) {
     return {
       sx: {
@@ -132,11 +135,31 @@ export default function Register() {
       },
     };
   }
-  const years = [
-    { name: "الصف الاول الثانوي", value:1 },
-    { name: "الصف الثاني الثانوي", value: 2 },
-    { name: "الصف الثالث الثانوي", value: 3 },
-  ];
+
+  const onSubmit = async (data) => {
+    const resData = await registerApi(data);
+    console.log("se3aaa", resData);
+
+    if (resData.status == 200) {
+      localStorage.setItem(
+        "userToken",
+        JSON.stringify({ userToken: resData.body.Authorization.token })
+      );
+      console.log("context", checkLoggedIn.checkLoggedIn());
+    }
+    if (resData.status == 422) {
+      const resErrors = resData.body;
+      const keys = Object.keys(resErrors);
+      keys.forEach((key) => {
+        setError(
+          key,
+          { type: "focus", message: resErrors[key] },
+          { shouldFocus: true }
+        );
+      });
+    }
+  };
+
   return (
     <Container>
       <Grid container paddingY={3}>
@@ -260,7 +283,7 @@ export default function Register() {
                 variant="standard"
                 color="secondary"
                 sx={{ width: "80%" }}
-                error={errors.full_name}
+                errors={errors.full_name}
                 helperText={errors.full_name ? errors.full_name.message : " "}
                 FormHelperTextProps={FormHelperTextProps(errors.full_name)}
                 type="text"
@@ -314,8 +337,10 @@ export default function Register() {
                 variant="standard"
                 color="secondary"
                 sx={{ width: "80%" }}
-                error={errors.national_id}
-                helperText={errors.national_id ? errors.national_id.message : " "}
+                errors={errors.national_id}
+                helperText={
+                  errors.national_id ? errors.national_id.message : " "
+                }
                 FormHelperTextProps={FormHelperTextProps(errors.national_id)}
                 type="number"
                 {...register("national_id")}
@@ -353,7 +378,7 @@ export default function Register() {
                 variant="standard"
                 color="secondary"
                 sx={{ width: "80%" }}
-                error={errors.phone}
+                errors={errors.phone}
                 helperText={errors.phone ? errors.phone.message : " "}
                 FormHelperTextProps={FormHelperTextProps(errors.phone)}
                 type="number"
@@ -391,7 +416,7 @@ export default function Register() {
                 }
                 variant="standard"
                 color="secondary"
-                error={errors.parent_phone}
+                errors={errors.parent_phone}
                 sx={{ width: "80%" }}
                 helperText={
                   errors.parent_phone ? errors.parent_phone.message : " "
@@ -433,9 +458,6 @@ export default function Register() {
                     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
                       borderColor: "secondary.main",
                     },
-                    ".MuiSvgIcon-root": {
-                      //   color: "text",
-                    },
                     "&:before": {
                       // borderBottom: `1px solid ${theme.palette.primary.light}`
                     },
@@ -443,12 +465,6 @@ export default function Register() {
                       ":before": {
                         // borderBottom: `1px solid ${theme.palette.primary.dark}`
                       },
-                    },
-                    "& .MuiMenuItem-root": {
-                      //   backgroundColor: "dark.primary",
-                    },
-                    "& .MuiMenu-paper": {
-                      //   backgroundColor: "dark.primary",
                     },
                   }}
                   {...register("year_id", {
@@ -497,7 +513,7 @@ export default function Register() {
                 }
                 variant="standard"
                 color="secondary"
-                error={errors.email}
+                errors={errors.email}
                 sx={{ width: "80%" }}
                 helperText={errors.email ? errors.email.message : " "}
                 FormHelperTextProps={FormHelperTextProps(errors.email)}
@@ -537,7 +553,7 @@ export default function Register() {
                 variant="standard"
                 color="secondary"
                 sx={{ width: "80%" }}
-                error={errors.password}
+                errors={errors.password}
                 helperText={errors.password ? errors.password.message : " "}
                 FormHelperTextProps={FormHelperTextProps(errors.password)}
                 type="password"
@@ -575,7 +591,7 @@ export default function Register() {
                 }
                 variant="standard"
                 color="secondary"
-                error={errors.password_confirmation}
+                errors={errors.password_confirmation}
                 sx={{ width: "80%" }}
                 helperText={
                   errors.password_confirmation

@@ -6,20 +6,25 @@ import { CacheProvider } from "@emotion/react";
 import { prefixer } from "stylis";
 import stylisRTLPlugin from "stylis-plugin-rtl";
 import { ThemeContext } from "./context/ThemeContext.jsx";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { UserContext } from "./context/UserContext.jsx";
 
 function App() {
   const { themeMode, themeLight, themeDark } = useContext(ThemeContext)
+
   const cacheRtl = createCache({
     key: "muirtl",
     stylisPlugins: [prefixer, stylisRTLPlugin],
   });
+  useEffect(() => {
+    
+  }, [])
   return (
     <>
       <CacheProvider value={cacheRtl}>
         <ThemeProvider theme={themeMode == "themeLight" ? themeLight : themeDark}>
           <CssBaseline />
-            <RouterProvider router={routers()} />
+          <RouterProvider router={routers()} />
         </ThemeProvider>
       </CacheProvider>
     </>
