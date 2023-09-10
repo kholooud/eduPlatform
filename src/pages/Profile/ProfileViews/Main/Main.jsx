@@ -1,13 +1,16 @@
 import { Box, Grid, Typography } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import proImg from "../../../../assets/testimonial-2.jpg";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import PhoneEnabledOutlinedIcon from "@mui/icons-material/PhoneEnabledOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import { EmailOutlined } from "@mui/icons-material";
 import Classes from "./Main.module.css";
+import { UserContext } from "../../../../context/UserContext";
 
 export default function Main() {
+  const { currentUser } = useContext(UserContext);
+
   return (
     <Grid
       container
@@ -60,15 +63,15 @@ export default function Main() {
             sx={{ fontSize: "1.8rem", marginBottom: "10px" }}
           >
             <BadgeOutlinedIcon sx={{ color: "#3b82f6" }} />
-            <span>يوسف محمد</span>
+            <span>{currentUser?.full_name}</span>
           </Box>
           <Box className={Classes.info}>
             <PhoneEnabledOutlinedIcon />
-            <span> 01228103702</span>
+            <span> {currentUser?.phone}</span>
           </Box>
           <Box className={Classes.info}>
             <EmailOutlined />
-            <span> ym69692@gmail.com</span>
+            <span> {currentUser?.email}</span>
           </Box>
           <Box className={Classes.info}>
             <SchoolOutlinedIcon />

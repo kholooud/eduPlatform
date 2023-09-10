@@ -69,7 +69,7 @@ export default function Login() {
     if (resData.status == 200) {
       localStorage.setItem(
         "userToken",
-        JSON.stringify({ userToken: resData.body.Authorization.token })
+        JSON.stringify({ "userToken": resData.body.Authorization.token, "userData": resData.body.student })
       );
       console.log("context", checkLoggedIn.checkLoggedIn());
     }

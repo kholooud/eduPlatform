@@ -40,9 +40,9 @@ export default function routes() {
         {
           path: "/Profile",
           element: (
-            <ProtectedRoute>
+            // <ProtectedRoute>
               <Profile />
-            </ProtectedRoute>
+            // </ProtectedRoute>
           ),
           children: [
             ,
@@ -77,14 +77,14 @@ export default function routes() {
           path: "/Register",
           element: currentUser ? <Navigate to="/" replace/> : <Register />,
         },
-        {
-          path: "/Courses",
-          element: (
-            <ProtectedRoute>
-              <Courses />
-            </ProtectedRoute>
-          ),
-        },
+        // {
+        //   path: "/Courses",
+        //   element: (
+        //     <ProtectedRoute>
+        //       <Courses />
+        //     </ProtectedRoute>
+        //   ),
+        // },
         {
           path: "/Invoice",
           element: (
@@ -96,16 +96,15 @@ export default function routes() {
         {
           path: "/Exam",
           element: (
-            <ProtectedRoute>
+            // <ProtectedRoute>
               <Exam />
-            </ProtectedRoute>
+            // </ProtectedRoute>
           ),
         },
         {
           path: "/HomeWork",
           element: (
             <ProtectedRoute>
-              {" "}
               <HomeWork />
             </ProtectedRoute>
           ),
