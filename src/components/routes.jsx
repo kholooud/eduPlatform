@@ -42,11 +42,12 @@ export default function routes() {
         },
         {
           path: "/Profile",
-          element: 
+         
+          element: (
             // <ProtectedRoute>
               <Profile />
             // </ProtectedRoute>
-          ,
+          ),
           children: [
             ,
             { index: true, element: <Main /> },
@@ -93,11 +94,13 @@ export default function routes() {
             // </ProtectedRoute>
           ),
         },
+
         {
           path: "/Subjects",
           element: (
             // <ProtectedRoute>
               <Subjects />
+
             // </ProtectedRoute>
           ),
         },
@@ -106,6 +109,7 @@ export default function routes() {
           element: (
             <ProtectedRoute>
               <Invoice />
+
             </ProtectedRoute>
           ),
         },

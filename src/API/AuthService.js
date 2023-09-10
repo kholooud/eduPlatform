@@ -6,7 +6,6 @@ export const registerApi = async (data) => {
     let resData
     const response = await axios.post(`${baseUrl}/register`, {
         ...data,
-        birth_date: "2000-02-24",
         semester_id: 2,
     }).then((response) => { resData = response.data }).catch(({ response }) => { resData = response.data });
     return resData
@@ -19,7 +18,7 @@ export const isAuthenticated = () => {
         console.log("user token api auth not found")
         return null
     }
-    console.log("user token api auth  found",JSON.parse(userToken))
+    console.log("user token api auth  found", JSON.parse(userToken))
     return JSON.parse(userToken);
 };
 
@@ -30,3 +29,29 @@ export const loginApi = async (data) => {
     }).then((response) => { resData = response.data }).catch(({ response }) => { resData = response.data });
     return resData
 };
+
+
+// export const isOnline = (no, yes) => {
+//     var xhr = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHttp');
+//     xhr.onload = function () {
+//         if (yes instanceof Function) {
+//             yes();
+//         }
+//     }
+//     xhr.onerror = function () {
+//         if (no instanceof Function) {
+//             no();
+//         }
+//     }
+//     xhr.open("GET", "anypage.php", true);
+//     xhr.send();
+// }
+
+// isOnline(
+//     function () {
+//         alert("Sorry, we currently do not have Internet access.");
+//     },
+//     function () {
+//         alert("Succesfully connected!");
+//     }
+// );
