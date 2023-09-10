@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export default function WeekTab({ tabName, View, current,icon }) {
   const active = current == View ? 1 : 0;
   return (
-    <Link to={View == "Profile" ? "" : View}>
+    <Link to={View == "Lecture" ? "" : View}>
       <Grid
         container
         xs={2}

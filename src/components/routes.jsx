@@ -17,10 +17,8 @@ import Lecture from "../pages/Week/WeekViews/Lecture/Lecture";
 import Profile from "../pages/Profile/Profile";
 import Main from "../pages/Profile/ProfileViews/Main/Main";
 import Code from "../pages/Profile/ProfileViews/Code/Code";
-import Course_Content from "./Course_Content/Course_Content";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
-import Subjects from "../components/Subjects/Subjects"
-
+import Subjects from "../components/Subjects/Subjects";
 
 import React, { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
@@ -42,14 +40,12 @@ export default function routes() {
         },
         {
           path: "/Profile",
-         
           element: (
-            // <ProtectedRoute>
+            <ProtectedRoute>
               <Profile />
-            // </ProtectedRoute>
+            </ProtectedRoute>
           ),
           children: [
-            ,
             { index: true, element: <Main /> },
             { path: "Code", element: <Code /> },
             { path: "MyCourses", element: <MyCourses /> },
@@ -59,38 +55,37 @@ export default function routes() {
         },
         {
           path: "/Week",
-          element: 
+          element: (
             // <ProtectedRoute>
-              <Week />
-            // </ProtectedRoute>
-          ,
+            <Week />
+          ),
+          // </ProtectedRoute>
           children: [
-            ,
-            { path: "Lecture", element: <Lecture /> },
+            { index: true, element: <Lecture /> },
             { path: "HomeWork", element: <HomeWork /> },
           ],
         },
         {
           path: "/Course",
-          element: 
+          element: (
             // <ProtectedRoute>
-              <Course />
-            // </ProtectedRoute>
-          ,
+            <Course />
+          ),
+          // </ProtectedRoute>
         },
         {
           path: "/Login",
-          element: currentUser ? <Navigate to="/" replace/> : <Login />,
+          element: currentUser ? <Navigate to="/" replace /> : <Login />,
         },
         {
           path: "/Register",
-          element: currentUser ? <Navigate to="/" replace/> : <Register />,
+          element: currentUser ? <Navigate to="/" replace /> : <Register />,
         },
         {
           path: "/Courses",
           element: (
             // <ProtectedRoute>
-              <Courses />
+            <Courses />
             // </ProtectedRoute>
           ),
         },
@@ -99,7 +94,7 @@ export default function routes() {
           path: "/Subjects",
           element: (
             // <ProtectedRoute>
-              <Subjects />
+            <Subjects />
 
             // </ProtectedRoute>
           ),
@@ -109,16 +104,15 @@ export default function routes() {
           element: (
             <ProtectedRoute>
               <Invoice />
-
             </ProtectedRoute>
           ),
         },
         {
           path: "/Exam",
           element: (
-            <ProtectedRoute>
-              <Exam />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <Exam />
+            // </ProtectedRoute>
           ),
         },
         { path: "*", element: <NotFound /> },

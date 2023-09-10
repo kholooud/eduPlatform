@@ -30,7 +30,7 @@ export default function Login() {
     //     "string.empty": "- مينفعش الرقم يكون فاضي ",
     //     "string.pattern.base": "- اكتب رقم صح",
     //   }),
-    email: Joi.string()
+    user_login: Joi.string()
       .email({
         minDomainSegments: 2,
         tlds: { allow: ["com", "net"] },
@@ -77,7 +77,7 @@ export default function Login() {
     if (resData.status == 422) {
       const resErrors = resData.body;
       setError(
-        "email",
+        "user_login",
         { type: "focus", message: "الايميل مش صح" },
         { shouldFocus: true }
       );
@@ -201,11 +201,11 @@ export default function Login() {
                 variant="standard"
                 color="secondary"
                 sx={{ width: "80%" }}
-                error={errors.email}
-                helperText={errors.email ? errors.email.message : " "}
-                FormHelperTextProps={FormHelperTextProps(errors.email)}
+                error={errors.user_login}
+                helperText={errors.user_login ? errors.user_login.message : " "}
+                FormHelperTextProps={FormHelperTextProps(errors.user_login)}
                 type="text"
-                {...register("email")}
+                {...register("user_login")}
               />
             </Grid>
             <Grid item xs={12} boxSizing={"border-box"} paddingBottom={1}>
