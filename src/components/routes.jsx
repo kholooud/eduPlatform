@@ -7,17 +7,20 @@ import Root from "../pages/Root/Root";
 import Course from "../pages/Course/Course";
 import Courses from "../components/Courses/Courses";
 import Invoice from "../pages/Invoice/Invoice";
-import HomeWork from "../pages/HomeWork/HomeWork";
 import Exam from "../pages/Exam/Exam";
 import MyCourses from "../pages/Profile/ProfileViews/MyCourses/MyCourses";
 import ExResults from "../pages/Profile/ProfileViews/ExResults/ExResults";
 import Notifications from "../pages/Profile/ProfileViews/Notifications/Notifications";
-import Video from "../pages/video/Video";
+import Week from "../pages/Week/Week";
+import HomeWork from "../pages/Week/WeekViews/HomeWork/HomeWork";
+import Lecture from "../pages/Week/WeekViews/Lecture/Lecture";
 import Profile from "../pages/Profile/Profile";
 import Main from "../pages/Profile/ProfileViews/Main/Main";
 import Code from "../pages/Profile/ProfileViews/Code/Code";
 import Course_Content from "./Course_Content/Course_Content";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
+import Subjects from "../components/Subjects/Subjects"
+
 
 import React, { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
@@ -39,6 +42,7 @@ export default function routes() {
         },
         {
           path: "/Profile",
+         
           element: (
             // <ProtectedRoute>
               <Profile />
@@ -53,21 +57,26 @@ export default function routes() {
             { path: "Notifications", element: <Notifications /> },
           ],
         },
-        // {
-        //   path: "/Course",
-        //   element: (
-        //     <ProtectedRoute>
-        //       <Course_Content />
-        //     </ProtectedRoute>
-        //   ),
-        // },
+        {
+          path: "/Week",
+          element: 
+            // <ProtectedRoute>
+              <Week />
+            // </ProtectedRoute>
+          ,
+          children: [
+            ,
+            { path: "Lecture", element: <Lecture /> },
+            { path: "HomeWork", element: <HomeWork /> },
+          ],
+        },
         {
           path: "/Course",
-          element: (
-            <ProtectedRoute>
+          element: 
+            // <ProtectedRoute>
               <Course />
-            </ProtectedRoute>
-          ),
+            // </ProtectedRoute>
+          ,
         },
         {
           path: "/Login",
@@ -77,43 +86,38 @@ export default function routes() {
           path: "/Register",
           element: currentUser ? <Navigate to="/" replace/> : <Register />,
         },
-        // {
-        //   path: "/Courses",
-        //   element: (
-        //     <ProtectedRoute>
-        //       <Courses />
-        //     </ProtectedRoute>
-        //   ),
-        // },
+        {
+          path: "/Courses",
+          element: (
+            // <ProtectedRoute>
+              <Courses />
+            // </ProtectedRoute>
+          ),
+        },
+
+        {
+          path: "/Subjects",
+          element: (
+            // <ProtectedRoute>
+              <Subjects />
+
+            // </ProtectedRoute>
+          ),
+        },
         {
           path: "/Invoice",
           element: (
             <ProtectedRoute>
               <Invoice />
+
             </ProtectedRoute>
           ),
         },
         {
           path: "/Exam",
           element: (
-            // <ProtectedRoute>
+            <ProtectedRoute>
               <Exam />
-            // </ProtectedRoute>
-          ),
-        },
-        {
-          path: "/HomeWork",
-          element: (
-            <ProtectedRoute>
-              <HomeWork />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "/Video",
-          element: (
-            <ProtectedRoute>
-              <Video />
             </ProtectedRoute>
           ),
         },

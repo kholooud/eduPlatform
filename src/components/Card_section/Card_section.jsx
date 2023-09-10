@@ -6,7 +6,7 @@ import courseimg from "../../assets/course_content.jpg"
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import AccessTimeTwoToneIcon from '@mui/icons-material/AccessTimeTwoTone';
 import HelpTwoToneIcon from '@mui/icons-material/HelpTwoTone';
-import Video from '../../pages/video/Video';
+import Video from '../../pages/Week/Week';
 import { Navigate } from 'react-router-dom';
 
 
