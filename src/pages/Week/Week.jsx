@@ -10,8 +10,9 @@ export default function Profile() {
   const theme = useTheme();
   const location = useLocation();
   const current = (((location.pathname).split('/')).slice(-1));
+  console.log(current)
   return (
-    <Container>
+    // <Container>
       <Grid container sx={{ boxShadow: 7, background: theme.palette.primary.sec, justifyContent: "center", marginY: "1rem", paddingBottom: "1rem" }}>
         <Grid
           item
@@ -72,13 +73,13 @@ export default function Profile() {
           </Grid>
         </Grid>
         <Grid item container xs={12} md={3} sx={{ justifyContent: "center", alignContent: "start" }} >
-          <WeekTab tabName={"المحاضرة"} View={"Lecture"} current={current} icon={<PersonIcon />} />
+          <WeekTab tabName={"المحاضرة"} View={"week"} current={current[0]} icon={<PersonIcon />} />
           <WeekTab tabName={"الواجب"} View={"HomeWork"} current={current} icon={<ImportContactsIcon />} />
         </Grid>
         <Grid item container xs={11} md={9} sx={{ background: "inherit", minHeight: "30vh", justifyContent: "center", alignItems: "center",display:"block" }}>
           <Outlet />
         </Grid>
       </Grid>
-    </Container>
+    // </Container>
   );
 }

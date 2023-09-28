@@ -6,7 +6,7 @@ export default function Course() {
   return (
     <>
       {<Course_Header />}
-      {<Card_section />}
+      {/* {<Card_section />} */}
       {<Course_Content />}
     </>
   )

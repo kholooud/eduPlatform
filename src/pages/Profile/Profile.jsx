@@ -1,5 +1,5 @@
 import { Box, Container, Grid } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonIcon from "@mui/icons-material/Person";
 import ProfileTab from "../../components/ProfileTab/ProfileTab";
@@ -76,9 +76,9 @@ export default function Profile() {
         </Grid>
         <Grid item container xs={12} md={3}  sx={{justifyContent:"center",alignContent:"start"}} >
           <ProfileTab tabName={"ملف المستخدم"} View={"Profile"} current={current} icon={<PersonIcon/>}/>
-          <ProfileTab tabName={" دروسي"} View={"MyCourses"} current={current} icon={<ImportContactsIcon/>}/>
+          <ProfileTab tabName={"كورساتي"} View={"MyCourses"} current={current} icon={<ImportContactsIcon/>}/>
           <ProfileTab tabName={"الاكواد"} View={"Code"} current={current} icon={<QrCode2Icon/>}/>
-          <ProfileTab tabName={" الامتحانات"} View={"ExResults"} current={current} icon={<RuleIcon/>}/>
+          <ProfileTab tabName={"نتائج الامتحانات"} View={"ExResults"} current={current} icon={<RuleIcon/>}/>
           <ProfileTab tabName={"الاشعارات"} View={"Notifications"} current={current} icon={<NotificationsActiveIcon/>}/>
         </Grid>
         <Grid item container xs={11} md={9} sx={{ background: "inherit", minHeight: "30vh",justifyContent:"center",alignItems:"center" }}>

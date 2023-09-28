@@ -21,7 +21,7 @@ export default function UserContextProvider(props) {
   }, [currentUser]);
 
   return (
-    <UserContext.Provider value={{ currentUser, checkLoggedIn: checkLoggedIn }}>
+    <UserContext.Provider value={{ currentUser:currentUser, checkLoggedIn: checkLoggedIn }}>
       {props.children}
     </UserContext.Provider>
   );

@@ -4,20 +4,20 @@ import Typewriter from "typewriter-effect";
 import LandImg from "../../assets/landingImg.png";
 
 import classes from "./Home.module.css";
-import Year from "../../components/Year/Year";
+import Years from "../../components/Years/Years";
 import Features from "../../components/Featuers/Features";
-import Subjects from "../../components/Subjects/Subjects"
+// import Subjects from "../../components/Subjects/Subjects"
 
 export default function Landing() {
   let authintication;
   let subjectComponent;
-  switch (authintication) {
-    case 1:
-      subjectComponent = <Subjects />
+  // switch (authintication) {
+  //   case 1:
+  //     subjectComponent = <Subjects />
 
-    case 2:
-      subjectComponent = <Year />
-  }
+  //   case 2:
+  //     subjectComponent = <Year />
+  // }
   return (
     <>
       <Container className="mainLanding">
@@ -72,11 +72,11 @@ export default function Landing() {
           <Grid item md={6} display={{ md: "block", xs: "none" }}>
             <img src={LandImg} width={"100%"} />
           </Grid>
-
+          
         </Grid>
       </Container>
       <Features />
-      {authintication ? <Subjects /> : <Year />}
+      <Years />
     </>
   );
 }

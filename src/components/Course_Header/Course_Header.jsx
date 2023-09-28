@@ -2,120 +2,20 @@ import { Avatar, Box, Button, Card, CardActions, CardContent, CardMedia, Chip, C
 import React from 'react'
 import CreateNewFolderTwoToneIcon from '@mui/icons-material/CreateNewFolderTwoTone';
 import RadioButtonCheckedTwoToneIcon from '@mui/icons-material/RadioButtonCheckedTwoTone';
-import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
+import ChipDiv from '../ChipDiv/ChipDiv';
+
 
 export default function Course_Header() {
     return (
         <Container>
-            <Grid sx={{ bgcolor: "#3b82f6", borderRadius: "0.5rem", boxSizing: "border-box", minHeight: "30rem", zIndex: "55", position: "relative" }}>
+            <Grid sx={{ bgcolor: "#3b82f6", borderRadius: "0.5rem", boxSizing: "border-box", zIndex: "55", position: "relative" }}>
                 <Box sx={{ padding: "2rem 2rem" }}>
-                    <Stack direction={{ xs: "column", md: "row" }} margin={{ md: "3rem 0 1rem 0", xs: "1.5rem 0 0.5rem 0" }} >
-                        <Stack direction="row" margin={{ xs: "0 0 0.5rem 0", md: "0 1rem 0 0" }}>
-                            <Chip
-                                sx={{
-                                    backgroundColor: "#1e3a8a",
-                                    fontFamily: "inherit",
-                                    marginRight: "-2.8rem",
-                                    zIndex: "100",
-                                    color: "white",
-                                    padding: "0.3rem"
-                                }}
-                                icon={<VideoLibraryIcon sx={{ color: "#fde047 !important", fontSize: "medium" }} />}
-                                label="26+"
-
-                            >
-                            </Chip>
-                            <Chip
-                                sx={{ backgroundColor: "#22d3ee", fontFamily: "inherit", paddingLeft: "2.5rem", color: "white" }}
-                                label="فيديوهات"
-                            >
-                            </Chip>
-                        </Stack>
-                        <Stack direction="row" margin={{ xs: "0 0 0.5rem 0", md: "0 1rem 0 0" }}>
-                            <Chip
-                                sx={{
-                                    backgroundColor: "#1e3a8a",
-                                    fontFamily: "inherit",
-                                    marginRight: "-2.8rem",
-                                    zIndex: "100",
-                                    color: "white",
-                                    padding: "0.3rem"
-                                }}
-                                icon={<VideoLibraryIcon sx={{ color: "#fde047 !important", fontSize: "medium" }} />}
-                                label="26+"
-
-                            >
-                            </Chip>
-                            <Chip
-                                sx={{ backgroundColor: "#f43f5e", fontFamily: "inherit", paddingLeft: "2.5rem", color: "white" }}
-                                label="امتحانات"
-                            >
-                            </Chip>
-                        </Stack>
-                        <Stack direction="row" margin={{ xs: "0 0 0.5rem 0", md: "0 1rem 0 0" }}>
-                            <Chip
-                                sx={{
-                                    backgroundColor: "#1e3a8a",
-                                    fontFamily: "inherit",
-                                    marginRight: "-2.8rem",
-                                    zIndex: "100",
-                                    color: "white",
-                                    padding: "0.3rem"
-                                }}
-                                icon={<VideoLibraryIcon sx={{ color: "#fde047 !important", fontSize: "medium" }} />}
-                                label="26+"
-
-                            >
-                            </Chip>
-                            <Chip
-                                sx={{ backgroundColor: "#fde047", fontFamily: "inherit", paddingLeft: "2.5rem", color: "white" }}
-                                label="واجبات"
-                            >
-                            </Chip>
-                        </Stack>
-                        <Stack direction="row" margin={{ xs: "0 0 0.5rem 0", md: "0 1rem 0 0" }}>
-                            <Chip
-                                sx={{
-                                    backgroundColor: "#1e3a8a",
-                                    fontFamily: "inherit",
-                                    marginRight: "-2.8rem",
-                                    zIndex: "100",
-                                    color: "white",
-                                    padding: "0.3rem"
-                                }}
-                                icon={<VideoLibraryIcon sx={{ color: "#fde047 !important", fontSize: "medium" }} />}
-                                label="26+"
-
-                            >
-                            </Chip>
-                            <Chip
-                                sx={{ backgroundColor: "#22d3ee", fontFamily: "inherit", paddingLeft: "2.5rem", color: "white" }}
-                                label="ملفات"
-                            >
-                            </Chip>
-                        </Stack>
-                        <Stack direction="row" margin={{ xs: "0 0 0.5rem 0", md: "0 1rem 0 0" }}>
-                            <Chip
-                                sx={{
-                                    backgroundColor: "#1e3a8a",
-                                    fontFamily: "inherit",
-                                    marginRight: "-2.8rem",
-                                    zIndex: "100",
-                                    color: "white",
-                                    padding: "0.3rem"
-                                }}
-                                icon={<VideoLibraryIcon sx={{ color: "#fde047 !important", fontSize: "medium" }} />}
-                                label="26+"
-
-                            >
-                            </Chip>
-                            <Chip
-                                sx={{ backgroundColor: "#f43f5e", fontFamily: "inherit", paddingLeft: "2.5rem", color: "white" }}
-                                label="كويزات الفيديو"
-                            >
-                            </Chip>
-                        </Stack>
-                    </Stack>
+                    <Grid container item sx={{ justifyContent: { md: "left", xs: "space-evenly" }, alignContent: "center", alignItems: "center", flexDirection: "row" }}>
+                        <Grid item ><ChipDiv label={"فيديوهات"} data={"+26"} colorBG={"#22d3ee"} /></Grid>
+                        <Grid item ><ChipDiv label={"امتحانات"} data={"+26"} colorBG={"#f43f5e"} /></Grid>
+                        <Grid item ><ChipDiv label={"واجبات"} data={"+26"} colorBG={"#fde047"} /></Grid>
+                        <Grid item ><ChipDiv label={"ملفات"} data={"+26"} colorBG={"#22d3ee"} /></Grid>
+                    </Grid>
                     <Typography sx={{ color: "white", padding: "1rem" }} variant='h4' fontFamily={'inherit'}>كورس مراجعة طلاب السنتر</Typography>
                     <Typography sx={{ color: "white", padding: "1rem" }} variant='subtitle1' fontFamily={'inherit'}>مراجعة لطلاب السناتر</Typography>
                     <Stack direction={{ xs: "column", md: "row" }} >
@@ -146,7 +46,7 @@ export default function Course_Header() {
                     </Stack>
                 </Box>
             </Grid>
-          
+
         </Container >
     )
 }

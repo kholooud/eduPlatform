@@ -18,7 +18,7 @@ export const isAuthenticated = () => {
         console.log("user token api auth not found")
         return null
     }
-    console.log("user token api auth  found", JSON.parse(userToken))
+    console.log("user token api auth found", JSON.parse(userToken))
     return JSON.parse(userToken);
 };
 

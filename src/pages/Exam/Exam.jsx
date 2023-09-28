@@ -1,4 +1,4 @@
-import {  Grid, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import ChipDiv from '../../components/ChipDiv/ChipDiv';
 import Question from '../../components/Question/Question'

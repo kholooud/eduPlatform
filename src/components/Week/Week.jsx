@@ -12,7 +12,7 @@ import classes from "../Week/Week";
 import DashboardCustomizeOutlinedIcon from "@mui/icons-material/DashboardCustomizeOutlined";
 import Lecture from "./Lecture/Lecture";
 import Quiz from "../Week/Quiz/Quiz";
-import HomeWork from "./HomeWork/HomeWork";
+import HomeWork from "../Week/HomeWork/HomeWork";
 
 
 

@@ -1,0 +1,43 @@
+.yearImg {
+  width: 100%;
+  transition: all 0.4s ease;
+  transform: scale(1.1);
+}
+
+.yearImg:hover {
+  transform: scale(1.3);
+}
+
+.x {
+  position: relative;
+  padding: 2rem 0;
+}
+
+.x::after {
+  content: " ";
+  width: 450%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  aspect-ratio: 1/1;
+  background-color: transparent;
+  border: 3px dashed firebrick;
+  border-radius: 50%;
+  animation: spin-clockwise 40s infinite linear;
+}
+
+@media only screen and (max-width: 600px) {
+  .x::after {
+    width: 300%;
+  }
+}
+
+@keyframes spin-clockwise {
+  0% {
+    transform: translate(-50%, -5%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -5%) rotate(-360deg);
+  }
+}

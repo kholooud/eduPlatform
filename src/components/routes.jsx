@@ -18,11 +18,13 @@ import Profile from "../pages/Profile/Profile";
 import Main from "../pages/Profile/ProfileViews/Main/Main";
 import Code from "../pages/Profile/ProfileViews/Code/Code";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
-import Subjects from "../components/Subjects/Subjects";
-
 import React, { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { UserContext } from "../context/UserContext";
+import Year from "./Years/Year/Year";
+import Code_warning from "../pages/Code_warning/Code_warning";
+import TimeOut from "../pages/TimeOut/TimeOut"
+import ExamTimer from "../pages/Exam/ExamTimer/ExamTimer";
 
 export default function routes() {
   const { themeMode, setthemeMode } = useContext(ThemeContext);
@@ -46,14 +48,14 @@ export default function routes() {
             </ProtectedRoute>
           ),
           children: [
+            ,
             { index: true, element: <Main /> },
             { path: "Code", element: <Code /> },
             { path: "MyCourses", element: <MyCourses /> },
             { path: "ExResults", element: <ExResults /> },
             { path: "Notifications", element: <Notifications /> },
           ],
-        },
-        {
+        }, {
           path: "/Week",
           element: (
             // <ProtectedRoute>
@@ -69,9 +71,9 @@ export default function routes() {
           path: "/Course",
           element: (
             // <ProtectedRoute>
-            <Course />
+              <Course />
+            // </ProtectedRoute>
           ),
-          // </ProtectedRoute>
         },
         {
           path: "/Login",
@@ -85,17 +87,7 @@ export default function routes() {
           path: "/Courses",
           element: (
             // <ProtectedRoute>
-            <Courses />
-            // </ProtectedRoute>
-          ),
-        },
-
-        {
-          path: "/Subjects",
-          element: (
-            // <ProtectedRoute>
-            <Subjects />
-
+              <Courses />
             // </ProtectedRoute>
           ),
         },
@@ -112,6 +104,38 @@ export default function routes() {
           element: (
             // <ProtectedRoute>
             <Exam />
+            // </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/Year",
+          element: (
+            // <ProtectedRoute>
+            <Year />
+            // </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/Warning",
+          element: (
+            // <ProtectedRoute>
+            <Code_warning />
+            // </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/TimeOut",
+          element: (
+            // <ProtectedRoute>
+            <TimeOut />
+            // </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/Timer",
+          element: (
+            // <ProtectedRoute>
+            <ExamTimer />
             // </ProtectedRoute>
           ),
         },
