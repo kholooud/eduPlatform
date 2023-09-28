@@ -4,12 +4,15 @@ import App from "./App";
 import "./index.css";
 import ThemeContextProvider from "./context/ThemeContext";
 import UserContextProvider from "./context/UserContext";
+// import HandleErrorContextProvider from "./context/HandleErrorContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeContextProvider>
       <UserContextProvider>
-        <App />
+        {/* <HandleErrorContextProvider> */}
+          <App />
+        {/* </HandleErrorContextProvider> */}
       </UserContextProvider>
     </ThemeContextProvider>
   </React.StrictMode>

@@ -16,10 +16,12 @@ import { DevTool } from "@hookform/devtools";
 import { loginApi } from "../../API/AuthService";
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
+import { HandleErrorContext } from "../../context/HandleErrorContext";
 
 export default function Login() {
   const theme = useTheme("");
   const checkLoggedIn = useContext(UserContext);
+  const { notify } = useContext(HandleErrorContext);
   const [isLoading, setisLoading] = useState(false);
 
   const schema = Joi.object({
@@ -69,7 +71,10 @@ export default function Login() {
     if (resData.status == 200) {
       localStorage.setItem(
         "userToken",
-        JSON.stringify({ "userToken": resData.body.Authorization.token, "userData": resData.body.student })
+        JSON.stringify({
+          userToken: resData.body.Authorization.token,
+          userData: resData.body.student,
+        })
       );
       console.log("context", checkLoggedIn.checkLoggedIn());
     }
@@ -89,6 +94,10 @@ export default function Login() {
         { type: "focus", message: "رقم السري مش صح" },
         { shouldFocus: true }
       );
+    }
+    // unpredictable error
+    if (resData.status == 500) {
+      notify();
     }
   };
 
