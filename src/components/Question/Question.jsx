@@ -5,7 +5,7 @@ import QuestionIMG from "../../assets/question.jpg"
 import classes from "./Question.module.css"
 
 
-export default function Question({ id, setqueAnsObj }) {
+export default function Question({ id, setqueAnsObj,imgPath }) {
     const [selected, setselected] = useState(-1);
     const handleClick = (e) => {
         setselected(e.id)
@@ -24,6 +24,7 @@ export default function Question({ id, setqueAnsObj }) {
     return (
         <Grid sx={{ boxShadow: 7, padding: 1, marginY: 2 ,borderRadius: "5px" }}>
             <img src={QuestionIMG} width={"100%"} />
+            {/* <img src={`http://66.29.149.18/storage/${imgPath}`} width={"100%"} /> */}
             <Stack direction={"row"} className={classes.buttonBox}>
                 <Button
                     sx={{
@@ -58,7 +59,6 @@ export default function Question({ id, setqueAnsObj }) {
                     onClick={(e) => { handleClick(e.target) }}
                     variant="outlined" color='secondary' id="4">د</Button>
             </Stack>
-
         </Grid >
     )
 }

@@ -1,7 +1,6 @@
 import axios from "axios";
 export const baseUrl = 'http://66.29.149.18/api/v1/student'
 
-
 export const registerApi = async (data) => {
     let resData
     const response = await axios.post(`${baseUrl}/register`, {

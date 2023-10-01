@@ -1,51 +1,154 @@
-import { Grid, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react'
-import ChipDiv from '../../components/ChipDiv/ChipDiv';
-import Question from '../../components/Question/Question'
+import { CircularProgress, Grid, Typography } from "@mui/material";
+import React, { useContext, useEffect, useState } from "react";
+import ChipDiv from "../../components/ChipDiv/ChipDiv";
+import Question from "../../components/Question/Question";
+import { getExam } from "../../API/StudentServices";
+import { UserContext } from "../../context/UserContext";
 
-const examQues = [
-    { question_id: "123", img: "fdkfk" },
-    { question_id: "124", img: "fdkfk" },
-    { question_id: "125", img: "fdkfk" },
-    { question_id: "126", img: "fdkfk" },
-]
 export default function Exam() {
-    const [queAnsObj, setqueAnsObj] = useState({});
-    const submitExam = () => {
-        console.log("queAnsObj", queAnsObj)
-    }
-    useEffect(() => {
-        setqueAnsObj(() => {
-            let temp = {}
-            examQues.map((que) => {
-                let a = {};
-                a[`${que.question_id}`] = -1;
-                temp = { ...temp, ...a }
-            })
-            return temp
+  const [examDetails, setexamDetails] = useState({});
+  const [examQues, setexamQues] = useState([]);
+  const [queAnsObj, setqueAnsObj] = useState({});
+  const { userToken } = useContext(UserContext);
+
+
+  const submitExam = () => {
+    console.log("queAnsObj", queAnsObj);
+  };
+
+  const getExamData = async () => {
+    let res = await getExam("9a3497b9-dda3-440f-b5d1-a5d7dfec09a9", userToken);
+    console.log("get data", res);
+    setexamDetails(res);
+    setexamQues(res.questions);
+  };
+
+
+  useEffect(() => {
+    getExamData();
+  }, []);
+
+
+  useEffect(() => {
+    setqueAnsObj(() => {
+      let temp = {};
+      examQues.map((que) => {
+        let a = {};
+        a[`${que.id}`] = -1;
+        temp = { ...temp, ...a };
+      });
+      return temp;
+    });
+  }, [examQues]);
+  // to show only
+
+  useEffect(() => {
+    console.log("object", queAnsObj);
+  }, [queAnsObj]);
+  
+  return (
+    <div>
+      <Grid
+        container
+        sx={{
+          minHeight: "15rem",
+          padding: "2rem",
+          display: "flex",
+          justifyContent: "center",
+          bgcolor: "#3b82f6",
+          borderRadius: "0.5rem",
+          boxSizing: "border-box",
+        }}
+      >
+        <Typography
+          item
+          graphy
+          sx={{
+            color: "white",
+            padding: "1rem",
+            textAlign: "center",
+            fontFamily: "inherit",
+            width: "100%",
+          }}
+          variant="h4"
+        >
+          إمتحان على مادة الجبر
+        </Typography>
+        <Grid
+          container
+          item
+          sx={{
+            justifyContent: { md: "center", xs: "space-evenly" },
+            alignContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+          }}
+        >
+          <Grid item>
+            <ChipDiv label={"الدرجات"} data={examDetails.full_mark} colorBG={"#b424cd"} />
+          </Grid>
+          <Grid item>
+            <ChipDiv label={"عدد الاسئلة"} data={examDetails.question_count} colorBG={"#4724cd"} />
+          </Grid>
+          <Grid item>
+            <ChipDiv label={"مدة الامتحان"} data={"2H"} colorBG={"#22d3ee"} />
+          </Grid>
+          <Grid item>
+            <ChipDiv
+              label={"وقت البدء"}
+              data={examDetails.exam_date_start}              
+              colorBG={"#f43f5e"}
+            />
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          item
+          sx={{
+            justifyContent: { md: "center", xs: "space-evenly" },
+            alignContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+          }}
+        >
+          <Grid
+            item
+            onClick={() => {
+              submitExam();
+            }}
+          >
+            <ChipDiv label={"تسليم"} data={"100"} colorBG={"#b424cd"} />
+          </Grid>
+          
+        </Grid>
+      </Grid>
+      {examQues.length > 0 ? (
+        examQues.map((e) => {
+          return (
+            <Question
+              key={e.id}
+              id={e.id}
+              imgPath={e.image_path}
+              setqueAnsObj={setqueAnsObj}
+            />
+          );
         })
-    }, [])
-    useEffect(() => {
-        console.log("object", queAnsObj)
-    }, [queAnsObj])
-    return (
-        <div>
-            <Grid container sx={{ minHeight: "15rem", padding: "2rem", display: "flex", justifyContent: "center", bgcolor: "#3b82f6", borderRadius: "0.5rem", boxSizing: "border-box" }}>
-                <Typography item graphy sx={{ color: "white", padding: "1rem", textAlign: "center", fontFamily: "inherit", width: "100%" }} variant='h4'>إمتحان على مادة الجبر</Typography>
-                <Grid container item sx={{ justifyContent: { md: "center", xs: "space-evenly" }, alignContent: "center", alignItems: "center", flexDirection: "row" }}>
-                    <Grid item ><ChipDiv label={"الدرجات"} data={"98/100"} colorBG={"#b424cd"} /></Grid>
-                    <Grid item ><ChipDiv label={"عدد الاسئلة"} data={"20"} colorBG={"#4724cd"} /></Grid>
-                    <Grid item ><ChipDiv label={"مدة الامتحان"} data={"2H"} colorBG={"#22d3ee"} /></Grid>
-                    <Grid item ><ChipDiv label={"وقت البدء"} data={"20:00 24/09/2023"} colorBG={"#f43f5e"} /></Grid>
-                </Grid>
-                <Grid container item sx={{ justifyContent: { md: "center", xs: "space-evenly" }, alignContent: "center", alignItems: "center", flexDirection: "row" }}>
-                    <Grid item onClick={() => { submitExam() }} ><ChipDiv label={"تسليم"} data={"100"} colorBG={"#b424cd"} /></Grid>
-                    <Grid item ><ChipDiv label={"متبقي "} data={"00:00"} colorBG={"#b424cd"} /></Grid>
-                </Grid>
-            </Grid>
-            {examQues.map((e) => {
-                return <Question key={e.question_id} id={e.question_id} setqueAnsObj={setqueAnsObj} />
-            })}
-        </div>
-    )
+      ) : (
+        <Grid
+          sx={{
+            display:"flex",
+            justifyContent: "center",
+            alignItems: "center",
+            boxShadow: 7,
+            padding: 1,
+            marginY: 2,
+            borderRadius: "5px",
+            minHeight:'9rem'
+          }}
+        >
+          <CircularProgress color="secondary"/>
+        </Grid>
+      )}
+    </div>
+  );
 }

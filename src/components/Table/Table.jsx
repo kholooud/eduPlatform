@@ -55,6 +55,13 @@ const localizedTextsMap = {
 
 export default function Table({ columns, rows, isLodaing }) {
   const theme = useTheme("");
+  const handleRowClick = (
+    params, // GridRowParams
+    event, // MuiEvent<React.MouseEvent<HTMLElement>>
+    details, // GridCallbackDetails
+  ) => {
+    console.log("ds",params.id)
+  };
 
   return (
     <>
@@ -99,11 +106,12 @@ export default function Table({ columns, rows, isLodaing }) {
                 },
               },
             }}
-            rows={rows.map((item, index) => ({ id: index + 1, ...item }))}
+            rows={rows.map((item, index) => ({ rowId: index + 1, ...item }))}
             pageSizeOptions={[5]}
             disableRowSelectionOnClick
             localeText={localizedTextsMap}
             slots={{ columnMenu: CustomColumnMenu }}
+            onRowClick={handleRowClick}
           />
         </Box>
       ) : (

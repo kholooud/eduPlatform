@@ -4,7 +4,6 @@ import Countdown from "react-countdown";
 import TimerTwoToneIcon from '@mui/icons-material/TimerTwoTone';
 
 export default function ExamTimer() {
-
     return (
         <Grid container sx={{ justifyContent: "center", padding: "2rem" }}  >
             <Card sx={{ minWidth: { md: "50%", xs: "20%" }, padding: "2rem" }}>

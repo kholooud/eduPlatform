@@ -99,7 +99,7 @@ export default function Register() {
     year: Joi.string().required().messages({
       "string.empty": "- مينفعش السنة يكون فاضي ",
     }),
-    type: Joi.string().required().messages({
+    type: Joi.number().required().messages({
       "string.empty": "- مينفعش القسم يكون فاضي ",
     }),
     email: Joi.string()
