@@ -68,7 +68,7 @@ export default function routes() {
           ],
         },
         {
-          path: "/Course",
+          path: "/Course/:CourseId",
           element: (
             // <ProtectedRoute>
               <Course />
@@ -83,14 +83,14 @@ export default function routes() {
           path: "/Register",
           element: currentUser ? <Navigate to="/" replace /> : <Register />,
         },
-        {
-          path: "/Courses",
-          element: (
-            // <ProtectedRoute>
-              <Courses />
-            // </ProtectedRoute>
-          ),
-        },
+        // {
+        //   path: "/Courses",
+        //   element: (
+        //     // <ProtectedRoute>
+        //       <Courses />
+        //     // </ProtectedRoute>
+        //   ),
+        // },
         {
           path: "/Invoice",
           element: (
@@ -100,7 +100,7 @@ export default function routes() {
           ),
         },
         {
-          path: "/Exam",
+          path: "/Exam/:examID",
           element: (
             // <ProtectedRoute>
             <Exam />

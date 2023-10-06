@@ -2,22 +2,25 @@ import { CircularProgress, Grid, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import ChipDiv from "../../components/ChipDiv/ChipDiv";
 import Question from "../../components/Question/Question";
-import { getExam } from "../../API/StudentServices";
+import { getExam, submitExamAnswers } from "../../API/StudentServices";
 import { UserContext } from "../../context/UserContext";
+import {  useParams } from "react-router-dom";
 
 export default function Exam() {
   const [examDetails, setexamDetails] = useState({});
   const [examQues, setexamQues] = useState([]);
   const [queAnsObj, setqueAnsObj] = useState({});
   const { userToken } = useContext(UserContext);
+  let { examID } = useParams();
 
 
   const submitExam = () => {
     console.log("queAnsObj", queAnsObj);
+    submitExamAnswers(userToken, { 'exam_id': examID, 'answers': queAnsObj })
   };
 
   const getExamData = async () => {
-    let res = await getExam("9a3497b9-dda3-440f-b5d1-a5d7dfec09a9", userToken);
+    let res = await getExam(examID, userToken);
     console.log("get data", res);
     setexamDetails(res);
     setexamQues(res.questions);
@@ -31,13 +34,13 @@ export default function Exam() {
 
   useEffect(() => {
     setqueAnsObj(() => {
-      let temp = {};
+      let answers = {};
       examQues.map((que) => {
         let a = {};
-        a[`${que.id}`] = -1;
-        temp = { ...temp, ...a };
+        a[`${que.id}`] = '-1';
+        answers = { ...answers, ...a };
       });
-      return temp;
+      return answers;
     });
   }, [examQues]);
   // to show only
@@ -45,7 +48,7 @@ export default function Exam() {
   useEffect(() => {
     console.log("object", queAnsObj);
   }, [queAnsObj]);
-  
+
   return (
     <div>
       <Grid
@@ -96,7 +99,7 @@ export default function Exam() {
           <Grid item>
             <ChipDiv
               label={"وقت البدء"}
-              data={examDetails.exam_date_start}              
+              data={examDetails.exam_date_start}
               colorBG={"#f43f5e"}
             />
           </Grid>
@@ -119,7 +122,7 @@ export default function Exam() {
           >
             <ChipDiv label={"تسليم"} data={"100"} colorBG={"#b424cd"} />
           </Grid>
-          
+
         </Grid>
       </Grid>
       {examQues.length > 0 ? (
@@ -136,17 +139,17 @@ export default function Exam() {
       ) : (
         <Grid
           sx={{
-            display:"flex",
+            display: "flex",
             justifyContent: "center",
             alignItems: "center",
             boxShadow: 7,
             padding: 1,
             marginY: 2,
             borderRadius: "5px",
-            minHeight:'9rem'
+            minHeight: '9rem'
           }}
         >
-          <CircularProgress color="secondary"/>
+          <CircularProgress color="secondary" />
         </Grid>
       )}
     </div>

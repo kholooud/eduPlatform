@@ -15,10 +15,10 @@ export default function UserContextProvider(props) {
     checkLoggedIn();
   }, []);
 
-  useEffect(() => {
-    console.log("userContext", currentUser);
-    console.log("userContextToken", userToken);
-  }, [currentUser]);
+  // useEffect(() => {
+  //   console.log("userContext", currentUser);
+  //   console.log("userContextToken", userToken);
+  // }, [currentUser]);
 
   return (
     <UserContext.Provider value={{ currentUser,userToken, checkLoggedIn: checkLoggedIn }}>
