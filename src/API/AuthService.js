@@ -14,10 +14,10 @@ export const isAuthenticated = () => {
     const userToken = localStorage.getItem('userToken');
     console.log('userToken is Auth', userToken)
     if (!userToken) {
-        console.log("user token api auth not found")
+        // console.log("user token api auth not found")
         return null
     }
-    console.log("user token api auth found", JSON.parse(userToken))
+    // console.log("user token api auth found", JSON.parse(userToken))
     return JSON.parse(userToken);
 };
 
