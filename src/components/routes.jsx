@@ -5,7 +5,6 @@ import Login from "../pages/Login/Login";
 import NotFound from "../pages/NotFound/NotFound";
 import Root from "../pages/Root/Root";
 import Course from "../pages/Course/Course";
-import Courses from "../components/Courses/Courses";
 import Invoice from "../pages/Invoice/Invoice";
 import Exam from "../pages/Exam/Exam";
 import MyCourses from "../pages/Profile/ProfileViews/MyCourses/MyCourses";
@@ -24,7 +23,6 @@ import { UserContext } from "../context/UserContext";
 import Year from "./Years/Year/Year";
 import Code_warning from "../pages/Code_warning/Code_warning";
 import TimeOut from "../pages/TimeOut/TimeOut"
-import ExamTimer from "../pages/Exam/ExamTimer/ExamTimer";
 
 export default function routes() {
   const { themeMode, setthemeMode } = useContext(ThemeContext);
@@ -131,14 +129,7 @@ export default function routes() {
             // </ProtectedRoute>
           ),
         },
-        {
-          path: "/Timer",
-          element: (
-            // <ProtectedRoute>
-            <ExamTimer />
-            // </ProtectedRoute>
-          ),
-        },
+        
         { path: "*", element: <NotFound /> },
       ],
     },

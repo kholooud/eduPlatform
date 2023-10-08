@@ -34,7 +34,7 @@ const columns = [
         case 'entered':
           return 'شغال'
         case 'pending':
-          return 'بيتصحح'
+          return 'لسه'
         default:
           break;
       }
