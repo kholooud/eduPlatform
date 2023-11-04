@@ -11,7 +11,7 @@ export default function Root({ handleThemeMode, themeMode }) {
       <Navbar handleThemeMode={handleThemeMode} themeMode={themeMode} />
       <Container
         sx={{
-          minHeight: "60vh",
+          minHeight: "62.7vh",
           display:'flex',
           flexFlow:'column',
           justifyContent: "center",

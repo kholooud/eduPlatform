@@ -45,7 +45,7 @@ const columns = [
     headerName: "الدرجة",
     sortable: false,
     width: 100,
-    renderCell: (params) => { return params.row.status == "completed" ? params.row.result_status + "/100" : "-" }
+    renderCell: (params) => { return params.row.status == "completed" ? `${params.row.exam_result} / ${params.row.full_mark}` : "-" }
   },
   {
     field: "exam_date",

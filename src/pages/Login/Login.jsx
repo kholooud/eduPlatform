@@ -65,7 +65,7 @@ export default function Login() {
     if (resData.status == 200) {
       localStorage.setItem(
         "userToken",
-        JSON.stringify({ "userToken": resData.body.Authorization.token, "userData": resData.body.student })
+        JSON.stringify({ "userToken": resData.body.Authorization.token, "userData": resData.body.student, "expire": resData.body.Authorization.expires_in })
       );
       console.log("context", checkLoggedIn.checkLoggedIn());
     }
@@ -204,7 +204,7 @@ export default function Login() {
               fontSize={".8rem"}
             >
               لا يوجد لديك حساب ؟
-            <Link to="/Register">  <Typography variant="span" color={"warning.main"}>
+              <Link to="/Register">  <Typography variant="span" color={"warning.main"}>
                 انشي إلى حسابك الآن !
               </Typography></Link>
             </Grid>

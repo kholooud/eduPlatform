@@ -6,22 +6,21 @@ export const UserContext = createContext(" ");
 export default function UserContextProvider(props) {
   const [currentUser, setCurrentUser] = useState(isAuthenticated()?.userData);
   const [userToken, setuserToken] = useState(isAuthenticated()?.userToken);
+  const [expireDate, setexpireDate] = useState(isAuthenticated()?.expire);
   const checkLoggedIn = () => {
     setCurrentUser(isAuthenticated()?.userData);
     setuserToken(isAuthenticated()?.userToken);
+    setexpireDate(isAuthenticated()?.expire);
   };
 
   useEffect(() => {
     checkLoggedIn();
   }, []);
 
-  // useEffect(() => {
-  //   console.log("userContext", currentUser);
-  //   console.log("userContextToken", userToken);
-  // }, [currentUser]);
+
 
   return (
-    <UserContext.Provider value={{ currentUser,userToken, checkLoggedIn: checkLoggedIn }}>
+    <UserContext.Provider value={{ currentUser, userToken, expireDate, checkLoggedIn: checkLoggedIn }}>
       {props.children}
     </UserContext.Provider>
   );

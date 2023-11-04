@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import ChipDiv from "../../components/ChipDiv/ChipDiv";
-import Question from "../../components/Question/Question";
+import Question, { QuestionAnswers } from "../../components/Question/Question";
 import { getExam, submitExamAnswers } from "../../API/StudentServices";
 import { UserContext } from "../../context/UserContext";
 import { useParams } from "react-router-dom";
@@ -35,58 +35,65 @@ export default function Exam() {
     <Loader />
   ) : (
     <>
-      {examDetails.status == "pending" ? (
-        <ExamPending
-          startDate={examDetails.exam_date_start}
-          getExamData={getExamData}
-        />
-      ) : (
-        ""
-      )}
-      {examDetails.status == "entered" ? (
-        <ExamEntered
-          examDetails={examDetails}
-          userToken={userToken}
-          examID={examID}
-          getExamData={getExamData}
-        />
-      ) : (
-        ""
-      )}
-      {examDetails.status == "completed" ? "" : ""}
-      {examDetails.status == "submited" ? <ExamSubmited /> : ""}
+      {examDetails.status == "pending" ?
+        (<ExamPending startDate={examDetails.exam_date_start} getExamData={getExamData} />) : ""}
+      {examDetails.status == "entered" ?
+        (<ExamEntered examDetails={examDetails} userToken={userToken} examID={examID} getExamData={getExamData} />) : ""}
+      {examDetails.status == "checked" ?
+        (<ExamChecked examDetails={examDetails} />) : ""}
+      {examDetails.status == "submitted" ? <ExamSubmited  message={'تم تسليم الامتحان انتظر النتيجه ...'}/> : ""}
+      {examDetails.status == "absent" ? <ExamSubmited  message={'لم تحضر الامتحان ...'}/>: ""}
     </>
   );
 }
 function ExamEntered({ examDetails, userToken, examID, getExamData }) {
-  const [examQues, setexamQues] = useState(
-    examDetails.questions ? examDetails.questions : []
-  );
+  const examRemainTime = (new Date(examDetails.exam_date_end) - new Date(Date.now()))
+  const [examQues, setexamQues] = useState(examDetails.questions ? examDetails.questions : []);
   const [queAnsObj, setqueAnsObj] = useState({});
 
-  const submitExam = () => {
-    console.log("queAnsObj", queAnsObj);
-    submitExamAnswers(userToken, { exam_id: examID, answers: queAnsObj });
+  const submitExam = async () => {
+    console.log('submitting data', queAnsObj)
+    await submitExamAnswers(userToken, { exam_id: examID, answers: queAnsObj });
+    localStorage.removeItem(`userAnswerEX_${examID}`);
     getExamData();
+    console.log('run submit data')
   };
 
   useEffect(() => {
     setqueAnsObj(() => {
-      let answers = {};
-      examQues.map((que) => {
-        let a = {};
-        a[`${que.id}`] = "-1";
-        answers = { ...answers, ...a };
-      });
-      return answers;
+      if (localStorage.getItem(`userAnswerEX_${examID}`)) {
+        console.log('answers from local storage set to obj', JSON.parse(localStorage.getItem(`userAnswerEX_${examID}`))?.answers)
+        return JSON.parse(localStorage.getItem(`userAnswerEX_${examID}`))?.answers;
+      } else {
+        let answers = {};
+        examQues.map((que) => {
+          let a = {};
+          a[`${que.id}`] = "-1";
+          answers = { ...answers, ...a };
+        });
+        localStorage.setItem(`userAnswerEX_${examID}`, JSON.stringify({ 'examID': examID, 'answers': answers }));
+        console.log('answers from local storage set to obj if not found', answers)
+        return answers;
+      }
     });
-  }, [examQues]);
+
+    const submitTimeOut = setTimeout(() => {
+      document.querySelector('#submmit').click();
+    }, examRemainTime)
+
+    return () => {
+      console.log(" unmount timeout.current", submitTimeOut)
+      clearTimeout(submitTimeOut);
+    };
+  }, []);
+
+
 
   // to show only
   useEffect(() => {
-    console.log("examDetails", examDetails);
-    console.log("queAnsObj", queAnsObj);
-  }, [queAnsObj]);
+    console.log('examRemainTime', examRemainTime)
+  }, [examRemainTime]);
+
 
   return (
     <div>
@@ -165,7 +172,9 @@ function ExamEntered({ examDetails, userToken, examID, getExamData }) {
             item
             onClick={() => {
               submitExam();
+              // console.log('submit button tslem')
             }}
+            id="submmit"
           >
             <ChipDiv label={"تسليم"} data={"100"} colorBG={"#b424cd"} />
           </Grid>
@@ -179,6 +188,110 @@ function ExamEntered({ examDetails, userToken, examID, getExamData }) {
               id={e.id}
               imgPath={e.image_path}
               setqueAnsObj={setqueAnsObj}
+              examID={examID}
+            />
+          );
+        })
+      ) : (
+        <Loader />
+      )}
+    </div>
+  );
+}
+function ExamChecked({ examDetails }) {
+  const [examQues, setexamQues] = useState([]);
+  useEffect(() => {
+    setexamQues(examDetails.questions ? examDetails.questions : [])
+  }, [examDetails])
+
+  useEffect(() => {
+    console.log('complete', examQues)
+  }, [examDetails])
+
+  return (
+    <div>
+      <Grid
+        container
+        sx={{
+          minHeight: "15rem",
+          padding: "2rem",
+          display: "flex",
+          justifyContent: "center",
+          bgcolor: "#3b82f6",
+          borderRadius: "0.5rem",
+          boxSizing: "border-box",
+        }}
+      >
+        <Typography
+          item
+          graphy
+          sx={{
+            color: "white",
+            padding: "1rem",
+            textAlign: "center",
+            fontFamily: "inherit",
+            width: "100%",
+          }}
+          variant="h4"
+        >
+          إمتحان على مادة الجبر
+        </Typography>
+        <Grid
+          container
+          item
+          sx={{
+            justifyContent: { md: "center", xs: "space-evenly" },
+            alignContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+          }}
+        >
+          <Grid item>
+            <ChipDiv
+              label={"الدرجات"}
+              data={examDetails.full_mark}
+              colorBG={"#b424cd"}
+            />
+          </Grid>
+          <Grid item>
+            <ChipDiv
+              label={"عدد الاسئلة"}
+              data={examDetails.question_count}
+              colorBG={"#4724cd"}
+            />
+          </Grid>
+          <Grid item>
+            <ChipDiv label={"مدة الامتحان"} data={"2H"} colorBG={"#22d3ee"} />
+          </Grid>
+          <Grid item>
+            <ChipDiv
+              label={"وقت البدء"}
+              data={examDetails.exam_date_start}
+              colorBG={"#f43f5e"}
+            />
+          </Grid>
+        </Grid>
+        {/* <Grid
+          container
+          item
+          sx={{
+            justifyContent: { md: "center", xs: "space-evenly" },
+            alignContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+          }}
+        >
+
+        </Grid> */}
+      </Grid>
+      {examQues.length > 0 ? (
+        examQues.map((e) => {
+          return (
+            <QuestionAnswers
+              key={e.id}
+              imgPath={e.image_path}
+              answer={e.answer}
+              student_answer={e.student_answer}
             />
           );
         })
@@ -224,13 +337,13 @@ function ExamPending({ startDate, getExamData }) {
     </Grid>
   );
 }
-function ExamSubmited() {
+function ExamSubmited({message}) {
   return (
-    <Grid container sx={{ justifyContent: "center", padding: "2rem" }}>
+    <Grid container sx={{ justifyContent: "center", padding: "3rem" }}>
       <Card sx={{ minWidth: { md: "50%", xs: "20%" }, padding: "2rem" }}>
         <CardContent sx={{ textAlign: "center" }}>
           <ChecklistRtlIcon sx={{ color: "#f43f5d" }} />
-          <Box>تم تسليم الامتحان انتظر النتيجة ...</Box>
+          <Box>{message}</Box>
         </CardContent>
       </Card>
     </Grid>
@@ -239,20 +352,7 @@ function ExamSubmited() {
 
 function Loader() {
   return (
-    // <Grid
-    //   sx={{
-    //     display: "flex",
-    //     // justifyContent: "center",
-    //     // alignItems: "center",
-    //     // boxShadow: 7,
-    //     padding: 1,
-    //     marginY: 2,
-    //     // borderRadius: "5px",
-    //     // minHeight: "9rem",
-    //     // width: "100%",
-    //   }}
-    // >
+
     <CircularProgress color="secondary" />
-    // </Grid>
   );
 }

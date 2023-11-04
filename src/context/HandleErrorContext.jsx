@@ -6,8 +6,8 @@ export const HandleErrorContext = createContext(" ");
 
 export default function HandleErrorContextProvider(props) {
   const theme = useTheme();
-  const notify = () =>
-    toast.warn("حدث خطا برجاء التواصل بالدعم", {
+  const notify = (message) =>
+    toast.warn(message?message:"حدث خطا برجاء التواصل بالدعم", {
       position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,

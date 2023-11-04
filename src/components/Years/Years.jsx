@@ -5,7 +5,6 @@ import bag from "../../assets/bag.svg";
 import Year from "./Year/Year";
 import { isAuthenticated } from "../../API/AuthService";
 import { UserContext } from "../../context/UserContext";
-import { Lesson } from "../../API/subjects";
 import year1 from "../../assets/year1.jpeg";
 import year2 from "../../assets/year2.jpeg";
 import year3 from "../../assets/year3.jpeg";
@@ -191,7 +190,6 @@ const subjects = [
 export default function Years() {
   const [isAuth, setisAuth] = useState(isAuthenticated())
   const { currentUser } = useContext(UserContext);
-  const [year, setYear] = useState(Lesson())
 
 
   return (

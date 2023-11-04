@@ -1,67 +1,80 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
-import Table from '../../../../components/Table/Table';
+import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { getAllCode } from "../../../../API/StudentServices";
+import Table from "../../../../components/Table/Table";
+import { UserContext } from "../../../../context/UserContext";
 
 const columns = [
-    {
-        field: "rowId",
-        headerName: '',
-        width: 50,
-        align: 'center'
+  {
+    field: "rowId",
+    headerName: "",
+    width: 50,
+    align: "center",
+  },
+  {
+    field: "code",
+    headerName: "الكود",
+    width: 120,
+    renderCell: (params) => {
+      return params.row.barcode;
     },
-    {
-        field: 'code',
-        headerName: 'الكود',
-        width: 120
+  },
+  {
+    field: "session",
+    headerName: "المحاضرة",
+    width: 200,
+    renderCell: (params) => (
+      <Link to={`/week/${params.row.id}`}>{params.row.name}</Link>
+    ),
+  },
+  {
+    field: "status",
+    headerName: "حالة",
+    // description: 'This column has a value getter and is not sortable.',
+    sortable: false,
+    width: 100,
+    renderCell: (params) => {
+      return params.row.status;
     },
-    {
-        field: 'session',
-        headerName: 'المحاضرة',
-        width: 200,
-        renderCell: (params) => (
-            <Link to={`/${params.row.xid}`} >{params.value}</Link>
-        )
+  },
+  {
+    field: "activated_at",
+    headerName: "تشغيل",
+    // description: 'This column has a value getter and is not sortable.',
+    sortable: false,
+    width: 100,
+    renderCell: (params) => {
+      return params.row.activated_at;
     },
-    {
-        field: 'useData',
-        headerName: 'الاستخدام',
-        width: 150
+  },
+  {
+    field: "deactive_at",
+    headerName: "ينتهي ",
+    // description: 'This column has a value getter and is not sortable.',
+    sortable: false,
+    width: 100,
+    renderCell: (params) => {
+      return params.row.deactive_at;
     },
-    {
-        field: 'status',
-        headerName: 'حالة',
-        // description: 'This column has a value getter and is not sortable.',
-        sortable: false,
-        width: 100
-    },
-    {
-        field: 'avialble',
-        headerName: 'المده',
-        sortable: false,
-        width: 100
-    },
-];
-
-const rows = [
-
-    { id: 888, code: 'jghfek', session: 'المحاضرة الاولة', useData: "12:30 2022-04-13", status: "شاغل" },
-    { id: 3, code: 'jghfkf', session: 'المحاضرة الاولة', useData: '23/7/2023', status: "شاغل" },
-    { id: 4, code: 'jghfkf', session: 'المحاضرة الاولة', useData: '23/7/2023', status: "شاغل" },
-    { id: 5, code: 'jghfkf', session: 'المحاضرة الاولة', useData: '23/7/2023', status: "شاغل" },
-    { id: 6, code: 'jghfkf', session: 'المحاضرة الاولة', useData: '23/7/2023', status: "انتهي" },
-    { id: 7, code: 'jghfkf', session: 'المحاضرة الاولة', useData: '23/7/2023', status: "انتهي" },
-    { id: 8, code: 'jghfkf', session: 'المحاضرة الاولة', useData: '23/7/2023', status: "انتهي" },
-    { id: 9, code: 'jghfkf', session: 'المحاضرة الاولة', useData: '23/7/2023', status: "انتهي" },
-    { id: 10, code: 'jghfkf', session: 'المحاضرة الاولة', useData: '23/7/2023', status: "انتهي" },
-    { id: 11, code: 'jghfkf', session: 'المحاضرة الاولة', useData: '23/7/2023', status: "انتهي" },
-    { id: 12, code: 'jghfkf', session: 'المحاضرة الاولة', useData: '23/7/2023', status: "انتهي" },
-    { id: 13, code: 'jghfkf', session: 'المحاضرة الاولة', useData: '23/7/2023', status: "انتهي" },
-    { id: 1, code: 'jghfhk', session: 'المحاضرة الاولة', useData: '23/7/2023', status: "شاغل" },
+  },
 ];
 
 export default function Code() {
+  const { userToken } = useContext(UserContext);
+  const [rows, setrows] = useState([]);
+  const [isLoading, setisLoading] = useState(false);
 
-    return (
-        <Table rows={rows} columns={columns} isLodaing={false} />
-    );
+  const getAllCodeData = async () => {
+    setisLoading(true);
+    let res = await getAllCode(userToken);
+    setisLoading(false);
+    let x = res.map((item) => ({ ...item.code, ...item.lesson }));
+    setrows(x);
+  };
+
+  useEffect(() => {
+    getAllCodeData();
+  }, []);
+
+  return <Table rows={rows} columns={columns} isLodaing={isLoading} />;
 }

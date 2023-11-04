@@ -1,4 +1,4 @@
-import { Navigate, createBrowserRouter, redirect } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import Register from "../pages/Register/Register";
 import Login from "../pages/Login/Login";
@@ -22,7 +22,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import { UserContext } from "../context/UserContext";
 import Year from "./Years/Year/Year";
 import Code_warning from "../pages/Code_warning/Code_warning";
-import TimeOut from "../pages/TimeOut/TimeOut"
+
 
 export default function routes() {
   const { themeMode, setthemeMode } = useContext(ThemeContext);
@@ -31,7 +31,6 @@ export default function routes() {
   const routers = createBrowserRouter([
     {
       path: "",
-      // element: <Root />,
       element: <Root handleThemeMode={setthemeMode} themeMode={themeMode} />,
       children: [
         {
@@ -46,7 +45,6 @@ export default function routes() {
             </ProtectedRoute>
           ),
           children: [
-            ,
             { index: true, element: <Main /> },
             { path: "Code", element: <Code /> },
             { path: "MyCourses", element: <MyCourses /> },
@@ -54,12 +52,12 @@ export default function routes() {
             { path: "Notifications", element: <Notifications /> },
           ],
         }, {
-          path: "/Week",
+          path: "/Week/:weekID",
           element: (
-            // <ProtectedRoute>
-            <Week />
+            <ProtectedRoute>
+              <Week />
+            </ProtectedRoute>
           ),
-          // </ProtectedRoute>
           children: [
             { index: true, element: <Lecture /> },
             { path: "HomeWork", element: <HomeWork /> },
@@ -68,9 +66,9 @@ export default function routes() {
         {
           path: "/Course/:CourseId",
           element: (
-            // <ProtectedRoute>
+            <ProtectedRoute>
               <Course />
-            // </ProtectedRoute>
+            </ProtectedRoute>
           ),
         },
         {
@@ -81,14 +79,6 @@ export default function routes() {
           path: "/Register",
           element: currentUser ? <Navigate to="/" replace /> : <Register />,
         },
-        // {
-        //   path: "/Courses",
-        //   element: (
-        //     // <ProtectedRoute>
-        //       <Courses />
-        //     // </ProtectedRoute>
-        //   ),
-        // },
         {
           path: "/Invoice",
           element: (
@@ -100,36 +90,27 @@ export default function routes() {
         {
           path: "/Exam/:examID",
           element: (
-            // <ProtectedRoute>
-            <Exam />
-            // </ProtectedRoute>
+            <ProtectedRoute>
+              <Exam />
+            </ProtectedRoute>
           ),
         },
-        {
-          path: "/Year",
-          element: (
-            // <ProtectedRoute>
-            <Year />
-            // </ProtectedRoute>
-          ),
-        },
+        // {
+        //   path: "/Year",
+        //   element: (
+        //     // <ProtectedRoute>
+        //     <Year />
+        //     // </ProtectedRoute>
+        //   ),
+        // },
         {
           path: "/Warning",
           element: (
-            // <ProtectedRoute>
-            <Code_warning />
-            // </ProtectedRoute>
+            <ProtectedRoute>
+              <Code_warning />
+            </ProtectedRoute>
           ),
         },
-        {
-          path: "/TimeOut",
-          element: (
-            // <ProtectedRoute>
-            <TimeOut />
-            // </ProtectedRoute>
-          ),
-        },
-        
         { path: "*", element: <NotFound /> },
       ],
     },

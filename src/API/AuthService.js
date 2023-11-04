@@ -12,7 +12,7 @@ export const registerApi = async (data) => {
 
 export const isAuthenticated = () => {
     const userToken = localStorage.getItem('userToken');
-    console.log('userToken is Auth', userToken)
+    // console.log('userToken is Auth', userToken)
     if (!userToken) {
         // console.log("user token api auth not found")
         return null

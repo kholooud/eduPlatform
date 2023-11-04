@@ -127,7 +127,7 @@ export default function Table({ columns, rows, isLodaing }) {
                 },
               },
             }}
-            rows={rows.map((item, index) => ({ rowId: index + 1, ...item }))}
+            rows={rows.map((item, index) => ({ rowId: index + 1,  ...item }))}
             pageSizeOptions={[5]}
             disableRowSelectionOnClick
             localeText={localizedTextsMap}
