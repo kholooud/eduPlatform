@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { isAuthenticated } from "../../API/AuthService";
 import { HandleErrorContext } from "../../context/HandleErrorContext";
@@ -10,11 +10,10 @@ export default function ProtectedRoute({ children }) {
   let nowTime = new Date();
   let expireDate = new Date(isAuthenticated()?.expire);
 
-
+  console.log("notifiyyyyyyy")
   if (currentUser && expireDate > nowTime) {
     return children;
-  }
-  else {
+  } else {
     notify('انتهت مده الجلسة')
     localStorage.removeItem('userToken');
     checkLoggedIn()

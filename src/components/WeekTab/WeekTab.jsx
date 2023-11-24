@@ -3,11 +3,12 @@ import React, { useState } from "react";
 import classes from "./WeekTab.module.css";
 import { Link } from "react-router-dom";
 
-export default function WeekTab({ tabName, View, current,icon }) {
+export default function WeekTab({ tabName, View, current, icon }) {
   const active = current == View ? 1 : 0;
   return (
     <Link to={View == "week" ? "" : View}>
       <Grid
+        item
         container
         xs={2}
         md={10}
@@ -18,7 +19,7 @@ export default function WeekTab({ tabName, View, current,icon }) {
           color: active ? "white" : "#3b82f6",
           margin: "2px",
           height: "50px",
-          justifyContent: {xs:'center',md:'start'},
+          justifyContent: { xs: 'center', md: 'start' },
         }}
       >
         {icon}

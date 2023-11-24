@@ -35,9 +35,11 @@ const columns = [
           return 'شغال'
         case 'pending':
           return 'لسه'
+        case 'checked':
+          return 'اتصحح'
         default:
           break;
-      }
+      } 
     }
   },
   {

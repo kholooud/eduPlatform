@@ -6,7 +6,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import ChipDiv from "../../components/ChipDiv/ChipDiv";
 import Question, { QuestionAnswers } from "../../components/Question/Question";
 import { getExam, submitExamAnswers } from "../../API/StudentServices";
@@ -15,6 +15,10 @@ import { useParams } from "react-router-dom";
 import TimerTwoToneIcon from "@mui/icons-material/TimerTwoTone";
 import ChecklistRtlIcon from "@mui/icons-material/ChecklistRtl";
 import Countdown from "react-countdown";
+
+const shuffle = (array) => {
+  return array.sort(() => Math.random() - 0.5);
+};
 
 export default function Exam() {
   const [examDetails, setexamDetails] = useState({});
@@ -41,15 +45,17 @@ export default function Exam() {
         (<ExamEntered examDetails={examDetails} userToken={userToken} examID={examID} getExamData={getExamData} />) : ""}
       {examDetails.status == "checked" ?
         (<ExamChecked examDetails={examDetails} />) : ""}
-      {examDetails.status == "submitted" ? <ExamSubmited  message={'تم تسليم الامتحان انتظر النتيجه ...'}/> : ""}
-      {examDetails.status == "absent" ? <ExamSubmited  message={'لم تحضر الامتحان ...'}/>: ""}
+      {examDetails.status == "submitted" ? <ExamSubmited message={'تم تسليم الامتحان انتظر النتيجه ...'} /> : ""}
+      {examDetails.status == "absent" ? <ExamSubmited message={'لم تحضر الامتحان ...'} /> : ""}
     </>
   );
 }
 function ExamEntered({ examDetails, userToken, examID, getExamData }) {
   const examRemainTime = (new Date(examDetails.exam_date_end) - new Date(Date.now()))
-  const [examQues, setexamQues] = useState(examDetails.questions ? examDetails.questions : []);
+  const [examQues, setexamQues] = useState(examDetails.questions ? shuffle(examDetails.questions) : []);
   const [queAnsObj, setqueAnsObj] = useState({});
+
+
 
   const submitExam = async () => {
     console.log('submitting data', queAnsObj)
@@ -64,7 +70,8 @@ function ExamEntered({ examDetails, userToken, examID, getExamData }) {
       if (localStorage.getItem(`userAnswerEX_${examID}`)) {
         console.log('answers from local storage set to obj', JSON.parse(localStorage.getItem(`userAnswerEX_${examID}`))?.answers)
         return JSON.parse(localStorage.getItem(`userAnswerEX_${examID}`))?.answers;
-      } else {
+      }
+      else {
         let answers = {};
         examQues.map((que) => {
           let a = {};
@@ -86,15 +93,7 @@ function ExamEntered({ examDetails, userToken, examID, getExamData }) {
       clearTimeout(submitTimeOut);
     };
   }, []);
-
-
-
-  // to show only
-  useEffect(() => {
-    console.log('examRemainTime', examRemainTime)
-  }, [examRemainTime]);
-
-
+ 
   return (
     <div>
       <Grid
@@ -337,7 +336,7 @@ function ExamPending({ startDate, getExamData }) {
     </Grid>
   );
 }
-function ExamSubmited({message}) {
+function ExamSubmited({ message }) {
   return (
     <Grid container sx={{ justifyContent: "center", padding: "3rem" }}>
       <Card sx={{ minWidth: { md: "50%", xs: "20%" }, padding: "2rem" }}>

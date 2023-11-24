@@ -26,14 +26,11 @@ export default function Login() {
   const [isLoading, setisLoading] = useState(false);
 
   const schema = Joi.object({
-    user_login: Joi.string()
-      .email({
-        minDomainSegments: 2,
-        tlds: { allow: ["com", "net"] },
-      })
+    user_login: Joi.string().regex(/^01[0125][0-9]{8}$/)
+      .required()
       .messages({
-        "string.empty": "- مينفعش الايميل يكون فاضي ",
-        "string.email": "- اكتب الايميل صح",
+        "string.empty": "- مينفعش الرقم يكون فاضي ",
+        "string.pattern.base": "- اكتب رقم صح",
       }),
     password: Joi.string().required().messages({
       "string.empty": "- مينفعش كلمة السر تبقي فاضية ",
@@ -65,7 +62,7 @@ export default function Login() {
     if (resData.status == 200) {
       localStorage.setItem(
         "userToken",
-        JSON.stringify({ "userToken": resData.body.Authorization.token, "userData": resData.body.student, "expire": resData.body.Authorization.expires_in })
+        JSON.stringify({ "userToken": resData.body.Authorization.token, "userData": resData.body.student, "expire": resData.body.Authorization.expires_in, "isActive": true })
       );
       console.log("context", checkLoggedIn.checkLoggedIn());
     }
@@ -81,9 +78,17 @@ export default function Login() {
     if (resData.status == 401) {
       setError(
         "password",
-        { type: "focus", message: "رقم السري مش صح" },
+        { type: "focus", message: "رقم التليفون او الرقم السري مش صح" },
         { shouldFocus: true }
       );
+    }
+
+    if (resData.status == 403) {
+      localStorage.setItem(
+        "userToken",
+        JSON.stringify({ "isActive": false })
+      );
+      console.log("context", checkLoggedIn.checkLoggedIn());
     }
   };
 
@@ -168,7 +173,7 @@ export default function Login() {
             justifyContent={"start"}
             alignItems={"center"}
           >
-            <FormInput xs={12} md={12} img={emailSVG} register={register} errors={errors} label={'البريد الالكتروني'} ele="user_login" type="email" />
+            <FormInput xs={12} md={12} img={emailSVG} register={register} errors={errors} label={'رقم التليفون'} ele="user_login" type="phone" />
             <FormInput xs={12} md={12} img={passSVG} register={register} errors={errors} label={'كلمة السر'} ele="password" type="password" />
             <Grid
               item

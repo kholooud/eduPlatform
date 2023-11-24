@@ -7,10 +7,13 @@ export default function UserContextProvider(props) {
   const [currentUser, setCurrentUser] = useState(isAuthenticated()?.userData);
   const [userToken, setuserToken] = useState(isAuthenticated()?.userToken);
   const [expireDate, setexpireDate] = useState(isAuthenticated()?.expire);
+  const [isActive, setisActive] = useState(isAuthenticated()?.isActive);
+
   const checkLoggedIn = () => {
     setCurrentUser(isAuthenticated()?.userData);
     setuserToken(isAuthenticated()?.userToken);
     setexpireDate(isAuthenticated()?.expire);
+    setisActive(isAuthenticated()?.isActive)
   };
 
   useEffect(() => {
@@ -20,7 +23,7 @@ export default function UserContextProvider(props) {
 
 
   return (
-    <UserContext.Provider value={{ currentUser, userToken, expireDate, checkLoggedIn: checkLoggedIn }}>
+    <UserContext.Provider value={{ currentUser, userToken, expireDate, isActive, setisActive: setisActive, checkLoggedIn: checkLoggedIn }}>
       {props.children}
     </UserContext.Provider>
   );

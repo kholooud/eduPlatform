@@ -22,7 +22,7 @@ export default function Course_Content({ lesson }) {
 
   return (
 
-    <Grid item xs={12} md={4} padding={2} marginBottom={2} >
+    <Grid item  xs={12} md={4} padding={2} marginBottom={2} >
       <Link to={`/week/${lesson.id}`}>
         <Card sx={{ boxShadow: "none", backgroundColor: "transparent" }}>
           <CardMedia
@@ -35,7 +35,7 @@ export default function Course_Content({ lesson }) {
             position: "relative",
             marginTop: "-61px",
             zIndex: "100",
-            backgroundColor: "white",
+            backgroundColor: "primary.main",
             maxWidth: "95%",
             right: "-10px",
             borderRadius: "0.5rem",
@@ -43,8 +43,8 @@ export default function Course_Content({ lesson }) {
             marginBottom: "25px"
           }}>
             <Grid container>
-              <Grid xs={12} sx={{ display: "flex", flexFlow: "column" }}>
-                <Typography gutterBottom variant="h5" component="div" sx={{ fontFamily: "inherit", display: "inline" }}>
+              <Grid item xs={12} sx={{ display: "flex", flexFlow: "column" }}>
+                <Typography gutterBottom variant="h5" component="div" sx={{ fontFamily: "inherit", display: "inline"  }}>
                   {
                     lessonDetails.name
                   }

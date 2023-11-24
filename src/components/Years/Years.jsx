@@ -11,6 +11,8 @@ import year3 from "../../assets/year3.jpeg";
 import algebra from "../../assets/algebra.jpg";
 import handsa from "../../assets/engineering.jpg";
 import Trigonometry from "../../assets/Trigonometry.jpg";
+import statistics from "../../assets/statistics.avif";
+import geometry from "../../assets/geometry.jpg";
 const year_data = [
   {
     id: 1,
@@ -164,7 +166,7 @@ const subjects = [
     semester_code: '3-0-0',
     title: "هندسه فراغيه",
     description: "جميع كورسات الصف الثالث الثانوي",
-    imgSrc: handsa,
+    imgSrc: geometry,
     path: '/Course/geometry'
   },
   {
@@ -173,7 +175,7 @@ const subjects = [
     title: "تفاضل وتكامل",
     description: "جميع كورسات الصف الثالث الثانوي",
     imgSrc: algebra,
-    path:'/Course/calculusInt'
+    path: '/Course/calculusInt'
 
   },
   {
@@ -181,8 +183,8 @@ const subjects = [
     semester_code: '3-0-0',
     title: "إحصاء",
     description: "جميع كورسات الصف الثالث الثانوي",
-    imgSrc: algebra,
-    path:'/Course/statistics'
+    imgSrc: statistics,
+    path: '/Course/statistics'
   },
 ]
 
@@ -209,7 +211,7 @@ export default function Years() {
         <Grid
           container
           sx={{
-            bgcolor: "primary.main",
+            bgcolor: "white",
             borderRadius: ".2rem",
             boxSizing: "border-box",
             minHeight: "18rem",
@@ -219,14 +221,14 @@ export default function Years() {
         >
           <>
             {isAuth && currentUser ?
-              subjects.map(e => {
+              subjects.map((e, index) => {
                 return (
                   e.semester_code == currentUser.semester_code ?
-                    <Year ele={e} />
+                    <Year ele={e} key={index} />
                     : "")
               }) :
-              year_data.map((e) => (
-                <Year ele={e} />
+              year_data.map((e, index) => (
+                <Year ele={e} key={index} />
               ))
             }
           </>

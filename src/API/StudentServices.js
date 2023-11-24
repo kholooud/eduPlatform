@@ -10,10 +10,9 @@ export const getExam = async (examID, userToken) => {
     })
         .then((response) => {
             resData = response.data.body;
-            // console.log("exam",resData)
             return resData
         }).catch(() => {
-            // console.log("first")
+            resData = response.response
         });
     return resData
 };
@@ -31,6 +30,7 @@ export const getAllExam = async (userToken) => {
             return resData
         }).catch(() => {
             console.log("frist catch get all exams")
+            resData = response.response
         });
     return resData
 };
@@ -47,6 +47,7 @@ export const getAllCode = async (userToken) => {
             return resData
         }).catch(() => {
             console.log("frist catch get all code")
+            resData = response.response
         });
     return resData
 };
@@ -66,6 +67,7 @@ export const submitExamAnswers = async (userToken, examAnswers) => {
             console.log("exam ans ", response)
         }).catch((response) => {
             console.log("exam answer catch", response)
+            resData = response.response
         });
     return resData
 };
@@ -73,7 +75,6 @@ export const submitExamAnswers = async (userToken, examAnswers) => {
 
 export const getSubject = async (subjectID, userToken) => {
     let resData;
-    // const { response } = await axios.get(`${baseUrl}/lessons`, {
     const { response } = await axios.get(`${baseUrl}/lessons?subject=${subjectID}`, {
         headers: {
             authorization: `Bearer ${userToken}`
@@ -84,7 +85,7 @@ export const getSubject = async (subjectID, userToken) => {
             console.log("lessons", resData)
             return resData
         }).catch(() => {
-            // console.log("first")
+            resData = response.response
         });
     return resData
 };
@@ -101,7 +102,7 @@ export const getLesson = async (LessonID, userToken) => {
             resData = response;
             return resData
         }).catch((response) => {
-            resData = { 'status': response.response.status }
+            resData = response.response;
             return resData
         });
 
@@ -110,11 +111,12 @@ export const getLesson = async (LessonID, userToken) => {
 
 
 
-export const reedemCode = async (barcode, userToken) => {
+export const reedemCode = async (barcode, lesson_id, userToken) => {
     let resData;
     const response = await axios.post(`${baseUrl}/reedem`,
         {
-            'barcode': +barcode
+            'barcode': +barcode,
+            'lesson_id': lesson_id
         }, {
         headers: {
             authorization: `Bearer ${userToken}`
@@ -125,10 +127,9 @@ export const reedemCode = async (barcode, userToken) => {
         console.log("code ", resData)
         return resData
     }).catch((response) => {
-        if (response.response.status == 404) {
-            resData = { 'status': 'Forbidden' }
-        }
-        // console.log('fff', response)
+        resData = response.response
     });
     return resData
 };
+
+

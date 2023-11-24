@@ -1,5 +1,6 @@
 import {
   Button,
+  CircularProgress,
   Container,
   FormControl,
   FormHelperText,
@@ -58,6 +59,7 @@ export default function Register() {
   const theme = useTheme("");
   const [year, setyear] = useState("");
   const [type, setType] = useState(0);
+  const [isLoading, setisLoading] = useState(false)
   const checkLoggedIn = useContext(UserContext);
 
   const schema = Joi.object({
@@ -99,7 +101,11 @@ export default function Register() {
     year: Joi.string().required().messages({
       "string.empty": "- مينفعش السنة يكون فاضي ",
     }),
-    type: Joi.number().required().messages({
+    type: Joi.when('year', {
+      is: Joi.string().valid('1', '3'),
+      then: Joi.any(),
+      otherwise: Joi.valid(1, 2).required().messages({ "any.only": "- لازم تختار" }),
+    }).default(0).messages({
       "string.empty": "- مينفعش القسم يكون فاضي ",
     }),
     email: Joi.string()
@@ -138,8 +144,9 @@ export default function Register() {
   const { errors } = formState;
 
   const onSubmit = async (data) => {
-    const resData = await registerApi({ ...data, semester: "1" });
-    console.log("se3aaa", resData);
+    setisLoading(true)
+    const resData = await registerApi({ ...data, 'type': data.year == 2 ? type : 0 });
+    setisLoading(false)
 
     if (resData.status == 200) {
       localStorage.setItem(
@@ -148,6 +155,8 @@ export default function Register() {
       );
       console.log("context", checkLoggedIn.checkLoggedIn());
     }
+
+    
     if (resData.status == 422) {
       const resErrors = resData.body;
       const keys = Object.keys(resErrors);
@@ -239,8 +248,8 @@ export default function Register() {
           >
             <FormInput xs={12} md={6} img={personSVG} register={register} errors={errors} label={'الاسم'} ele="full_name" type="text" />
             <FormInput xs={12} md={6} img={personSVG} register={register} errors={errors} label={'رقم القومي'} ele="national_id" type="number" />
-            <FormInput xs={12} md={6} img={phoneSVG} register={register} errors={errors} label={'رقم الهاتف'} ele="phone" type="number" />
-            <FormInput xs={12} md={6} img={phoneSVG} register={register} errors={errors} label={'رقم هاتف ولي الامر'} ele="parent_phone" type="number" />
+            <FormInput xs={12} md={6} img={phoneSVG} register={register} errors={errors} label={'رقم الهاتف'} ele="phone" type="tel" />
+            <FormInput xs={12} md={6} img={phoneSVG} register={register} errors={errors} label={'رقم هاتف ولي الامر'} ele="parent_phone" type="tel" />
 
             <Grid item xs={12} md={6} boxSizing={"border-box"} paddingRight={1}>
               <FormControl fullWidth>
@@ -316,7 +325,7 @@ export default function Register() {
               </FormControl>
             </Grid>
             {year == 2 ?
-              <Grid item xs={12} md={6} boxSizing={"border-box"} >
+              <Grid item xs={12} md={6} boxSizing={"border-box"}>
                 <FormControl fullWidth>
                   <InputLabel
                     id="demo-simple-select-label"
@@ -412,7 +421,11 @@ export default function Register() {
                 },
               }}
             >
-              انشئ الحساب !
+              {isLoading ? (
+                <CircularProgress size={"1.5rem"} />
+              ) : (
+                "انشئ الحساب !"
+              )}
             </Grid>
             <Grid
               item

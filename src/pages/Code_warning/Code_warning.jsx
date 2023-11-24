@@ -7,7 +7,7 @@ import { HandleErrorContext } from '../../context/HandleErrorContext';
 
 
 
-export default function Code_warning({ getLesson }) {
+export default function Code_warning({ getLesson, lesson_id }) {
     const [barCode, setbarCode] = useState('')
     const [codeError, setcodeError] = useState(0)
     const { userToken } = useContext(UserContext);
@@ -17,12 +17,13 @@ export default function Code_warning({ getLesson }) {
 
     const handleRedirect = async () => {
         console.log(barCode)
-        let x = await reedemCode(barCode, userToken);
+        let x = await reedemCode(barCode, lesson_id, userToken);
         if (x.status == 200) {
             notify('تم تفعيل الكود')
             getLesson()
             return setcodeError({ 'meassge': 'تم تفعيل الكود ', 'color': 'green' })
         }
+        console.log("message=>", x.data.message)
         setcodeError({ 'meassge': 'الكود مش صح', 'color': 'red' })
     }
 

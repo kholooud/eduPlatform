@@ -32,9 +32,7 @@ export default function Navbar({ handleThemeMode, themeMode }) {
     checkLoggedIn();
     navigate("/")
   };
-  useEffect(() => {
-    console.log("user navbar", currentUser)
-  }, [currentUser])
+
   return (
     <AppBar
       position="sticky"
@@ -117,7 +115,8 @@ export default function Navbar({ handleThemeMode, themeMode }) {
                       zIndex: "6666",
                       flexFlow: "column",
                       justifyContent: "center",
-                    }}>
+                    }}
+                  >
                     <Link to="/Profile">
                       <Grid
                         container
@@ -458,11 +457,13 @@ export default function Navbar({ handleThemeMode, themeMode }) {
           flexFlow: "column",
           justifyContent: "space-around",
           alignItems: "center",
-          padding: ".5rem"
+          padding: ".5rem",
+          zIndex: "555"
         }}
         id="logRegDIV"
         onClick={() => { setlogRegDIV(!logRegDIV) }}
       >
+
 
         {currentUser ?
           <>
@@ -566,6 +567,7 @@ export default function Navbar({ handleThemeMode, themeMode }) {
                 تسجيل الخروج
               </Grid>
             </Grid>
+
           </>
           :
           <>
@@ -674,6 +676,17 @@ export default function Navbar({ handleThemeMode, themeMode }) {
 
 
       </Grid>
+      <Box className="cover"
+        sx={{
+          position: "absolute",
+          width: "100vw",
+          height: "100vh",
+          margin: "auto",
+          backgroundColor: logRegDIV ? "rgba(76, 175, 80, 0.3)" : "transparent",
+          display: logRegDIV || outProDIV ? "block" : "none"
+        }}
+        onClick={(e) => { if (logRegDIV) { setlogRegDIV(!logRegDIV) }; if (outProDIV) { setoutProDIV(!outProDIV) } }}>
+      </Box>
     </AppBar >
   );
 }

@@ -17,16 +17,16 @@ import Profile from "../pages/Profile/Profile";
 import Main from "../pages/Profile/ProfileViews/Main/Main";
 import Code from "../pages/Profile/ProfileViews/Code/Code";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { UserContext } from "../context/UserContext";
-import Year from "./Years/Year/Year";
 import Code_warning from "../pages/Code_warning/Code_warning";
+import ErrorPage from "../pages/ErrorPage/ErrorPage"
 
 
 export default function routes() {
   const { themeMode, setthemeMode } = useContext(ThemeContext);
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, isActive } = useContext(UserContext);
 
   const routers = createBrowserRouter([
     {
@@ -73,11 +73,11 @@ export default function routes() {
         },
         {
           path: "/Login",
-          element: currentUser ? <Navigate to="/" replace /> : <Login />,
+          element: currentUser && isActive ? <Navigate to="/" replace /> : ((isActive == false) ? <ErrorPage /> : <Login />),
         },
         {
           path: "/Register",
-          element: currentUser ? <Navigate to="/" replace /> : <Register />,
+          element: currentUser && isActive ? <Navigate to="/" replace /> : (isActive == false ? <ErrorPage /> : <Register />),
         },
         {
           path: "/Invoice",
@@ -95,14 +95,14 @@ export default function routes() {
             </ProtectedRoute>
           ),
         },
-        // {
-        //   path: "/Year",
-        //   element: (
-        //     // <ProtectedRoute>
-        //     <Year />
-        //     // </ProtectedRoute>
-        //   ),
-        // },
+        {
+          path: "/ErrorPage",
+          element: (
+            <ProtectedRoute>
+              <ErrorPage />
+            </ProtectedRoute>
+          ),
+        },
         {
           path: "/Warning",
           element: (
@@ -115,5 +115,8 @@ export default function routes() {
       ],
     },
   ]);
+  useEffect(() => {
+    console.log("isactive", isActive)
+  }, [isActive])
   return routers;
 }

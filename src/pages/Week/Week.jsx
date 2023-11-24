@@ -51,6 +51,7 @@ export default function Profile() {
           >
             <Grid
               container
+              item
               xs={10}
               md={4}
               sx={{
@@ -109,7 +110,7 @@ export default function Profile() {
             <Outlet context={{...weekDetails}} />
           </Grid>
         </Grid>) : ""}
-      {checkCode == 403 ? <Code_warning getLesson={getLessonData} /> : ""}
+      {checkCode == 403 ? <Code_warning getLesson={getLessonData} lesson_id={weekID}/> : ""}
       {checkCode == 404 ? <NotFound /> : ""}
       {checkCode == 401 ? <div>end seeiov</div> : ""}
       {/* {checkCode == 500 ? notify('حدث خطا يرجي اعادة المحاولة ف وقت اخر') : ""} */}

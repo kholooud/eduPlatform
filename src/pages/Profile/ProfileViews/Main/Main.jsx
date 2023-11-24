@@ -1,5 +1,5 @@
 import { Box, Grid, Typography } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import proImg from "../../../../assets/testimonial-2.jpg";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import PhoneEnabledOutlinedIcon from "@mui/icons-material/PhoneEnabledOutlined";
@@ -8,8 +8,15 @@ import { EmailOutlined } from "@mui/icons-material";
 import Classes from "./Main.module.css";
 import { UserContext } from "../../../../context/UserContext";
 
+
+const years = [
+  { name: "الصف الاول الثانوي", value: "1" },
+  { name: "الصف الثاني الثانوي", value: "2" },
+  { name: "الصف الثالث الثانوي", value: "3" },
+];
 export default function Main() {
   const { currentUser } = useContext(UserContext);
+  const [year, setYear] = useState(currentUser?.semester_code.split('-')[0] - 1)
 
   return (
     <Grid
@@ -75,7 +82,9 @@ export default function Main() {
           </Box>
           <Box className={Classes.info}>
             <SchoolOutlinedIcon />
-            <span>الصف الاول الثانوي</span>
+            <span>
+              {years[year].name}
+            </span>
           </Box>
         </Grid>
       </Grid>

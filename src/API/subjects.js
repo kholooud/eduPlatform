@@ -1,12 +1,11 @@
 import axios from "axios";
-import {baseUrl} from './AuthService'
+import { baseUrl } from './AuthService'
 
 
 
 export const Lesson = async (userToken) => {
     let resData;
     console.log(userToken)
-    // let userToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vNjYuMjkuMTQ5LjE4L2FwaS92MS9hZG1pbi9sb2dpbiIsImlhdCI6MTY5NTgwMDg3MSwiZXhwIjoxNjk1ODA0NDcxLCJuYmYiOjE2OTU4MDA4NzEsImp0aSI6IkhzbXJSVkkyQUxSdWI2dTMiLCJzdWIiOiJiNWFlZjkzZi00ZWFiLTExZWUtYWE0MS1jODRiZDY0YTk5MTgiLCJwcnYiOiJkZjg4M2RiOTdiZDA1ZWY4ZmY4NTA4MmQ2ODZjNDVlODMyZTU5M2E5In0.oTxvNJMPH8Z85U_xEWgR3CGli3GikNIQRQ-l8wu-g6U"
     const { response } = await axios.get(`${baseUrl}/lessons`, {
         headers: {
             authorization: `Bearer ${userToken}`
@@ -16,11 +15,50 @@ export const Lesson = async (userToken) => {
             resData = response.data.body.data;
             return resData
         }).catch(() => {
+            resData = response.response
         });
-        return resData
+    return resData
 
+};
+export const getHomework = async (homeworkID, userToken) => {
+    let resData;
+    const response = await axios.get(`${baseUrl}/homeworks/${homeworkID}`, {
+        headers: {
+            authorization: `Bearer ${userToken}`
+        }
+    }).then((response) => {
+        console.log("suc=>", response)
+        resData = response;
+        return resData
+    }).catch(() => {
+        console.log("de=>", response)
+        resData = response.response
+        return resData
+    });
+
+    return resData
 };
 
 
+export const submitHomeWork = async (userToken, homeWorkAnswers) => {
+    let resData;
+    const respons = await axios.post(`${baseUrl}/homeworks/submit`,
+        homeWorkAnswers,
+        {
+            headers: {
+                authorization: `Bearer ${userToken}`
+            }
+        }
+    )
+        .then((response) => {
+            console.log("home answer ", response)
+            resData = response
+        }).catch((response) => {
+            console.log("home answer catch", response)
+            resData = response.response
+            return resData
+        });
+    return resData
+};
 
 

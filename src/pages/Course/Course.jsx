@@ -42,13 +42,13 @@ export default function Course() {
     <Container>
 
       <Course_Header title={subjectCode[CourseId].des} />
-      <Grid Container
+      <Grid 
         sx={{ boxShadow: 7, borderRadius: ".5rem", backgroundColor: "#f3f4f6", marginY: "1rem", padding: "1rem" }}
       >
         <Grid item sx={{ display: "grid" }}>
           <Box component="span" className={classes.hr1}></Box>
           <Typography item
-            sx={{ fontWeight: "bolder", fontFamily: "inherit", paddingY: "1rem" }}
+            sx={{ fontWeight: "bolder", fontFamily: "inherit", paddingY: "1rem", color: "black" }}
             variant="h3"
           >
             محتوى
@@ -60,11 +60,12 @@ export default function Course() {
         <Grid container>
 
           {Lessons != null ?
-            (Lessons.length > 0 ? Lessons.map((ele) => {
-              return < Course_Content lesson={ele} />
+            (Lessons.length > 0 ? Lessons.map((ele, index) => {
+              return < Course_Content lesson={ele} key={index} />
             }) :
               <Grid sx={{ minWidth: "100%", minHeight: "15rem", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                لا يوجد دروس في هذا الفرع
+
+                <Box sx={{ color: "black" }}>لا يوجد دروس في هذا الفرع</Box>
               </Grid>) :
             <Grid sx={{ minWidth: "100%", minHeight: "15rem", display: "flex", justifyContent: "center", alignItems: "center" }}>
               <CircularProgress color="secondary" />
