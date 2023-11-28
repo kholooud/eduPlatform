@@ -36,7 +36,7 @@ export const getAllExam = async (userToken) => {
 };
 export const getAllCode = async (userToken) => {
     let resData;
-    const { response } = await axios.get(`${baseUrl}/lessons/by/code`, {
+    const  {response}  = await axios.get(`${baseUrl}/lessons/by/code`, {
         headers: {
             authorization: `Bearer ${userToken}`
         }

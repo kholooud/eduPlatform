@@ -6,35 +6,51 @@ import { baseUrl } from './AuthService'
 export const Lesson = async (userToken) => {
     let resData;
     console.log(userToken)
-    const { response } = await axios.get(`${baseUrl}/lessons`, {
+    try {
+        const { response } = await axios.get(`${baseUrl}/lessons`, {
+            headers: {
+                authorization: `Bearer ${userToken}`
+            }
+        })
+        // .then((response) => {
+        resData = response.data.body.data;
+        return resData
+        // }).catch(() => {
+        // });
+        // return resData
+    } catch (e) {
+        resData = e.response
+        console.log("jjj=>", JSON.stringify(resData))
+    }
+
+
+};
+export const getHomework = async (homeworkID, userToken) => {
+
+    // try {
+    let resData;
+    const response = await axios.get(`${baseUrl}/homework/${homeworkID}`, {
         headers: {
             authorization: `Bearer ${userToken}`
         }
     })
         .then((response) => {
-            resData = response.data.body.data;
+            console.log("sucAllam=>", response)
+            resData = response;
             return resData
         }).catch(() => {
+            console.log("de=>", response)
             resData = response.response
+            return resData
         });
-    return resData
+    // } catch (e) {
+    //     console.log("catch allam=>", JSON.stringify(e))
+    //     resData = e.status;
+    //     if(status==400){
 
-};
-export const getHomework = async (homeworkID, userToken) => {
-    let resData;
-    const response = await axios.get(`${baseUrl}/homeworks/${homeworkID}`, {
-        headers: {
-            authorization: `Bearer ${userToken}`
-        }
-    }).then((response) => {
-        console.log("suc=>", response)
-        resData = response;
-        return resData
-    }).catch(() => {
-        console.log("de=>", response)
-        resData = response.response
-        return resData
-    });
+    //     }
+
+    // }
 
     return resData
 };

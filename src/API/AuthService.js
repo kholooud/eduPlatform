@@ -1,4 +1,5 @@
 import axios from "axios";
+import handleApiResponse from "./helper";
 export const baseUrl = 'http://66.29.149.18/api/v1/student'
 
 export const registerApi = async (data) => {
@@ -11,20 +12,13 @@ export const registerApi = async (data) => {
     return resData
 };
 
-export const isAuthenticated = () => {
-    const userToken = localStorage.getItem('userToken');
-    if (!userToken) {
-        return null
-    }
-    return JSON.parse(userToken);
-};
-
 export const loginApi = async (data) => {
-    let resData
-    const response = await axios.post(`${baseUrl}/login`, {
-        ...data,
-    }).then((response) => { resData = response.data }).catch(({ response }) => { resData = response.data });
-    return resData
+    const apiFunction = () => {
+        return axios.post(`${baseUrl}/login`, {
+            ...data,
+        })
+    }
+    return (await handleApiResponse(apiFunction))
 };
 
 export const checkSemster = () => {
@@ -37,30 +31,10 @@ export const checkSemster = () => {
         return 2
     }
 }
-
-// export const isOnline = (no, yes) => {
-//     var xhr = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHttp');
-//     xhr.onload = function () {
-//         if (yes instanceof Function) {
-//             yes();
-//         }
-//     }
-//     xhr.onerror = function () {
-//         if (no instanceof Function) {
-//             no();
-//         }
-//     }
-//     xhr.open("GET", "anypage.php", true);
-//     xhr.send();
-// }
-
-// isOnline(
-//     function () {
-//         alert("Sorry, we currently do not have Internet access.");
-//     },
-//     function () {
-//         alert("Succesfully connected!");
-//     }
-// );
-
-
+export const isAuthenticated = () => {
+    const userToken = localStorage.getItem('userToken');
+    if (!userToken) {
+        return null
+    }
+    return JSON.parse(userToken);
+};

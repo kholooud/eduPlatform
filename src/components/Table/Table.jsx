@@ -43,8 +43,6 @@ function Loading() {
   );
 }
 
-
-
 function CustomColumnMenu(props) {
   return (
     <GridColumnMenu
@@ -79,7 +77,7 @@ export default function Table({ columns, rows, isLodaing }) {
     event, // MuiEvent<React.MouseEvent<HTMLElement>>
     details, // GridCallbackDetails
   ) => {
-    console.log("ds", rows)
+    console.log("dscodes", rows)
   };
 
   return (

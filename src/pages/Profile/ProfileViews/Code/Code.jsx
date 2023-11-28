@@ -24,7 +24,7 @@ const columns = [
     headerName: "المحاضرة",
     width: 200,
     renderCell: (params) => (
-      <Link to={`/week/${params.row.id}`}>{params.row.name}</Link>
+      <Link to={`/week/${params.row.lesson_id}`}>{params.row.name}</Link>
     ),
   },
   {
@@ -68,7 +68,12 @@ export default function Code() {
     setisLoading(true);
     let res = await getAllCode(userToken);
     setisLoading(false);
-    let x = res.map((item) => ({ ...item.code, ...item.lesson }));
+    let x = res.map((item) => ({
+      ...item.code,
+      ...item.lesson,
+      lesson_id: item.lesson.id,
+      id: item.code.id,
+    }));
     setrows(x);
   };
 
