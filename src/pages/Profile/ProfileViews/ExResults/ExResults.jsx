@@ -98,7 +98,7 @@ export default function ExResults() {
     let res = await getAllExam(userToken);
     if (res.status == 200) {
       setisLoading(false);
-      return setrows(res);
+      return setrows(res.data.body);
     }
     notify("حدث خطا اعاد محاولة مره اخري");
   };

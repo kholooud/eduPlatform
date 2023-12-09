@@ -8,35 +8,38 @@ import classes from "./Features.module.css";
 import { useTheme } from "@emotion/react";
 export default function Features() {
   const theme = useTheme();
-  // function scrollActions(e) {
-  //   let FBI1 = document.querySelector("#featureBoxInfo1");
-  //   let FBI2 = document.querySelector("#featureBoxInfo2");
-  //   let FBI3 = document.querySelector("#featureBoxInfo3");
-  //   let feature = document.querySelector("#features");
-  //   let featureBounding = feature.getBoundingClientRect();
-  //   if (featureBounding.top > window.pageYOffset) {
-  //     FBI1.style.transform = `translateY(-20rem) rotate(0deg)`;
-  //     FBI2.style.transform = `translateY(-20rem) rotate(0deg)`;
-  //     FBI3.style.transform = `translateY(-20rem) rotate(0deg)`;
-  //   }
-  //   if (
-  //     featureBounding.top < window.pageYOffset &&
-  //     featureBounding.top + featureBounding.height > window.pageYOffset
-  //   ) {
-  //     FBI1.style.transform = `translateY(-10rem) rotate(${(window.pageYOffset % 30) * 10
-  //       }deg)`;
-  //     FBI2.style.transform = `translateY(-10rem) rotate(${(window.pageYOffset % 30) * -10
-  //       }deg)`;
-  //     FBI3.style.transform = `translateY(-10rem) rotate(${(window.pageYOffset % 30) * 10
-  //       }deg)`;
-  //   }
-  //   if (featureBounding.top + featureBounding.height < window.pageYOffset) {
-  //     FBI1.style.transform = `translateY(0rem) rotate(0deg)`;
-  //     FBI2.style.transform = `translateY(0rem) rotate(0deg)`;
-  //     FBI3.style.transform = `translateY(0rem) rotate(0deg)`;
-  //   }
-  // }
-  // window.addEventListener("scroll", scrollActions);
+  function scrollActions(e) {
+    let FBI1 = document.querySelector("#featureBoxInfo1");
+    let FBI2 = document.querySelector("#featureBoxInfo2");
+    let FBI3 = document.querySelector("#featureBoxInfo3");
+    let feature = document.querySelector("#features");
+    let featureBounding = feature.getBoundingClientRect();
+    if (featureBounding.top > window.pageYOffset) {
+      FBI1.style.transform = `translateY(-20rem) rotate(0deg)`;
+      FBI2.style.transform = `translateY(-20rem) rotate(0deg)`;
+      FBI3.style.transform = `translateY(-20rem) rotate(0deg)`;
+    }
+    if (
+      featureBounding.top < window.pageYOffset &&
+      featureBounding.top + featureBounding.height > window.pageYOffset
+    ) {
+      FBI1.style.transform = `translateY(-10rem) rotate(${
+        (window.pageYOffset % 30) * 10
+      }deg)`;
+      FBI2.style.transform = `translateY(-10rem) rotate(${
+        (window.pageYOffset % 30) * -10
+      }deg)`;
+      FBI3.style.transform = `translateY(-10rem) rotate(${
+        (window.pageYOffset % 30) * 10
+      }deg)`;
+    }
+    if (featureBounding.top + featureBounding.height < window.pageYOffset) {
+      FBI1.style.transform = `translateY(0rem) rotate(0deg)`;
+      FBI2.style.transform = `translateY(0rem) rotate(0deg)`;
+      FBI3.style.transform = `translateY(0rem) rotate(0deg)`;
+    }
+  }
+  window.addEventListener("scroll", scrollActions);
   return (
     <>
       <Grid className={classes.paperBorder}>

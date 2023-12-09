@@ -5,11 +5,8 @@ import Login from "../pages/Login/Login";
 import NotFound from "../pages/NotFound/NotFound";
 import Root from "../pages/Root/Root";
 import Course from "../pages/Course/Course";
-import Invoice from "../pages/Invoice/Invoice";
 import Exam from "../pages/Exam/Exam";
-import MyCourses from "../pages/Profile/ProfileViews/MyCourses/MyCourses";
 import ExResults from "../pages/Profile/ProfileViews/ExResults/ExResults";
-import Notifications from "../pages/Profile/ProfileViews/Notifications/Notifications";
 import Week from "../pages/Week/Week";
 import HomeWork from "../pages/Week/WeekViews/HomeWork/HomeWork";
 import Lecture from "../pages/Week/WeekViews/Lecture/Lecture";
@@ -47,9 +44,7 @@ export default function routes() {
           children: [
             { index: true, element: <Main /> },
             { path: "Code", element: <Code /> },
-            { path: "MyCourses", element: <MyCourses /> },
             { path: "ExResults", element: <ExResults /> },
-            { path: "Notifications", element: <Notifications /> },
           ],
         }, {
           path: "/Week/:weekID",

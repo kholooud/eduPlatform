@@ -71,7 +71,7 @@ export default function Code() {
     let res = await getAllCode(userToken);
     if (res.status == 200) {
       setisLoading(false);
-      let x = res.map((item) => ({
+      let x = res.data.body.map((item) => ({
         ...item.code,
         ...item.lesson,
         lesson_id: item.lesson.id,

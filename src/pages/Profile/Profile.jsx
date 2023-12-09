@@ -1,10 +1,9 @@
-import { Box, Container, Grid } from "@mui/material";
+import {  Container, Grid } from "@mui/material";
 import React from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonIcon from "@mui/icons-material/Person";
 import ProfileTab from "../../components/ProfileTab/ProfileTab";
 import QrCode2Icon from '@mui/icons-material/QrCode2';
-import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 import RuleIcon from '@mui/icons-material/Rule';
 import { Outlet, useLocation } from "react-router-dom";
 import { useTheme } from "@emotion/react";
