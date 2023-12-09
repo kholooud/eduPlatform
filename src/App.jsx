@@ -6,8 +6,7 @@ import { CacheProvider } from "@emotion/react";
 import { prefixer } from "stylis";
 import stylisRTLPlugin from "stylis-plugin-rtl";
 import { ThemeContext } from "./context/ThemeContext.jsx";
-import { useContext, useEffect } from "react";
-import { UserContext } from "./context/UserContext.jsx";
+import { useContext } from "react";
 import HandleErrorContextProvider from "./context/HandleErrorContext.jsx";
 
 function App() {
@@ -17,7 +16,8 @@ function App() {
     key: "muirtl",
     stylisPlugins: [prefixer, stylisRTLPlugin],
   });
-  useEffect(() => {}, []);
+ 
+  
   return (
     <>
       <CacheProvider value={cacheRtl}>

@@ -59,7 +59,7 @@ export default function Register() {
   const theme = useTheme("");
   const [year, setyear] = useState("");
   const [type, setType] = useState(0);
-  const [isLoading, setisLoading] = useState(false)
+  const [isLoading, setisLoading] = useState(false);
   const checkLoggedIn = useContext(UserContext);
 
   const schema = Joi.object({
@@ -101,13 +101,17 @@ export default function Register() {
     year: Joi.string().required().messages({
       "string.empty": "- مينفعش السنة يكون فاضي ",
     }),
-    type: Joi.when('year', {
-      is: Joi.string().valid('1', '3'),
+    type: Joi.when("year", {
+      is: Joi.string().valid("1", "3"),
       then: Joi.any(),
-      otherwise: Joi.valid(1, 2).required().messages({ "any.only": "- لازم تختار" }),
-    }).default(0).messages({
-      "string.empty": "- مينفعش القسم يكون فاضي ",
-    }),
+      otherwise: Joi.valid(1, 2)
+        .required()
+        .messages({ "any.only": "- لازم تختار" }),
+    })
+      .default(0)
+      .messages({
+        "string.empty": "- مينفعش القسم يكون فاضي ",
+      }),
     email: Joi.string()
       .email({
         minDomainSegments: 2,
@@ -134,7 +138,6 @@ export default function Register() {
         "string.empty": "- مينفعش الاسم يكون فاضي ",
         "any.only": "- لازم يبقي زي كلمة السر",
       }),
-
   });
   const form = useForm({
     resolver: joiResolver(schema),
@@ -144,19 +147,22 @@ export default function Register() {
   const { errors } = formState;
 
   const onSubmit = async (data) => {
-    setisLoading(true)
-    const resData = await registerApi({ ...data, 'type': data.year == 2 ? type : 0 });
-    setisLoading(false)
-
+    setisLoading(true);
+    const resData = await registerApi({
+      ...data,
+      type: data.year == 2 ? type : 0,
+    });
+    setisLoading(false);
     if (resData.status == 200) {
       localStorage.setItem(
         "userToken",
-        JSON.stringify({ "userToken": resData.body.Authorization.token, "userData": resData.body.student })
+        JSON.stringify({
+          userToken: resData.body.Authorization.token,
+          userData: resData.body.student,
+        })
       );
-      console.log("context", checkLoggedIn.checkLoggedIn());
+      checkLoggedIn.checkLoggedIn();
     }
-
-    
     if (resData.status == 422) {
       const resErrors = resData.body;
       const keys = Object.keys(resErrors);
@@ -246,10 +252,46 @@ export default function Register() {
             justifyContent={"start"}
             alignItems={"center"}
           >
-            <FormInput xs={12} md={6} img={personSVG} register={register} errors={errors} label={'الاسم'} ele="full_name" type="text" />
-            <FormInput xs={12} md={6} img={personSVG} register={register} errors={errors} label={'رقم القومي'} ele="national_id" type="number" />
-            <FormInput xs={12} md={6} img={phoneSVG} register={register} errors={errors} label={'رقم الهاتف'} ele="phone" type="tel" />
-            <FormInput xs={12} md={6} img={phoneSVG} register={register} errors={errors} label={'رقم هاتف ولي الامر'} ele="parent_phone" type="tel" />
+            <FormInput
+              xs={12}
+              md={6}
+              img={personSVG}
+              register={register}
+              errors={errors}
+              label={"الاسم"}
+              ele="full_name"
+              type="text"
+            />
+            <FormInput
+              xs={12}
+              md={6}
+              img={personSVG}
+              register={register}
+              errors={errors}
+              label={"رقم القومي"}
+              ele="national_id"
+              type="number"
+            />
+            <FormInput
+              xs={12}
+              md={6}
+              img={phoneSVG}
+              register={register}
+              errors={errors}
+              label={"رقم الهاتف"}
+              ele="phone"
+              type="tel"
+            />
+            <FormInput
+              xs={12}
+              md={6}
+              img={phoneSVG}
+              register={register}
+              errors={errors}
+              label={"رقم هاتف ولي الامر"}
+              ele="parent_phone"
+              type="tel"
+            />
 
             <Grid item xs={12} md={6} boxSizing={"border-box"} paddingRight={1}>
               <FormControl fullWidth>
@@ -265,7 +307,6 @@ export default function Register() {
                   الصف الدراسي
                 </InputLabel>
                 <Select
-
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   label="الصف الدراسي"
@@ -315,16 +356,21 @@ export default function Register() {
                 <FormHelperText
                   sx={{
                     color: "#fff !important",
-                    bgcolor: `${errors.year ? theme.palette.info.main : "transparent"}`,
+                    bgcolor: `${
+                      errors.year ? theme.palette.info.main : "transparent"
+                    }`,
                     fontFamily: "inherit",
                     borderRadius: "5px",
                     boxSizing: "border-box",
                     padding: "5px",
-                    marginX: "0"
-                  }}>{errors.year ? errors.year.message : " "}</FormHelperText>
+                    marginX: "0",
+                  }}
+                >
+                  {errors.year ? errors.year.message : " "}
+                </FormHelperText>
               </FormControl>
             </Grid>
-            {year == 2 ?
+            {year == 2 ? (
               <Grid item xs={12} md={6} boxSizing={"border-box"}>
                 <FormControl fullWidth>
                   <InputLabel
@@ -388,20 +434,53 @@ export default function Register() {
                   <FormHelperText
                     sx={{
                       color: "#fff !important",
-                      bgcolor: `${errors.type ? theme.palette.info.main : "transparent"}`,
+                      bgcolor: `${
+                        errors.type ? theme.palette.info.main : "transparent"
+                      }`,
                       fontFamily: "inherit",
                       borderRadius: "5px",
                       boxSizing: "border-box",
                       padding: "5px",
-                      marginX: "0"
-                    }}>{errors.type ? errors.type.message : " "}</FormHelperText>
+                      marginX: "0",
+                    }}
+                  >
+                    {errors.type ? errors.type.message : " "}
+                  </FormHelperText>
                 </FormControl>
               </Grid>
-              : ""
-            }
-            <FormInput xs={12} md={12} img={emailSVG} register={register} errors={errors} label={'البريد الالكتروني'} ele="email" type="email" />
-            <FormInput xs={12} md={6} img={passSVG} register={register} errors={errors} label={'كلمة السر'} ele="password" type="password" />
-            <FormInput xs={12} md={6} img={passSVG} register={register} errors={errors} label={'تاكيد كلمة السر'} ele="password_confirmation" type="password" />
+            ) : (
+              ""
+            )}
+            <FormInput
+              xs={12}
+              md={12}
+              img={emailSVG}
+              register={register}
+              errors={errors}
+              label={"البريد الالكتروني"}
+              ele="email"
+              type="email"
+            />
+            <FormInput
+              xs={12}
+              md={6}
+              img={passSVG}
+              register={register}
+              errors={errors}
+              label={"كلمة السر"}
+              ele="password"
+              type="password"
+            />
+            <FormInput
+              xs={12}
+              md={6}
+              img={passSVG}
+              register={register}
+              errors={errors}
+              label={"تاكيد كلمة السر"}
+              ele="password_confirmation"
+              type="password"
+            />
             <Grid
               item
               xs={5}
@@ -435,15 +514,16 @@ export default function Register() {
               fontSize={".8rem"}
             >
               يوجد لديك حساب بالفعل؟{" "}
-              <Link to="/Login"><Typography variant="span" color={"warning.main"}>
-                ادخل إلى حسابك الآن !
-              </Typography></Link>
+              <Link to="/Login">
+                <Typography variant="span" color={"warning.main"}>
+                  ادخل إلى حسابك الآن !
+                </Typography>
+              </Link>
             </Grid>
           </Grid>
           <DevTool control={control} />
         </Grid>
       </Grid>
-    </Container >
+    </Container>
   );
 }
-

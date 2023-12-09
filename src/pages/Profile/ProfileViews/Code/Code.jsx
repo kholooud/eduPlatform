@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getAllCode } from "../../../../API/StudentServices";
 import Table from "../../../../components/Table/Table";
 import { UserContext } from "../../../../context/UserContext";
+import { HandleErrorContext } from "../../../../context/HandleErrorContext";
 
 const columns = [
   {
@@ -61,20 +62,24 @@ const columns = [
 
 export default function Code() {
   const { userToken } = useContext(UserContext);
+  const { notify } = useContext(HandleErrorContext);
   const [rows, setrows] = useState([]);
   const [isLoading, setisLoading] = useState(false);
 
   const getAllCodeData = async () => {
     setisLoading(true);
     let res = await getAllCode(userToken);
-    setisLoading(false);
-    let x = res.map((item) => ({
-      ...item.code,
-      ...item.lesson,
-      lesson_id: item.lesson.id,
-      id: item.code.id,
-    }));
-    setrows(x);
+    if (res.status == 200) {
+      setisLoading(false);
+      let x = res.map((item) => ({
+        ...item.code,
+        ...item.lesson,
+        lesson_id: item.lesson.id,
+        id: item.code.id,
+      }));
+      return setrows(x);
+    }
+    notify("حدث خطا اعاد محاولة مره اخري");
   };
 
   useEffect(() => {

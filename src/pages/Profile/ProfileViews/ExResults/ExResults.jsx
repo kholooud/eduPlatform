@@ -3,6 +3,7 @@ import Table from "../../../../components/Table/Table";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../../../context/UserContext";
 import { getAllExam } from "../../../../API/StudentServices";
+import { HandleErrorContext } from "../../../../context/HandleErrorContext";
 
 const columns = [
   {
@@ -27,27 +28,31 @@ const columns = [
     width: 100,
     renderCell: (params) => {
       switch (params.row.status) {
-        case 'completed':
-          return 'انتهي'
-        case 'absent':
-          return 'غياب'
-        case 'entered':
-          return 'شغال'
-        case 'pending':
-          return 'لسه'
-        case 'checked':
-          return 'اتصحح'
+        case "completed":
+          return "انتهي";
+        case "absent":
+          return "غياب";
+        case "entered":
+          return "شغال";
+        case "pending":
+          return "لسه";
+        case "checked":
+          return "اتصحح";
         default:
           break;
-      } 
-    }
+      }
+    },
   },
   {
     field: "result_status",
     headerName: "الدرجة",
     sortable: false,
     width: 100,
-    renderCell: (params) => { return params.row.status == "completed" ? `${params.row.exam_result} / ${params.row.full_mark}` : "-" }
+    renderCell: (params) => {
+      return params.row.status == "completed"
+        ? `${params.row.exam_result} / ${params.row.full_mark}`
+        : "-";
+    },
   },
   {
     field: "exam_date",
@@ -78,7 +83,7 @@ const columns = [
     sortable: false,
     width: 100,
     renderCell: (params) => (
-      <span>{(params.row.exam_date_start.split(" ")[1]).slice(0, -3)}</span>
+      <span>{params.row.exam_date_start.split(" ")[1].slice(0, -3)}</span>
     ),
   },
 ];
@@ -87,14 +92,15 @@ export default function ExResults() {
   const { userToken } = useContext(UserContext);
   const [rows, setrows] = useState([]);
   const [isLoading, setisLoading] = useState(false);
-
-
+  const { notify } = useContext(HandleErrorContext);
   const getAllExamData = async () => {
-    setisLoading(true)
+    setisLoading(true);
     let res = await getAllExam(userToken);
-    setisLoading(false)
-    setrows(res);
-    console.log("get data", res);
+    if (res.status == 200) {
+      setisLoading(false);
+      return setrows(res);
+    }
+    notify("حدث خطا اعاد محاولة مره اخري");
   };
   useEffect(() => {
     getAllExamData();

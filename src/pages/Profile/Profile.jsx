@@ -6,7 +6,6 @@ import ProfileTab from "../../components/ProfileTab/ProfileTab";
 import QrCode2Icon from '@mui/icons-material/QrCode2';
 import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 import RuleIcon from '@mui/icons-material/Rule';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import { Outlet, useLocation } from "react-router-dom";
 import { useTheme } from "@emotion/react";
 export default function Profile() {
@@ -76,10 +75,8 @@ export default function Profile() {
         </Grid>
         <Grid item container xs={12} md={3}  sx={{justifyContent:"center",alignContent:"start"}} >
           <ProfileTab tabName={"ملف المستخدم"} View={"Profile"} current={current} icon={<PersonIcon/>}/>
-          {/* <ProfileTab tabName={"كورساتي"} View={"MyCourses"} current={current} icon={<ImportContactsIcon/>}/> */}
           <ProfileTab tabName={"الاكواد"} View={"Code"} current={current} icon={<QrCode2Icon/>}/>
           <ProfileTab tabName={"الامتحانات"} View={"ExResults"} current={current} icon={<RuleIcon/>}/>
-          {/* <ProfileTab tabName={"الاشعارات"} View={"Notifications"} current={current} icon={<NotificationsActiveIcon/>}/> */}
         </Grid>
         <Grid item container xs={11} md={9} sx={{ background: "inherit", minHeight: "30vh",justifyContent:"center",alignItems:"center" }}>
           <Outlet />

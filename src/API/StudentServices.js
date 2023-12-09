@@ -3,52 +3,47 @@ import { baseUrl } from "./AuthService"
 
 export const getExam = async (examID, userToken) => {
     let resData;
-    const { response } = await axios.get(`${baseUrl}/exams/${examID}`, {
+    const response = await axios.get(`${baseUrl}/exams/${examID}`, {
         headers: {
             authorization: `Bearer ${userToken}`
         }
     })
         .then((response) => {
-            resData = response.data.body;
+            resData = response;
             return resData
-        }).catch(() => {
-            resData = response.response
+        }).catch((response) => {
+            resData = response
         });
     return resData
 };
 
 export const getAllExam = async (userToken) => {
     let resData;
-    const { response } = await axios.get(`${baseUrl}/exams`, {
+    const response = await axios.get(`${baseUrl}/exams`, {
         headers: {
             authorization: `Bearer ${userToken}`
         }
     })
         .then((response) => {
-            resData = response.data.body;
-            console.log("allexam", resData)
+            resData = response;
             return resData
-        }).catch(() => {
+        }).catch((response) => {
             console.log("frist catch get all exams")
-            resData = response.response
+            resData = response
         });
     return resData
 };
 export const getAllCode = async (userToken) => {
     let resData;
-    const  {response}  = await axios.get(`${baseUrl}/lessons/by/code`, {
+    const response = await axios.get(`${baseUrl}/lessons/by/code`, {
         headers: {
             authorization: `Bearer ${userToken}`
         }
-    })
-        .then((response) => {
-            resData = response.data.body;
-            console.log("allcode", resData)
-            return resData
-        }).catch(() => {
-            console.log("frist catch get all code")
-            resData = response.response
-        });
+    }).then((response) => {
+        resData = response;
+    }).catch((response) => {
+        resData = response
+    });
     return resData
 };
 
@@ -81,7 +76,7 @@ export const getSubject = async (subjectID, userToken) => {
         }
     })
         .then((response) => {
-            resData = response.data.body;
+            resData = response;
             console.log("lessons", resData)
             return resData
         }).catch(() => {

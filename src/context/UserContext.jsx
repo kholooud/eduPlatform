@@ -13,7 +13,8 @@ export default function UserContextProvider(props) {
     setCurrentUser(isAuthenticated()?.userData);
     setuserToken(isAuthenticated()?.userToken);
     setexpireDate(isAuthenticated()?.expire);
-    setisActive(isAuthenticated()?.isActive)
+    setisActive(isAuthenticated()?.isActive);
+    console.log("se3a")
   };
 
   useEffect(() => {

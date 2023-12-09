@@ -13,7 +13,6 @@ export default function FormInput({ register, img, label, errors, ele, type, xs,
                 borderRadius: "5px",
                 boxSizing: "border-box",
                 padding: "5px",
-                // color: '#fff'
             },
         };
     }

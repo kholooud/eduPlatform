@@ -15,6 +15,9 @@ import { useParams } from "react-router-dom";
 import TimerTwoToneIcon from "@mui/icons-material/TimerTwoTone";
 import ChecklistRtlIcon from "@mui/icons-material/ChecklistRtl";
 import Countdown from "react-countdown";
+import { useMemo } from "react";
+import { isOnline } from "../../API/helper";
+import { HandleErrorContext } from "../../context/HandleErrorContext";
 
 const shuffle = (array) => {
   return array.sort(() => Math.random() - 0.5);
@@ -24,11 +27,17 @@ export default function Exam() {
   const [examDetails, setexamDetails] = useState({});
   const { userToken } = useContext(UserContext);
   let { examID } = useParams();
-
+  const { notify } = useContext(HandleErrorContext);
   const getExamData = async () => {
     let res = await getExam(examID, userToken);
-    console.log("get data", res);
-    setexamDetails(res);
+    if (res.status == 200) {
+      console.log("get data", res);
+      return setexamDetails(res.data.body);
+    }
+    if(res.status == 401){
+      return notify("غير مسموح لدخول الامتحان");
+    }
+    notify("حدث خطا اعاد محاولة مره اخري");
   };
 
   useEffect(() => {
@@ -39,61 +48,108 @@ export default function Exam() {
     <Loader />
   ) : (
     <>
-      {examDetails.status == "pending" ?
-        (<ExamPending startDate={examDetails.exam_date_start} getExamData={getExamData} />) : ""}
-      {examDetails.status == "entered" ?
-        (<ExamEntered examDetails={examDetails} userToken={userToken} examID={examID} getExamData={getExamData} />) : ""}
-      {examDetails.status == "checked" ?
-        (<ExamChecked examDetails={examDetails} />) : ""}
-      {examDetails.status == "submitted" ? <ExamSubmited message={'تم تسليم الامتحان انتظر النتيجه ...'} /> : ""}
-      {examDetails.status == "absent" ? <ExamSubmited message={'لم تحضر الامتحان ...'} /> : ""}
+      {examDetails.status == "pending" ? (
+        <ExamPending
+          startDate={examDetails.exam_date_start}
+          getExamData={getExamData}
+        />
+      ) : (
+        ""
+      )}
+      {examDetails.status == "entered" ? (
+        <ExamEntered
+          examDetails={examDetails}
+          userToken={userToken}
+          examID={examID}
+          getExamData={getExamData}
+        />
+      ) : (
+        ""
+      )}
+      {examDetails.status == "checked" ? (
+        <ExamChecked examDetails={examDetails} />
+      ) : (
+        ""
+      )}
+      {examDetails.status == "submitted" ? (
+        <ExamSubmited message={"تم تسليم الامتحان انتظر النتيجه ..."} />
+      ) : (
+        ""
+      )}
+      {examDetails.status == "absent" ? (
+        <ExamSubmited message={"لم تحضر الامتحان ..."} />
+      ) : (
+        ""
+      )}
     </>
   );
 }
 function ExamEntered({ examDetails, userToken, examID, getExamData }) {
-  const examRemainTime = (new Date(examDetails.exam_date_end) - new Date(Date.now()))
-  const [examQues, setexamQues] = useState(examDetails.questions ? shuffle(examDetails.questions) : []);
+  const examRemainTime =
+    new Date(examDetails.exam_date_end) - new Date(Date.now());
+  const examQuestionsMemo = useMemo(() =>
+    shuffle(examDetails.questions ? examDetails.questions : [])
+  );
+  const [examQues, setexamQues] = useState(examQuestionsMemo);
   const [queAnsObj, setqueAnsObj] = useState({});
-
-
+  const { notify } = useContext(HandleErrorContext);
 
   const submitExam = async () => {
-    console.log('submitting data', queAnsObj)
-    await submitExamAnswers(userToken, { exam_id: examID, answers: queAnsObj });
-    localStorage.removeItem(`userAnswerEX_${examID}`);
-    getExamData();
-    console.log('run submit data')
+    console.log("submitting data", queAnsObj);
+    console.log("run submit data");
+    isOnline(
+      function () {
+        notify("غير متصل بالانترنت");
+      },
+      async function () {
+        await submitExamAnswers(userToken, {
+          exam_id: examID,
+          answers: queAnsObj,
+        });
+        localStorage.removeItem(`userAnswerEX_${examID}`);
+        getExamData();
+      }
+    );
   };
 
   useEffect(() => {
     setqueAnsObj(() => {
       if (localStorage.getItem(`userAnswerEX_${examID}`)) {
-        console.log('answers from local storage set to obj', JSON.parse(localStorage.getItem(`userAnswerEX_${examID}`))?.answers)
-        return JSON.parse(localStorage.getItem(`userAnswerEX_${examID}`))?.answers;
-      }
-      else {
+        console.log(
+          "answers from local storage set to obj",
+          JSON.parse(localStorage.getItem(`userAnswerEX_${examID}`))?.answers
+        );
+        return JSON.parse(localStorage.getItem(`userAnswerEX_${examID}`))
+          ?.answers;
+      } else {
         let answers = {};
         examQues.map((que) => {
           let a = {};
           a[`${que.id}`] = "-1";
           answers = { ...answers, ...a };
         });
-        localStorage.setItem(`userAnswerEX_${examID}`, JSON.stringify({ 'examID': examID, 'answers': answers }));
-        console.log('answers from local storage set to obj if not found', answers)
+        localStorage.setItem(
+          `userAnswerEX_${examID}`,
+          JSON.stringify({ examID: examID, answers: answers })
+        );
+        console.log(
+          "answers from local storage set to obj if not found",
+          answers
+        );
         return answers;
       }
     });
 
     const submitTimeOut = setTimeout(() => {
-      document.querySelector('#submmit').click();
-    }, examRemainTime)
+      document.querySelector("#submmit").click();
+    }, examRemainTime);
 
     return () => {
-      console.log(" unmount timeout.current", submitTimeOut)
+      console.log(" unmount timeout.current", submitTimeOut);
       clearTimeout(submitTimeOut);
     };
   }, []);
- 
+
   return (
     <div>
       <Grid
@@ -153,7 +209,7 @@ function ExamEntered({ examDetails, userToken, examID, getExamData }) {
             <ChipDiv
               label={"وقت البدء"}
               data={examDetails.exam_date_start}
-              colorBG={"#f43f5e"}
+              colorBG={"#b424cd"}
             />
           </Grid>
         </Grid>
@@ -171,11 +227,24 @@ function ExamEntered({ examDetails, userToken, examID, getExamData }) {
             item
             onClick={() => {
               submitExam();
-              // console.log('submit button tslem')
             }}
             id="submmit"
           >
-            <ChipDiv label={"تسليم"} data={"100"} colorBG={"#b424cd"} />
+            <Grid
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#d1354f",
+                color: "white",
+                padding: "10px 30px",
+                marginTop: "15px",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+            >
+              <span>تسليم</span>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
@@ -200,12 +269,12 @@ function ExamEntered({ examDetails, userToken, examID, getExamData }) {
 function ExamChecked({ examDetails }) {
   const [examQues, setexamQues] = useState([]);
   useEffect(() => {
-    setexamQues(examDetails.questions ? examDetails.questions : [])
-  }, [examDetails])
+    setexamQues(examDetails.questions ? examDetails.questions : []);
+  }, [examDetails]);
 
   useEffect(() => {
-    console.log('complete', examQues)
-  }, [examDetails])
+    console.log("complete", examQues);
+  }, [examDetails]);
 
   return (
     <div>
@@ -243,32 +312,33 @@ function ExamChecked({ examDetails }) {
             alignContent: "center",
             alignItems: "center",
             flexDirection: "row",
+            gap: "10px",
           }}
         >
-          <Grid item>
+          <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
             <ChipDiv
-              label={"الدرجات"}
-              data={examDetails.full_mark}
+              label={"الدرجة"}
+              data={`${examDetails.full_mark} / ${examDetails.exam_result} `}
               colorBG={"#b424cd"}
             />
           </Grid>
-          <Grid item>
+          <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
             <ChipDiv
               label={"عدد الاسئلة"}
               data={examDetails.question_count}
               colorBG={"#4724cd"}
             />
           </Grid>
-          <Grid item>
+          {/* <Grid item>
             <ChipDiv label={"مدة الامتحان"} data={"2H"} colorBG={"#22d3ee"} />
-          </Grid>
-          <Grid item>
+          </Grid> */}
+          {/* <Grid item>
             <ChipDiv
               label={"وقت البدء"}
               data={examDetails.exam_date_start}
               colorBG={"#f43f5e"}
             />
-          </Grid>
+          </Grid> */}
         </Grid>
         {/* <Grid
           container
@@ -350,8 +420,5 @@ function ExamSubmited({ message }) {
 }
 
 function Loader() {
-  return (
-
-    <CircularProgress color="secondary" />
-  );
+  return <CircularProgress color="secondary" />;
 }

@@ -79,14 +79,7 @@ export default function routes() {
           path: "/Register",
           element: currentUser && isActive ? <Navigate to="/" replace /> : (isActive == false ? <ErrorPage /> : <Register />),
         },
-        {
-          path: "/Invoice",
-          element: (
-            <ProtectedRoute>
-              <Invoice />
-            </ProtectedRoute>
-          ),
-        },
+        
         {
           path: "/Exam/:examID",
           element: (

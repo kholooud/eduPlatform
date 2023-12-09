@@ -10,7 +10,6 @@ export default function ProtectedRoute({ children }) {
   let nowTime = new Date();
   let expireDate = new Date(isAuthenticated()?.expire);
 
-  console.log("notifiyyyyyyy")
   if (currentUser && expireDate > nowTime) {
     return children;
   } else {

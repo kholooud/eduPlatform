@@ -11,3 +11,19 @@ async function handleApiResponse(apiFunction) {
     }
 };
 export default handleApiResponse;
+
+export const isOnline = (no, yes) => {
+    var xhr = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHttp');
+    xhr.onload = function () {
+        if (yes instanceof Function) {
+            yes();
+        }
+    }
+    xhr.onerror = function () {
+        if (no instanceof Function) {
+            no();
+        }
+    }
+    xhr.open("GET", "anypage.php", true);
+    xhr.send();
+}

@@ -106,13 +106,6 @@ export default function Card_section() {
 
 
 
-
-
-
-
-
-
-
                             </CardActions>
                             <CardContent>
                                 <Stack direction="row" sx={{ marginBottom: "0.5rem" }}>
