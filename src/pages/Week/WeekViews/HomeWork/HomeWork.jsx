@@ -98,6 +98,7 @@ export default function Exam() {
           setqueAnsObj={setqueAnsObj}
           homework={homework}
           homeWorkStatus={homeWorkStatus}
+          submitHomeworkFun={submitHomeworkFun}
         />
       ) : (
         ""
@@ -121,45 +122,72 @@ function RenderQuestions({
   setqueAnsObj,
   homework,
   homeWorkStatus,
+  submitHomeworkFun,
 }) {
   console.log(questions);
-  return questions.map((que) => {
-    return homeWorkStatus == "pending" ? (
-      <>
-        <HomeWorkQuestion
+  return homeWorkStatus == "pending" ? (
+    <>
+      {questions.map((que) => {
+        return (
+          <HomeWorkQuestion
+            key={que.id}
+            id={que.id}
+            imgPath={que.image_path}
+            setqueAnsObj={setqueAnsObj}
+            homeworkID={homework.id}
+          />
+        );
+      })}
+      <Grid
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#d1354f",
+          color: "white",
+          padding: "10px 30px",
+          marginTop: "15px",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          submitHomeworkFun();
+        }}
+      >
+        <span>صحح</span>
+      </Grid>
+    </>
+  ) : (
+    questions.map((que) => {
+      return (
+        <HomeWorkQuestionAnswers
           key={que.id}
           id={que.id}
           imgPath={que.image_path}
-          setqueAnsObj={setqueAnsObj}
-          homeworkID={homework.id}
+          answer={que.answer}
+          student_answer={que.student_answer}
         />
-        <Grid
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "#d1354f",
-            color: "white",
-            padding: "10px 30px",
-            marginTop: "15px",
-            borderRadius: "5px",
-            cursor: "pointer"
-          }}
-          onClick={() => {
-            submitHomeworkFun();
-          }}
-        >
-          <span>صحح</span>
-        </Grid>
-      </>
-    ) : (
-      <HomeWorkQuestionAnswers
-        key={que.id}
-        id={que.id}
-        imgPath={que.image_path}
-        answer={que.answer}
-        student_answer={que.student_answer}
-      />
-    );
-  });
+      );
+    })
+  );
+}
+{
+  /* <Grid
+sx={{
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: "#d1354f",
+  color: "white",
+  padding: "10px 30px",
+  marginTop: "15px",
+  borderRadius: "5px",
+  cursor: "pointer",
+}}
+onClick={() => {
+  submitHomeworkFun();
+}}
+>
+<span>صحح</span>
+</Grid> */
 }

@@ -158,10 +158,12 @@ export default function Register() {
         "userToken",
         JSON.stringify({
           userToken: resData.body.Authorization.token,
-          userData: resData.body.student,
+          userData: { ...resData.body.student, status: 1 },
+          expire: resData.body.Authorization.expires_in?resData.body.Authorization.expires_in:"2024-06-23T16:12:27.243042Z",
+          isActive: true,
         })
       );
-      checkLoggedIn.checkLoggedIn();
+      console.log("context", checkLoggedIn.checkLoggedIn());
     }
     if (resData.status == 422) {
       const resErrors = resData.body;

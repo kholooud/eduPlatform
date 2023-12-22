@@ -1,25 +1,32 @@
+import React, { useContext, useEffect } from "react";
 import { Navigate, createBrowserRouter } from "react-router-dom";
-import Home from "../pages/Home/Home";
-import Register from "../pages/Register/Register";
-import Login from "../pages/Login/Login";
+const LazyHome = React.lazy(() => import("../pages/Home/Home"));
+// import Home from "../pages/Home/Home";
+const LazyRegister = React.lazy(() => import("../pages/Register/Register"));
+// import Register from "../pages/Register/Register";
+const LazyLogin = React.lazy(() => import("../pages/Login/Login"));
+// import Login from "../pages/Login/Login";
 import NotFound from "../pages/NotFound/NotFound";
 import Root from "../pages/Root/Root";
-import Course from "../pages/Course/Course";
-import Exam from "../pages/Exam/Exam";
-import ExResults from "../pages/Profile/ProfileViews/ExResults/ExResults";
+const LazyCourse = React.lazy(() => import("../pages/Course/Course"));
+// import Course from "../pages/Course/Course";
+const LazyExam = React.lazy(() => import("../pages/Exam/Exam"));
+// import Exam from "../pages/Exam/Exam";
 import Week from "../pages/Week/Week";
 import HomeWork from "../pages/Week/WeekViews/HomeWork/HomeWork";
 import Lecture from "../pages/Week/WeekViews/Lecture/Lecture";
-import Profile from "../pages/Profile/Profile";
+const LazyProfile = React.lazy(() => import("../pages/Profile/Profile"));
+// import Profile from "../pages/Profile/Profile";
 import Main from "../pages/Profile/ProfileViews/Main/Main";
 import Code from "../pages/Profile/ProfileViews/Code/Code";
+import ExResults from "../pages/Profile/ProfileViews/ExResults/ExResults";
+
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
-import React, { useContext, useEffect } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { UserContext } from "../context/UserContext";
 import Code_warning from "../pages/Code_warning/Code_warning";
-import ErrorPage from "../pages/ErrorPage/ErrorPage"
-
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import { CircularProgress } from "@mui/material";
 
 export default function routes() {
   const { themeMode, setthemeMode } = useContext(ThemeContext);
@@ -32,13 +39,21 @@ export default function routes() {
       children: [
         {
           index: true,
-          element: <Home />,
+          element: (
+            <React.Suspense fallback={<CircularProgress color="secondary" />}>
+              <LazyHome />
+            </React.Suspense>
+          ),
+          // <Home />,
         },
         {
           path: "/Profile",
           element: (
             <ProtectedRoute>
-              <Profile />
+              {/* <Profile/> */}
+              <React.Suspense fallback={<CircularProgress color="secondary" />}>
+                <LazyProfile />
+              </React.Suspense>
             </ProtectedRoute>
           ),
           children: [
@@ -46,7 +61,8 @@ export default function routes() {
             { path: "Code", element: <Code /> },
             { path: "ExResults", element: <ExResults /> },
           ],
-        }, {
+        },
+        {
           path: "/Week/:weekID",
           element: (
             <ProtectedRoute>
@@ -62,24 +78,50 @@ export default function routes() {
           path: "/Course/:CourseId",
           element: (
             <ProtectedRoute>
-              <Course />
+              <React.Suspense fallback={<CircularProgress color="secondary" />}>
+                <LazyCourse />
+              </React.Suspense>
+              {/* <Course /> */}
             </ProtectedRoute>
           ),
         },
         {
           path: "/Login",
-          element: currentUser && isActive ? <Navigate to="/" replace /> : ((isActive == false) ? <ErrorPage /> : <Login />),
+          element:
+            currentUser && isActive ? (
+              <Navigate to="/" replace />
+            ) : isActive == false ? (
+              <ErrorPage />
+            ) : (
+              <React.Suspense fallback={<CircularProgress color="secondary" />}>
+                <LazyLogin />
+              </React.Suspense>
+              // <Login />
+            ),
         },
         {
           path: "/Register",
-          element: currentUser && isActive ? <Navigate to="/" replace /> : (isActive == false ? <ErrorPage /> : <Register />),
+          element:
+            currentUser && isActive ? (
+              <Navigate to="/" replace />
+            ) : isActive == false ? (
+              <ErrorPage />
+            ) : (
+              <React.Suspense fallback={<CircularProgress color="secondary" />}>
+                <LazyRegister />
+              </React.Suspense>
+              // <Register />
+            ),
         },
-        
+
         {
           path: "/Exam/:examID",
           element: (
             <ProtectedRoute>
-              <Exam />
+              <React.Suspense fallback={<CircularProgress color="secondary" />}>
+                <LazyExam />
+              </React.Suspense>
+              {/* <Exam /> */}
             </ProtectedRoute>
           ),
         },
@@ -104,7 +146,7 @@ export default function routes() {
     },
   ]);
   useEffect(() => {
-    console.log("isactive", isActive)
-  }, [isActive])
+    console.log("isactive", isActive);
+  }, [isActive]);
   return routers;
 }

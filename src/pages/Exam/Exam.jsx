@@ -30,12 +30,16 @@ export default function Exam() {
   const { notify } = useContext(HandleErrorContext);
   const getExamData = async () => {
     let res = await getExam(examID, userToken);
+    console.log(res);
     if (res.status == 200) {
       console.log("get data", res);
       return setexamDetails(res.data.body);
     }
-    if(res.status == 401){
+    if (res.response.status == 401) {
       return notify("غير مسموح لدخول الامتحان");
+    }
+    if (res.response.status == 404) {
+      return notify("الامتحان غير موجود");
     }
     notify("حدث خطا اعاد محاولة مره اخري");
   };
