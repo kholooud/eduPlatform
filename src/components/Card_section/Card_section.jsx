@@ -1,12 +1,10 @@
 import { Container } from '@mui/system';
 import React from 'react'
-import classes from "./Card.module.css";
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Chip, Dialog, DialogActions, DialogContent , DialogTitle, Grid, Stack, TextField, Typography } from '@mui/material'
 import courseimg from "../../assets/course_content.jpg"
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import AccessTimeTwoToneIcon from '@mui/icons-material/AccessTimeTwoTone';
 import HelpTwoToneIcon from '@mui/icons-material/HelpTwoTone';
-import Video from '../../pages/Week/Week';
 import { Navigate } from 'react-router-dom';
 
 
@@ -105,13 +103,6 @@ export default function Card_section() {
                                         </DialogActions>
                                     </Dialog>
                                 </div>
-
-
-
-
-
-
-
 
 
 

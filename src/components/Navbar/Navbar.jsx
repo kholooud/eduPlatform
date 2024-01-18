@@ -1,7 +1,6 @@
 import { AppBar, Box, Container, Grid, LinearProgress } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-
 import React, { useState, useEffect, useContext } from "react";
 import logo from "../../assets/logoSalah.png";
 import classes from "./Navbar.module.css";
@@ -28,13 +27,11 @@ export default function Navbar({ handleThemeMode, themeMode }) {
   window.addEventListener("scroll", scorllIndector);
 
   const handleLogOut = () => {
-    localStorage.removeItem('userToken');
+    localStorage.removeItem("userToken");
     checkLoggedIn();
-    navigate("/")
+    navigate("/");
   };
-  useEffect(() => {
-    console.log("user navbar", currentUser)
-  }, [currentUser])
+
   return (
     <AppBar
       position="sticky"
@@ -45,7 +42,7 @@ export default function Navbar({ handleThemeMode, themeMode }) {
       }}
     >
       <Container position={"relative"}>
-        <Grid container item justifyContent="space-between" >
+        <Grid container item justifyContent="space-between">
           <Link to="/">
             <Grid item xs={6} md={3}>
               <img src={logo} className={classes.img} />
@@ -66,7 +63,7 @@ export default function Navbar({ handleThemeMode, themeMode }) {
               fontSize: ".8rem",
             }}
           >
-            {currentUser ?
+            {currentUser ? (
               <>
                 {/* to solve position for loged in */}
                 <Link to="/Login">
@@ -75,8 +72,7 @@ export default function Navbar({ handleThemeMode, themeMode }) {
                     item
                     md={4}
                     display={{ md: "flex", xs: "none" }}
-                  >
-                  </Grid>
+                  ></Grid>
                 </Link>
                 <Grid
                   container
@@ -84,7 +80,9 @@ export default function Navbar({ handleThemeMode, themeMode }) {
                   md={4}
                   display={{ md: "flex", xs: "none" }}
                   className={classes.btn}
-                  onClick={() => { setoutProDIV(!outProDIV) }}
+                  onClick={() => {
+                    setoutProDIV(!outProDIV);
+                  }}
                   sx={{
                     position: "relative",
                     alignItems: "center",
@@ -98,13 +96,13 @@ export default function Navbar({ handleThemeMode, themeMode }) {
                   }}
                 >
                   <Grid item xs={8} textAlign={"center"}>
-                    اهلا {(currentUser.full_name).split(' ')[0]}
+                    اهلا {currentUser.full_name.split(" ")[0]}
                   </Grid>
                   <AccountCircleIcon item xs={2} />
                   <Box
                     id="outProDIV"
                     sx={{
-                      display: { xs: 'none', md: !outProDIV ? "none" : "flex" },
+                      display: { xs: "none", md: !outProDIV ? "none" : "flex" },
                       position: "absolute",
                       padding: "5px",
                       top: "0%",
@@ -117,7 +115,8 @@ export default function Navbar({ handleThemeMode, themeMode }) {
                       zIndex: "6666",
                       flexFlow: "column",
                       justifyContent: "center",
-                    }}>
+                    }}
+                  >
                     <Link to="/Profile">
                       <Grid
                         container
@@ -162,7 +161,6 @@ export default function Navbar({ handleThemeMode, themeMode }) {
                               <path d="M168 56a8 8 0 0 1 8-8h16V32a8 8 0 0 1 16 0v16h16a8 8 0 0 1 0 16h-16v16a8 8 0 0 1-16 0V64h-16a8 8 0 0 1-8-8Zm62.56 54.68a103.92 103.92 0 1 1-85.24-85.24a8 8 0 0 1-2.64 15.78A88.07 88.07 0 0 0 40 128a87.62 87.62 0 0 0 22.24 58.41a79.66 79.66 0 0 1 36.06-28.75a48 48 0 1 1 59.4 0a79.66 79.66 0 0 1 36.06 28.75A87.62 87.62 0 0 0 216 128a88.85 88.85 0 0 0-1.22-14.68a8 8 0 1 1 15.78-2.64ZM128 152a32 32 0 1 0-32-32a32 32 0 0 0 32 32Zm0 64a87.57 87.57 0 0 0 53.92-18.5a64 64 0 0 0-107.84 0A87.57 87.57 0 0 0 128 216Z" />
                             </g>
                           </svg>
-
                         </Grid>
                         <Grid item xs={8} textAlign={"center"}>
                           ملف الشخصي
@@ -186,7 +184,9 @@ export default function Navbar({ handleThemeMode, themeMode }) {
                           color: "#3b82f6",
                         },
                       }}
-                      onClick={() => { handleLogOut() }}
+                      onClick={() => {
+                        handleLogOut();
+                      }}
                     >
                       <Grid
                         item
@@ -217,11 +217,10 @@ export default function Navbar({ handleThemeMode, themeMode }) {
                         تسجيل الخروج
                       </Grid>
                     </Grid>
-
                   </Box>
                 </Grid>
-
-              </> :
+              </>
+            ) : (
               <>
                 <Link to="/Login">
                   <Grid
@@ -321,10 +320,8 @@ export default function Navbar({ handleThemeMode, themeMode }) {
                     </Grid>
                   </Grid>
                 </Link>
-              </>}
-
-
-
+              </>
+            )}
 
             {/* icon for login register mobile view */}
             <Grid
@@ -346,8 +343,11 @@ export default function Navbar({ handleThemeMode, themeMode }) {
                   // color: "#3b82f6",
                 },
               }}
-              onClick={() => { setlogRegDIV(!logRegDIV) }}
-            ><AccountCircleIcon />
+              onClick={() => {
+                setlogRegDIV(!logRegDIV);
+              }}
+            >
+              <AccountCircleIcon />
             </Grid>
             <Grid
               item
@@ -433,9 +433,8 @@ export default function Navbar({ handleThemeMode, themeMode }) {
           transition: "all .25s linear",
           position: "absolute",
           bottom: 0,
-          transform: 'translate(0, 100%)',
-          zIndex: "5555"
-
+          transform: "translate(0, 100%)",
+          zIndex: "5555",
         }}
       >
         <LinearProgress
@@ -448,23 +447,25 @@ export default function Navbar({ handleThemeMode, themeMode }) {
       <Grid
         sx={{
           width: "98%",
-          display: { md: 'none', xs: !logRegDIV ? "none" : "flex" },
+          display: { md: "none", xs: !logRegDIV ? "none" : "flex" },
           transition: "all .25s linear",
           background: "#334155",
           borderRadius: "10px",
           position: "absolute",
           bottom: "-4px",
-          transform: 'translate(1%, 100%)',
+          transform: "translate(1%, 100%)",
           flexFlow: "column",
           justifyContent: "space-around",
           alignItems: "center",
-          padding: ".5rem"
+          padding: ".5rem",
+          zIndex: "555",
         }}
         id="logRegDIV"
-        onClick={() => { setlogRegDIV(!logRegDIV) }}
+        onClick={() => {
+          setlogRegDIV(!logRegDIV);
+        }}
       >
-
-        {currentUser ?
+        {currentUser ? (
           <>
             {/* if user logged in */}
             <Link to="/Profile">
@@ -511,7 +512,6 @@ export default function Navbar({ handleThemeMode, themeMode }) {
                       <path d="M168 56a8 8 0 0 1 8-8h16V32a8 8 0 0 1 16 0v16h16a8 8 0 0 1 0 16h-16v16a8 8 0 0 1-16 0V64h-16a8 8 0 0 1-8-8Zm62.56 54.68a103.92 103.92 0 1 1-85.24-85.24a8 8 0 0 1-2.64 15.78A88.07 88.07 0 0 0 40 128a87.62 87.62 0 0 0 22.24 58.41a79.66 79.66 0 0 1 36.06-28.75a48 48 0 1 1 59.4 0a79.66 79.66 0 0 1 36.06 28.75A87.62 87.62 0 0 0 216 128a88.85 88.85 0 0 0-1.22-14.68a8 8 0 1 1 15.78-2.64ZM128 152a32 32 0 1 0-32-32a32 32 0 0 0 32 32Zm0 64a87.57 87.57 0 0 0 53.92-18.5a64 64 0 0 0-107.84 0A87.57 87.57 0 0 0 128 216Z" />
                     </g>
                   </svg>
-
                 </Grid>
                 <Grid item xs={4} textAlign={"center"}>
                   ملف الشخصي
@@ -535,7 +535,9 @@ export default function Navbar({ handleThemeMode, themeMode }) {
                   color: "#3b82f6",
                 },
               }}
-              onClick={() => { handleLogOut() }}
+              onClick={() => {
+                handleLogOut();
+              }}
             >
               <Grid
                 item
@@ -567,7 +569,7 @@ export default function Navbar({ handleThemeMode, themeMode }) {
               </Grid>
             </Grid>
           </>
-          :
+        ) : (
           <>
             {/* if user not logged in */}
             <Link to="/Login">
@@ -669,11 +671,28 @@ export default function Navbar({ handleThemeMode, themeMode }) {
                 </Grid>
               </Grid>
             </Link>
-          </>}
-
-
-
+          </>
+        )}
       </Grid>
-    </AppBar >
+      <Box
+        className="cover"
+        sx={{
+          position: "absolute",
+          width: "100vw",
+          height: "100vh",
+          margin: "auto",
+          backgroundColor: logRegDIV ? "rgba(76, 175, 80, 0.3)" : "transparent",
+          display: logRegDIV || outProDIV ? "block" : "none",
+        }}
+        onClick={(e) => {
+          if (logRegDIV) {
+            setlogRegDIV(!logRegDIV);
+          }
+          if (outProDIV) {
+            setoutProDIV(!outProDIV);
+          }
+        }}
+      ></Box>
+    </AppBar>
   );
 }

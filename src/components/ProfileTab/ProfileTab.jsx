@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import classes from "./ProfileTab.module.css";
 import { Link } from "react-router-dom";
 

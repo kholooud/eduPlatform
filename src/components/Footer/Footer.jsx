@@ -1,7 +1,6 @@
 import React from "react";
 import classes from "./Footer.module.css";
 import { Box, Container, Grid, Typography } from "@mui/material";
-import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 export default function Footer() {
   return (
     <Box

@@ -6,22 +6,25 @@ export const UserContext = createContext(" ");
 export default function UserContextProvider(props) {
   const [currentUser, setCurrentUser] = useState(isAuthenticated()?.userData);
   const [userToken, setuserToken] = useState(isAuthenticated()?.userToken);
+  const [expireDate, setexpireDate] = useState(isAuthenticated()?.expire);
+  const [isActive, setisActive] = useState(isAuthenticated()?.isActive);
+
   const checkLoggedIn = () => {
     setCurrentUser(isAuthenticated()?.userData);
     setuserToken(isAuthenticated()?.userToken);
+    setexpireDate(isAuthenticated()?.expire);
+    setisActive(isAuthenticated()?.isActive);
+    console.log("se3a check login")
   };
 
   useEffect(() => {
     checkLoggedIn();
   }, []);
 
-  useEffect(() => {
-    console.log("userContext", currentUser);
-    console.log("userContextToken", userToken);
-  }, [currentUser]);
+
 
   return (
-    <UserContext.Provider value={{ currentUser, checkLoggedIn: checkLoggedIn }}>
+    <UserContext.Provider value={{ currentUser, userToken, expireDate, isActive, setisActive: setisActive, checkLoggedIn: checkLoggedIn }}>
       {props.children}
     </UserContext.Provider>
   );

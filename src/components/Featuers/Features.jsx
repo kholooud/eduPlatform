@@ -23,12 +23,15 @@ export default function Features() {
       featureBounding.top < window.pageYOffset &&
       featureBounding.top + featureBounding.height > window.pageYOffset
     ) {
-      FBI1.style.transform = `translateY(-10rem) rotate(${(window.pageYOffset % 30) * 10
-        }deg)`;
-      FBI2.style.transform = `translateY(-10rem) rotate(${(window.pageYOffset % 30) * -10
-        }deg)`;
-      FBI3.style.transform = `translateY(-10rem) rotate(${(window.pageYOffset % 30) * 10
-        }deg)`;
+      FBI1.style.transform = `translateY(-10rem) rotate(${
+        (window.pageYOffset % 30) * 10
+      }deg)`;
+      FBI2.style.transform = `translateY(-10rem) rotate(${
+        (window.pageYOffset % 30) * -10
+      }deg)`;
+      FBI3.style.transform = `translateY(-10rem) rotate(${
+        (window.pageYOffset % 30) * 10
+      }deg)`;
     }
     if (featureBounding.top + featureBounding.height < window.pageYOffset) {
       FBI1.style.transform = `translateY(0rem) rotate(0deg)`;

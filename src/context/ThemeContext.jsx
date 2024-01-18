@@ -51,6 +51,9 @@ export default function ThemeContextProvider(props) {
                 primary: "#000",
                 sec: "#fff",
             },
+            question:{
+                
+            }
         },
         ...themeDefualt,
     });

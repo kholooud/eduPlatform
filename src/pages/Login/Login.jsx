@@ -3,7 +3,6 @@ import {
   CircularProgress,
   Container,
   Grid,
-  TextField,
   Typography,
 } from "@mui/material";
 import logImg from "../../assets/login.jpeg";
@@ -16,6 +15,10 @@ import { DevTool } from "@hookform/devtools";
 import { loginApi } from "../../API/AuthService";
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
+import FormInput from "../../components/FormInput/FormInput";
+import { emailSVG, passSVG } from "../../assets/img";
+import { Link } from "react-router-dom";
+
 
 export default function Login() {
   const theme = useTheme("");
@@ -23,21 +26,11 @@ export default function Login() {
   const [isLoading, setisLoading] = useState(false);
 
   const schema = Joi.object({
-    // phone: Joi.string()
-    //   .regex(/^01[0125][0-9]{8}$/)
-    //   .required()
-    //   .messages({
-    //     "string.empty": "- مينفعش الرقم يكون فاضي ",
-    //     "string.pattern.base": "- اكتب رقم صح",
-    //   }),
-    email: Joi.string()
-      .email({
-        minDomainSegments: 2,
-        tlds: { allow: ["com", "net"] },
-      })
+    user_login: Joi.string().regex(/^01[0125][0-9]{8}$/)
+      .required()
       .messages({
-        "string.empty": "- مينفعش الايميل يكون فاضي ",
-        "string.email": "- اكتب الايميل صح",
+        "string.empty": "- مينفعش الرقم يكون فاضي ",
+        "string.pattern.base": "- اكتب رقم صح",
       }),
     password: Joi.string().required().messages({
       "string.empty": "- مينفعش كلمة السر تبقي فاضية ",
@@ -69,15 +62,14 @@ export default function Login() {
     if (resData.status == 200) {
       localStorage.setItem(
         "userToken",
-        JSON.stringify({ "userToken": resData.body.Authorization.token, "userData": resData.body.student })
+        JSON.stringify({ "userToken": resData.body.Authorization.token, "userData": resData.body.student, "expire": resData.body.Authorization.expires_in, "isActive": true })
       );
       console.log("context", checkLoggedIn.checkLoggedIn());
     }
-    // emsil wring
+    // email wring
     if (resData.status == 422) {
-      const resErrors = resData.body;
       setError(
-        "email",
+        "user_login",
         { type: "focus", message: "الايميل مش صح" },
         { shouldFocus: true }
       );
@@ -86,9 +78,17 @@ export default function Login() {
     if (resData.status == 401) {
       setError(
         "password",
-        { type: "focus", message: "رقم السري مش صح" },
+        { type: "focus", message: "رقم التليفون او الرقم السري مش صح" },
         { shouldFocus: true }
       );
+    }
+
+    if (resData.status == 403) {
+      localStorage.setItem(
+        "userToken",
+        JSON.stringify({ "isActive": false })
+      );
+      console.log("context", checkLoggedIn.checkLoggedIn());
     }
   };
 
@@ -173,77 +173,8 @@ export default function Login() {
             justifyContent={"start"}
             alignItems={"center"}
           >
-            <Grid item xs={12} boxSizing={"border-box"} paddingBottom={1}>
-              <TextField
-                // id="standard-basic"
-                label={
-                  <>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlnsXlink="http://www.w3.org/1999/xlink"
-                      aria-hidden="true"
-                      role="img"
-                      className="iconify iconify--ant-design"
-                      width="1em"
-                      height="1em"
-                      preserveAspectRatio="xMidYMid meet"
-                      viewBox="0 0 1024 1024"
-                      style={{ marginLeft: "5px" }}
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M885.6 230.2L779.1 123.8a80.83 80.83 0 0 0-57.3-23.8c-21.7 0-42.1 8.5-57.4 23.8L549.8 238.4a80.83 80.83 0 0 0-23.8 57.3c0 21.7 8.5 42.1 23.8 57.4l83.8 83.8A393.82 393.82 0 0 1 553.1 553A395.34 395.34 0 0 1 437 633.8L353.2 550a80.83 80.83 0 0 0-57.3-23.8c-21.7 0-42.1 8.5-57.4 23.8L123.8 664.5a80.89 80.89 0 0 0-23.8 57.4c0 21.7 8.5 42.1 23.8 57.4l106.3 106.3c24.4 24.5 58.1 38.4 92.7 38.4c7.3 0 14.3-.6 21.2-1.8c134.8-22.2 268.5-93.9 376.4-201.7C828.2 612.8 899.8 479.2 922.3 344c6.8-41.3-6.9-83.8-36.7-113.8z"
-                      />
-                    </svg>
-                    الايميل
-                  </>
-                }
-                variant="standard"
-                color="secondary"
-                sx={{ width: "80%" }}
-                error={errors.email}
-                helperText={errors.email ? errors.email.message : " "}
-                FormHelperTextProps={FormHelperTextProps(errors.email)}
-                type="text"
-                {...register("email")}
-              />
-            </Grid>
-            <Grid item xs={12} boxSizing={"border-box"} paddingBottom={1}>
-              <TextField
-                // id="standard-basic"
-                label={
-                  <>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlnsXlink="http://www.w3.org/1999/xlink"
-                      aria-hidden="true"
-                      role="img"
-                      className="iconify iconify--ri"
-                      width="1em"
-                      height="1em"
-                      preserveAspectRatio="xMidYMid meet"
-                      viewBox="0 0 24 24"
-                      style={{ marginLeft: "5px" }}
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M18 8h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h2V7a6 6 0 1 1 12 0v1Zm-2 0V7a4 4 0 0 0-8 0v1h8Zm-5 6v2h2v-2h-2Zm-4 0v2h2v-2H7Zm8 0v2h2v-2h-2Z"
-                      />
-                    </svg>
-                    كلمة السر
-                  </>
-                }
-                variant="standard"
-                color="secondary"
-                // error={first}
-                sx={{ width: "80%" }}
-                error={errors.password}
-                helperText={errors.password ? errors.password.message : " "}
-                FormHelperTextProps={FormHelperTextProps(errors.password)}
-                type="password"
-                {...register("password")}
-              />
-            </Grid>
+            <FormInput xs={12} md={12} img={emailSVG} register={register} errors={errors} label={'رقم التليفون'} ele="user_login" type="phone" />
+            <FormInput xs={12} md={12} img={passSVG} register={register} errors={errors} label={'كلمة السر'} ele="password" type="password" />
             <Grid
               item
               xs={6}
@@ -278,9 +209,9 @@ export default function Login() {
               fontSize={".8rem"}
             >
               لا يوجد لديك حساب ؟
-              <Typography variant="span" color={"warning.main"}>
+              <Link to="/Register">  <Typography variant="span" color={"warning.main"}>
                 انشي إلى حسابك الآن !
-              </Typography>
+              </Typography></Link>
             </Grid>
           </Grid>
         </Grid>

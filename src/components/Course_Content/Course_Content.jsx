@@ -1,51 +1,69 @@
 import {
   Box,
-  Container,
   Grid,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import classes from "./Course_Content.module.css";
-import Exam from "../Exam/Exam";
-import Week from "../week/week";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import CardPng from "../../assets/course_card.jpg"
 
 
-export default function Course_Content() {
+
+export default function Course_Content({ lesson }) {
+
+  const [lessonDetails, setlessonDetails] = useState({})
+  useEffect(() => {
+    setlessonDetails(lesson)
+  }, [])
+
   return (
-    <Container
-      sx={{ boxShadow: 7, borderRadius: "16px", backgroundColor: "#f3f4f6" }}
-      p={2}
-      m={2}
-    >
-      <Grid Container sx={{ marginTop: { xs: "5rem", md: "4rem" } }} marginBottom={{ xs: "1rem", md: "4rem" }} py={4}>
-        <Grid item py={2} sx={{ display: "grid" }}>
-          <Box
-            component="span"
-            className={classes.hr}
-            width={"6%"}
-            fontFamily="inherit"
-          ></Box>
-          <Typography
-            item
-            fontWeight="bolder"
-            fontFamily={"inherit"}
-            py={1}
-            variant="h3"
-          >
-            محتوى
-            <Typography variant="span" color="#f43f5e">
-              {" "}
-              الكورس
-            </Typography>
-          </Typography>
-          <Box component="span" className={classes.hr} width={"9%"}></Box>
-          <Box component="span" className={classes.hr} width={"6%"}></Box>
-        </Grid>
-        <Box>
-          {<Exam />}
-          {<Week />}
-        </Box>
-      </Grid>
-    </Container>
+
+    <Grid item  xs={12} md={4} padding={2} marginBottom={2} >
+      <Link to={`/week/${lesson.id}`}>
+        <Card sx={{ boxShadow: "none", backgroundColor: "transparent" }}>
+          <CardMedia
+            component="img"
+            alt="cardimg"
+            height="100%"
+            image={CardPng}
+          />
+          <CardContent sx={{
+            position: "relative",
+            marginTop: "-61px",
+            zIndex: "100",
+            backgroundColor: "primary.main",
+            maxWidth: "95%",
+            right: "-10px",
+            borderRadius: "0.5rem",
+            boxShadow: "0.1rem 0.1rem 0.5rem 0.1rem #6c6969",
+            marginBottom: "25px"
+          }}>
+            <Grid container>
+              <Grid item xs={12} sx={{ display: "flex", flexFlow: "column" }}>
+                <Typography gutterBottom variant="h5" component="div" sx={{ fontFamily: "inherit", display: "inline"  }}>
+                  {
+                    lessonDetails.name
+                  }
+                </Typography>
+                <Box
+                  className={classes.hr}
+                  component="span"
+                  fontFamily="inherit"
+                ></Box>
+                <Typography variant="body2" color="text.secondary" sx={{ fontFamily: "inherit", display: "block" }}>
+                  مراجعه لطلاب السناتر
+                </Typography>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      </Link>
+    </Grid>
+
+
   );
 }
